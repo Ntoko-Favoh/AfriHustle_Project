@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfriHustle - Available Tokens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff7b00;
+            --secondary: #f0f0f0;
+            --dark: #333;
+            --light: #fff;
+            --accent: #ffb700;
+            --success: #00c853;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 5%; /* Increased side padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 90px; 
+            width: auto; 
+            margin-right: auto; 
+            margin-left: 2rem; 
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-left: 0.5rem; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-left: auto; 
+            margin-right: 2rem; 
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dashboard-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            margin-right: 1rem; /* Reduced right margin */
+        }
+
+        .dashboard-btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .tokens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .token-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tokens-grid .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .token-image {
+            height: 160px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .token-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 123, 0, 0.5), rgba(255, 183, 0, 0.5));
+            opacity: 0.7;
+        }
+        
+        .token-image img {
+            width: 100%;
+            object-fit: cover;
+            height: 100%;
+        }
+        
+        .token-symbol {
+            position: absolute;
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .token-info {
+            padding: 1.5rem;
+        }
+        
+        .token-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .token-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .token-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .token-change {
+            font-weight: 600;
+        }
+        
+        .positive {
+            color: var(--success);
+        }
+        
+        .negative {
+            color: #f44336;
+        }
+        
+        .token-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .token-action {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .token-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        
+        .token-btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .token-btn.secondary {
+            background-color: transparent;
+            color: var(--dark);
+            border: 2px solid #ddd;
+        }
+        
+        .token-btn.secondary:hover {
+            border-color: var(--dark);
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background-color: #f0f0f0;
+            padding: 0.3rem;
+            border-radius: 50px;
+        }
+        
+        .filter-tab {
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tab.active {
+            background-color: var(--light);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--light);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: 300px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.3rem 0.5rem;
+        }
+        
+        .search-bar i {
+            color: #999;
+        }
+        
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Token Section Styles */
+        .token-section {
+            background: linear-gradient(135deg, #fff8f0, #fff);
+            padding: 3rem 0;
+            margin-top: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .token-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .token-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 0 2px 10px rgba(255, 123, 0, 0.15);
+        }
+        
+        .token-header p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .token-section .token-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 2rem;
+            cursor: default;
+        }
+        
+        .token-section .token-card:hover {
+            transform: none;
+        }
+        
+        .token-section .token-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .token-detail {
+            margin-bottom: 1rem;
+        }
+        
+        .token-detail h3 {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .token-detail p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .token-detail:last-child p {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .buy-token-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--light);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .buy-token-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 123, 0, 0.4);
+        }
+        
+        /* Dashboard sections */
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        /* Marketplace Styles */
+        .marketplace {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .marketplace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .marketplace-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .search-filter input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+            width: 250px;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .offer-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .offer-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .offer-card h4 {
+            padding: 1rem 1rem 0.5rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .offer-card p {
+            padding: 0 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .offer-card button {
+            display: block;
+            width: calc(100% - 2rem);
+            margin: 0 1rem 1rem;
+            padding: 0.5rem;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .offer-card button:hover {
+            background-color: #e66a00;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            display: none;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        /* Animation for the token cards */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tokens-grid .token-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .tokens-grid .token-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .tokens-grid .token-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .tokens-grid .token-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        .tokens-grid .token-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        
+        .tokens-grid .token-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+        
+        @media (max-width: 768px) {
+            .tokens-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .token-section .token-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .marketplace-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-filter input {
+                width: 100%;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+        background-color: #005249;
+        color: white;
+        padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+        }
+
+        .footer-col {
+        display: flex;
+        flex-direction: column;
+        }
+
+        .footer-logo {
+        height: 80px;
+        width: 100px;
+        margin-bottom: 20px;
+        }
+
+        .footer-col p {
+        opacity: 0.8;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        }
+
+        .social-links {
+        display: flex;
+        gap: 15px;
+        }
+
+        .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+        background-color: #FF6B00;
+        transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+        }
+
+        .footer-col h4::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--orange);
+        }
+
+        .footer-col ul {
+        list-style: none;
+        }
+
+        .footer-col li {
+        margin-bottom: 12px;
+        }
+
+        .footer-col a {
+        color: white;
+        opacity: 0.8;
+        text-decoration: none;
+        transition: all 0.3s;
+        }
+
+        .footer-col a:hover {
+        opacity: 1;
+        padding-left: 5px;
+        }
+
+        .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        opacity: 0.7;
+        }
+
+        .footer-links {
+        display: flex;
+        gap: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="Afrihustle Logo" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="dashboard-btn">Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- Token Section -->
+     <main>
+    <section class="token-section">
+        <div class="container">
+            <div class="token-header">
+                <h1>Afrihustle Token</h1>
+                <p>Empowering African entrepreneurs through blockchain technology. Join the movement and be part of Africa's economic revolution.</p>
+            </div>
+            
+            <div class="token-card">
+                <div class="token-info">
+                    <div class="token-detail">
+                        <h3>Token Name</h3>
+                        <p>Afrihustle Token (AHT)</p>
+                    </div>
+                    <div class="token-detail">
+                        <h3>Token Symbol</h3>
+                        <p>AHT</p>
+                    </div>
+                    <div class="token-detail">
+                        <h3>Total Supply</h3>
+                        <p>1,000,000,000 AHT</p>
+                    </div>
+                    <div class="token-detail">
+                        <h3>Blockchain</h3>
+                        <p>Binance Smart Chain</p>
+                    </div>
+                    <div class="token-detail">
+                        <h3>Contract Address</h3>
+                        <p>0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t</p>
+                    </div>
+                    <div class="token-detail">
+                        <h3>Current Price</h3>
+                        <p>$0.025</p>
+                    </div>
+                </div>
+                
+                <button class="buy-token-btn" id="buyTokenBtn">Buy AHT Tokens</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="header">
+            <h1>Available Tokens</h1>
+            <p>Explore blockchain tokens and projects for your professional development</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <div class="filter-tab active">All</div>
+                <div class="filter-tab">DeFi</div>
+                <div class="filter-tab">NFT</div>
+                <div class="filter-tab">Gaming</div>
+                <div class="filter-tab">Infrastructure</div>
+            </div>
+            <div class="search-bar">
+                <i>🔍</i>
+                <input type="text" placeholder="Search tokens...">
+            </div>
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div class="tokens-grid" id="tokensGrid">
+            <!-- Token cards will be generated here by JavaScript -->
+        </div>
+        
+        <!-- Marketplace Section -->
+        <section class="marketplace">
+            <div class="marketplace-header">
+                <h3>Marketplace</h3>
+                <div class="search-filter">
+                    <input type="text" id="search" placeholder="Search offers...">
+                </div>
+            </div>
+
+            <div class="offers-grid" id="offers">
+                <!-- Offers will be inserted here -->
+            </div>
+
+            <div class="no-results" id="no-results">
+                No offers found.
+            </div>
+        </section>
+    </div>
+
+    <!-- Purchase Confirmation Modal -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-icon">✓</div>
+            <h2>Purchase Successful!</h2>
+            <p>You have successfully purchased Afrihustle Tokens (AHT).</p>
+            <p>Your tokens will be credited to your wallet shortly.</p>
+            <button class="token-btn" style="margin-top: 1rem;" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+
+    <div class="floating-btn" id="scrollToTop">↑</div>
+</main>
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo" class="footer-logo">
+          <p>Empowering African talent with affordable, market-relevant skills development.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#">All Courses</a></li>
+            <li><a href="#">Learning Paths</a></li>
+            <li><a href="#">Instructors</a></li>
+            <li><a href="#">Success Stories</a></li>
+            <li><a href="#">For Businesses</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Career Advice</a></li>
+            <li><a href="#">Free Courses</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">Help Center</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Become an Instructor</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 AfriHustle. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+        // Sample token data
+        const tokens = [
+            {
+                name: "AfriPay",
+                symbol: "AFP",
+                price: "$2.45",
+                change: "+5.2%",
+                isPositive: true,
+                description: "A decentralized payment solution for African businesses and consumers.",
+                image: "linear-gradient(45deg, #ff7b00, #ffb700)"
+            },
+            {
+                name: "NairaX",
+                symbol: "NRX",
+                price: "$0.89",
+                change: "+2.1%",
+                isPositive: true,
+                description: "A stablecoin pegged to the Nigerian Naira for easy cross-border transactions.",
+                image: "linear-gradient(45deg, #4caf50, #8bc34a)"
+            },
+            {
+                name: "SafariChain",
+                symbol: "SFC",
+                price: "$3.78",
+                change: "-1.3%",
+                isPositive: false,
+                description: "Blockchain solution for wildlife conservation and sustainable tourism in Africa.",
+                image: "linear-gradient(45deg, #795548, #a1887f)"
+            },
+            {
+                name: "SkillToken",
+                symbol: "SKT",
+                price: "$1.35",
+                change: "+4.7%",
+                isPositive: true,
+                description: "Earn tokens by completing courses and redeem them for job applications or mentorship.",
+                image: "linear-gradient(45deg, #9c27b0, #673ab7)"
+            },
+            {
+                name: "EthioBlock",
+                symbol: "ETB",
+                price: "$0.56",
+                change: "-0.8%",
+                isPositive: false,
+                description: "Ethiopia's first blockchain network focused on agricultural supply chain transparency.",
+                image: "linear-gradient(45deg, #2196f3, #03a9f4)"
+            },
+            {
+                name: "TalentCoin",
+                symbol: "TLC",
+                price: "$2.21",
+                change: "+10.3%",
+                isPositive: true,
+                description: "Incentivizing skill development and job matching across the African continent.",
+                image: "linear-gradient(45deg, #ff5722, #ff9800)"
+            }
+        ];
+
+        // Marketplace offers data
+        const offers = [
+            { 
+                title: "Logo Design Gig", 
+                price: 400, 
+                image: "https://www.webappsplanet.com/images/creative-logo-design-company.png" 
+            },
+            { 
+                title: "Exclusive Webinar", 
+                price: 300, 
+                image: "https://freevector-images.s3.amazonaws.com/uploads/vector/preview/126697/vecteezyTemplatesWebinarPosternm0522_generated.jpg" 
+            },
+            { 
+                title: "Social Media Management", 
+                price: 500, 
+                image: "https://www.tradesformation.com.au/uploads/2023/06/social-media-management-infographic.jpg" 
+            },
+            { 
+                title: "Gift Card", 
+                price: 250, 
+                image: "https://www.bankofbaroda.in/-/media/project/bob/countrywebsites/india/blogs/images/5-reasons-why-a-gift-card-makes-ultimate-present.jpg" 
+            },
+            { 
+                title: "Consulting Session", 
+                price: 600, 
+                image: "https://media.licdn.com/dms/image/D4E12AQGEupqUQowNlg/article-cover_image-shrink_720_1280/0/1690545518328?e=2147483647&v=beta&t=WeCwGUep-BvdObGSVRNPxUZ1m2_cK9elMKDHQHA5cQ8" 
+            },
+        ];
+
+        // DOM Elements
+        const tokensGrid = document.getElementById('tokensGrid');
+        const offersContainer = document.getElementById('offers');
+        const searchInput = document.getElementById('search');
+        const marketplaceSearch = document.getElementById('search-marketplace');
+        const noResults = document.getElementById('no-results');
+        const buyTokenBtn = document.getElementById('buyTokenBtn');
+        const purchaseModal = document.getElementById('purchaseModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Generate token cards
+        function generateTokenCards() {
+            tokensGrid.innerHTML = '';  // Clear the grid
+            
+            tokens.forEach(token => {
+                const tokenCard = document.createElement('div');
+                tokenCard.className = 'token-card';
+                
+                tokenCard.innerHTML = `
+                    <div class="token-image" style="background: ${token.image}">
+                        <span class="token-symbol">${token.symbol}</span>
+                    </div>
+                    <div class="token-info">
+                        <h3 class="token-name">${token.name}</h3>
+                        <div class="token-details">
+                            <span class="token-price">${token.price}</span>
+                            <span class="token-change ${token.isPositive ? 'positive' : 'negative'}">${token.change}</span>
+                        </div>
+                        <p class="token-description">${token.description}</p>
+                        <div class="token-action">
+                            <button class="token-btn">Buy Token</button>
+                            <button class="token-btn secondary">Details</button>
+                        </div>
+                    </div>
+                `;
+                
+                tokensGrid.appendChild(tokenCard);
+            });
+        }
+
+        // Render marketplace offers
+        function renderOffers(filter = '') {
+            const filteredOffers = offers.filter(offer => 
+                offer.title.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            offersContainer.innerHTML = '';
+
+            if (filteredOffers.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                filteredOffers.forEach(offer => {
+                    offersContainer.innerHTML += `
+                        <div class="offer-card">
+                            <img src="${offer.image}" alt="${offer.title}">
+                            <h4>${offer.title}</h4>
+                            <p>${offer.price} Tokens</p>
+                            <button onclick="redeemOffer('${offer.title}')">Redeem</button>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Redeem offer function
+        function redeemOffer(title) {
+            alert(`You redeemed: ${title}`);
+        }
+
+        // Filter tabs interaction
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show loader
+                document.getElementById('loader').style.display = 'block';
+                
+                // Simulate loading filtered data
+                setTimeout(() => {
+                    generateTokenCards();
+                    document.getElementById('loader').style.display = 'none';
+                }, 800);
+            });
+        });
+
+        // Token search functionality
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            // If search term is empty, show all tokens
+            if (searchTerm === '') {
+                generateTokenCards();
+                return;
+            }
+            
+            // Filter tokens based on search term
+            const filteredTokens = tokens.filter(token => 
+                token.name.toLowerCase().includes(searchTerm) || 
+                token.symbol.toLowerCase().includes(searchTerm) ||
+                token.description.toLowerCase().includes(searchTerm)
+            );
+            
+            // Clear tokens grid
+            tokensGrid.innerHTML = '';
+            
+            // If no tokens match search, show message
+            if (filteredTokens.length === 0) {
+                tokensGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; margin: 2rem 0; color: #666;">No tokens found matching your search.</p>';
+                return;
+            }
+            
+            // Generate cards for filtered tokens
+            filteredTokens.forEach(token => {
+                const tokenCard = document.createElement('div');
+                tokenCard.className = 'token-card';
+                
+                tokenCard.innerHTML = `
+                    <div class="token-image" style="background: ${token.image}">
+                        <span class="token-symbol">${token.symbol}</span>
+                    </div>
+                    <div class="token-info">
+                        <h3 class="token-name">${token.name}</h3>
+                        <div class="token-details">
+                            <span class="token-price">${token.price}</span>
+                            <span class="token-change ${token.isPositive ? 'positive' : 'negative'}">${token.change}</span>
+                        </div>
+                        <p class="token-description">${token.description}</p>
+                        <div class="token-action">
+                            <button class="token-btn">Buy Token</button>
+                            <button class="token-btn secondary">Details</button>
+                        </div>
+                    </div>
+                `;
+                
+                tokensGrid.appendChild(tokenCard);
+            });
+        });
+
+        // Marketplace search functionality
+        document.getElementById('search').addEventListener('input', (e) => {
+            renderOffers(e.target.value);
+        });
+
+        // Buy token button functionality
+        buyTokenBtn.addEventListener('click', () => {
+            purchaseModal.style.display = 'flex';
+        });
+
+        // Close modal functionality
+        closeModalBtn.addEventListener('click', () => {
+            purchaseModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === purchaseModal) {
+                purchaseModal.style.display = 'none';
+            }
+        });
+
+        // Scroll to top functionality
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show scroll to top button when scrolling
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        // Initialize the page
+        window.onload = () => {
+            generateTokenCards();
+            renderOffers();
+        };
+    </script>
+</body>
+</html>

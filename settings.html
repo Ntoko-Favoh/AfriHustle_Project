@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e5ee;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --dark-mode-bg: #1f2937;
+            --dark-mode-card: #374151;
+            --dark-mode-text: #f3f4f6;
+            --dark-mode-border: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-mode-bg);
+            color: var(--dark-mode-text);
+        }
+    
+
+       /* Header Styles */
+        header {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        height: 100px;
+        display: flex;
+        align-items: center;
+        }
+
+        .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        }
+
+        .logo {
+        display: flex;
+        align-items: center;
+        }
+
+        .logo img {
+        height: 80px;
+        width: auto;
+        transition: all 0.3s;
+        }
+
+        body.dark-mode header {
+            border-bottom-color: var(--dark-mode-border);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .auth-buttons {
+        display: flex;
+        gap: 10px;
+        margin-left: auto;
+        }
+
+        .btn {
+        padding: 12px 25px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+        min-width: 150px;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .btn-primary {
+        background-color: orange;
+        color: white;
+        }
+
+        .btn-secondary {
+        background-color: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+        }
+
+        .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .save-btn {
+            background-color: white;
+            color: orange;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .save-btn:hover {
+            opacity: 0.9;
+        }
+
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        body.dark-mode .sidebar {
+            background-color: var(--dark-mode-card);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-color);
+        }
+
+        body.dark-mode .nav-item:hover {
+            background-color: #2d3748;
+        }
+
+        .nav-item.active {
+            background-color: rgba(74, 108, 247, 0.1);
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .nav-item.active {
+            background-color: rgba(74, 108, 247, 0.2);
+        }
+
+        .content {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .content {
+            background-color: var(--dark-mode-card);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .setting-item {
+            margin-bottom: 30px;
+        }
+
+        .setting-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .setting-item p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        body.dark-mode .setting-item p {
+            color: #94a3b8;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="email"],
+        body.dark-mode input[type="password"] {
+            background-color: #2d3748;
+            border-color: var(--dark-mode-border);
+            color: var(--dark-mode-text);
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+            margin-right: 10px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .toggle-label {
+            font-size: 16px;
+        }
+
+        .setting-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .setting-group .setting-item {
+            flex: 1;
+        }
+
+        .success-message {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        body.dark-mode .success-message {
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .color-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--text-color);
+        }
+
+        body.dark-mode .color-option.active {
+            border-color: var(--dark-mode-text);
+        }
+
+        .color-blue {
+            background-color: #4a6cf7;
+        }
+
+        .color-red {
+            background-color: #ef4444;
+        }
+
+        .color-green {
+            background-color: #10b981;
+        }
+
+        .color-purple {
+            background-color: #8b5cf6;
+        }
+
+        .danger-zone {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.dark-mode .danger-zone {
+            border-top-color: var(--dark-mode-border);
+        }
+
+        .danger-title {
+            color: #ef4444;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .delete-btn {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                margin-bottom: 20px;
+            }
+            
+            .setting-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="container header-container">
+                <div class="logo">
+                  <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo">
+                </div>
+                <div class="auth-buttons">
+                  <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+                </div>
+              </div>
+            <button class="save-btn" id="saveButton">Save Changes</button>
+        </header>
+        
+        <div class="success-message" id="successMessage">
+            Your settings have been saved successfully!
+        </div>
+        
+        <div class="settings-layout">
+            <div class="sidebar">
+                <div class="nav-item active" data-section="account">Account</div>
+                <div class="nav-item" data-section="appearance">Appearance</div>
+                <div class="nav-item" data-section="notifications">Notifications</div>
+                <div class="nav-item" data-section="privacy">Privacy & Security</div>
+            </div>
+            
+            <div class="content">
+                <!-- Account Settings -->
+                <div class="settings-section active" id="account">
+                    <h2 class="section-title">Account Settings</h2>
+                    
+                    <div class="setting-group">
+                        <div class="setting-item">
+                            <h3>Full Name</h3>
+                            <p>Your name as it appears on your account</p>
+                            <input type="text" id="fullName" value="John Doe">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <h3>Email Address</h3>
+                            <p>Your primary email address</p>
+                            <input type="email" id="email" value="john.doe@example.com">
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Username</h3>
+                        <p>Your unique username</p>
+                        <input type="text" id="username" value="johndoe123">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Password</h3>
+                        <p>Update your password</p>
+                        <input type="password" id="currentPassword" placeholder="Current password">
+                        <input type="password" id="newPassword" placeholder="New password" style="margin-top: 10px;">
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="danger-zone">
+                        <h3 class="danger-title">Danger Zone</h3>
+                        <p>Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="delete-btn" id="deleteAccount">Delete Account</button>
+                    </div>
+                </div>
+                
+                <!-- Appearance Settings -->
+                <div class="settings-section" id="appearance">
+                    <h2 class="section-title">Appearance Settings</h2>
+                    
+                    <div class="setting-item">
+                        <h3>Theme</h3>
+                        <p>Choose between light and dark mode</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="darkModeToggle">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Dark Mode</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Accent Color</h3>
+                        <p>Choose your preferred accent color</p>
+                        <div class="color-options">
+                            <div class="color-option color-blue active" data-color="#4a6cf7"></div>
+                            <div class="color-option color-red" data-color="#ef4444"></div>
+                            <div class="color-option color-green" data-color="#10b981"></div>
+                            <div class="color-option color-purple" data-color="#8b5cf6"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Font Size</h3>
+                        <p>Adjust the text size throughout the application</p>
+                        <div class="toggle-container">
+                            <label>
+                                <input type="range" min="12" max="20" value="16" id="fontSizeSlider">
+                            </label>
+                            <span class="toggle-label" id="fontSizeLabel">16px</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications Settings -->
+                <div class="settings-section" id="notifications">
+                    <h2 class="section-title">Notification Settings</h2>
+                    
+                    <div class="setting-item">
+                        <h3>Email Notifications</h3>
+                        <p>Receive updates and alerts via email</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Enabled</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Push Notifications</h3>
+                        <p>Receive notifications on your device</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="pushNotifications" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Enabled</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Marketing Emails</h3>
+                        <p>Receive promotional content and offers</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="marketingEmails">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Disabled</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Notification Sound</h3>
+                        <p>Play a sound when notifications arrive</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="notificationSound" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Enabled</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Privacy Settings -->
+                <div class="settings-section" id="privacy">
+                    <h2 class="section-title">Privacy & Security Settings</h2>
+                    
+                    <div class="setting-item">
+                        <h3>Two-Factor Authentication</h3>
+                        <p>Add an extra layer of security to your account</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="twoFactorAuth">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Disabled</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Profile Visibility</h3>
+                        <p>Control who can see your profile information</p>
+                        <select id="profileVisibility" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); margin-top: 8px;">
+                            <option value="public">Public - Everyone can see</option>
+                            <option value="friends">Friends Only</option>
+                            <option value="private" selected>Private - Only you</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Data Collection</h3>
+                        <p>Allow us to collect anonymous usage data to improve our service</p>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="dataCollection" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Enabled</span>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Login History</h3>
+                        <p>View your recent login activity</p>
+                        <button class="save-btn" style="background-color: #64748b;">View History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.settings-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected section
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+            
+            darkModeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('darkMode', 'true');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('darkMode', 'false');
+                }
+            });
+            
+            // Color Theme Options
+            const colorOptions = document.querySelectorAll('.color-option');
+            
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const color = this.getAttribute('data-color');
+                    
+                    // Update active color
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update primary color
+                    document.documentElement.style.setProperty('--primary-color', color);
+                    
+                    // Save preference
+                    localStorage.setItem('accentColor', color);
+                });
+            });
+            
+            // Load saved accent color
+            const savedColor = localStorage.getItem('accentColor');
+            if (savedColor) {
+                document.documentElement.style.setProperty('--primary-color', savedColor);
+                
+                colorOptions.forEach(option => {
+                    if (option.getAttribute('data-color') === savedColor) {
+                        option.classList.add('active');
+                    } else {
+                        option.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Font Size Slider
+            const fontSizeSlider = document.getElementById('fontSizeSlider');
+            const fontSizeLabel = document.getElementById('fontSizeLabel');
+            
+            fontSizeSlider.addEventListener('input', function() {
+                const fontSize = this.value;
+                fontSizeLabel.textContent = `${fontSize}px`;
+                document.documentElement.style.fontSize = `${fontSize}px`;
+                localStorage.setItem('fontSize', fontSize);
+            });
+            
+            // Load saved font size
+            const savedFontSize = localStorage.getItem('fontSize');
+            if (savedFontSize) {
+                fontSizeSlider.value = savedFontSize;
+                fontSizeLabel.textContent = `${savedFontSize}px`;
+                document.documentElement.style.fontSize = `${savedFontSize}px`;
+            }
+            
+            // Toggle options (notifications, 2FA, etc.)
+            const toggleInputs = document.querySelectorAll('.toggle input');
+            
+            toggleInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const label = this.closest('.toggle-container').querySelector('.toggle-label');
+                    if (this.checked) {
+                        label.textContent = 'Enabled';
+                    } else {
+                        label.textContent = 'Disabled';
+                    }
+                });
+            });
+            
+            // Save Button
+            const saveButton = document.getElementById('saveButton');
+            const successMessage = document.getElementById('successMessage');
+            
+            saveButton.addEventListener('click', function() {
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+                
+                // In a real app, you would save all the settings to a backend here
+                console.log('Settings saved!');
+                
+                // Get account settings
+                const accountData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    username: document.getElementById('username').value
+                };
+                
+                console.log('Account Data:', accountData);
+            });
+            
+            // Delete Account
+            const deleteAccountBtn = document.getElementById('deleteAccount');
+            
+            deleteAccountBtn.addEventListener('click', function() {
+                const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                
+                if (confirmation) {
+                    alert('Account deletion process initiated. You will receive a confirmation email.');
+                    // In a real app, you would send a request to delete the account
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriHustle - Reviews & Ratings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Reuse your existing CSS variables */
+    :root {
+      --primary-green: #005249;
+      --accent-green: #04662F;
+      --orange: #FF6B00;
+      --brown: #4C2A09;
+      --light-brown: #6A3C10;
+      --white: #FFFFFF;
+      --gray-100: #F0F4F8;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E0;
+      --gray-500: #718096;
+      --gray-700: #4A5568;
+      --black: #000000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header - Reusing your existing header styles */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      height: 100px;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      min-width: 150px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background-color: var(--orange);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reviews Hero Section */
+    .reviews-hero {
+      background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .reviews-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .reviews-hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Reviews Main Content */
+    .reviews-container {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary-green);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background-color: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* Overall Rating Card */
+    .overall-rating {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .rating-summary {
+      text-align: center;
+      flex: 1;
+    }
+
+    .average-rating {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      line-height: 1;
+    }
+
+    .stars {
+      color: var(--orange);
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
+
+    .total-reviews {
+      color: var(--gray-500);
+    }
+
+    .rating-bars {
+      flex: 2;
+    }
+
+    .rating-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .rating-label {
+      width: 100px;
+      font-weight: 600;
+    }
+
+    .bar-container {
+      flex: 1;
+      height: 10px;
+      background-color: var(--gray-200);
+      border-radius: 5px;
+      margin: 0 15px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background-color: var(--orange);
+      border-radius: 5px;
+    }
+
+    .rating-count {
+      width: 50px;
+      text-align: right;
+      color: var(--gray-500);
+    }
+
+    /* Review Filters */
+    .review-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      background-color: var(--gray-100);
+      color: var(--gray-700);
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: var(--orange);
+      color: white;
+    }
+
+    /* Reviews List */
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .review-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 82, 73, 0.1);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .reviewer-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--primary-green);
+    }
+
+    .reviewer-info h4 {
+      color: var(--primary-green);
+      margin-bottom: 5px;
+    }
+
+    .reviewer-info p {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+
+    .review-rating {
+      color: var(--orange);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .review-content {
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    .review-date {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+
+    /* Review Form */
+    .review-form {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 50px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .review-form h3 {
+      color: var(--primary-green);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .rating-input {
+      margin-bottom: 20px;
+    }
+
+    .rating-input label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .stars-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .star {
+      font-size: 1.8rem;
+      color: var(--gray-300);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .star.active {
+      color: var(--orange);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(0, 82, 73, 0.1);
+    }
+
+    .submit-btn {
+      background-color: var(--orange);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .overall-rating {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .rating-bars {
+        width: 100%;
+      }
+      
+      .reviews-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .review-header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .review-rating {
+        align-self: flex-start;
+      }
+      
+      header {
+        padding: 1rem;
+        height: auto;
+      }
+      
+      .logo img {
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo">
+      </div>
+      <div class="auth-buttons">
+        <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="reviews-hero">
+    <div class="container">
+      <h1>What Our Community Says</h1>
+      <p>Read authentic reviews from learners and professionals who have transformed their careers with AfriHustle</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="reviews-container">
+    <div class="container">
+      <!-- Overall Rating -->
+      <div class="overall-rating">
+        <div class="rating-summary">
+          <div class="average-rating">4.8</div>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="total-reviews">Based on 1,243 reviews</div>
+        </div>
+        <div class="rating-bars">
+          <div class="rating-bar">
+            <div class="rating-label">5 Stars</div>
+            <div class="bar-container">
+              <div class="bar" style="width: 85%;"></div>
+            </div>
+            <div class="rating-count">1,056</div>
+          </div>
+          <div class="rating-bar">
+            <div class="rating-label">4 Stars</div>
+            <div class="bar-container">
+              <div class="bar" style="width: 12%;"></div>
+            </div>
+            <div class="rating-count">149</div>
+          </div>
+          <div class="rating-bar">
+            <div class="rating-label">3 Stars</div>
+            <div class="bar-container">
+              <div class="bar" style="width: 2%;"></div>
+            </div>
+            <div class="rating-count">25</div>
+          </div>
+          <div class="rating-bar">
+            <div class="rating-label">2 Stars</div>
+            <div class="bar-container">
+              <div class="bar" style="width: 1%;"></div>
+            </div>
+            <div class="rating-count">8</div>
+          </div>
+          <div class="rating-bar">
+            <div class="rating-label">1 Star</div>
+            <div class="bar-container">
+              <div class="bar" style="width: 0.5%;"></div>
+            </div>
+            <div class="rating-count">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="section-header">
+        <h2 class="section-title">Community Reviews</h2>
+        <div class="review-filters">
+          <button class="filter-btn active">All Reviews</button>
+          <button class="filter-btn">5 Stars</button>
+          <button class="filter-btn">4 Stars</button>
+          <button class="filter-btn">3 Stars</button>
+          <button class="filter-btn">Courses</button>
+          <button class="filter-btn">Jobs</button>
+        </div>
+      </div>
+
+      <!-- Reviews List -->
+      <div class="reviews-list">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+                <div class="logo">
+                    <img src="assests/course1.jpg" alt="TO">
+                  </div>
+              <div class="reviewer-info">
+                <h4>Tunde Ogunlesi</h4>
+                <p>Web Developer, Lagos</p>
+              </div>
+            </div>
+            <div class="review-rating">
+              <i class="fas fa-star"></i> 5.0
+            </div>
+          </div>
+          <div class="review-content">
+            <p>The Web Development course completely transformed my career. Within 3 months of completing the program, I landed my first freelance clients. The instructors were knowledgeable and the curriculum was perfectly tailored for the African tech market. I've since started my own small agency!</p>
+          </div>
+          <div class="review-date">Posted on March 15, 2023</div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+                <div class="logo">
+                    <img src="assests/course2.jpg" alt="AM">
+                  </div>
+              <div class="reviewer-info">
+                <h4>Amina Mwangi</h4>
+                <p>Small Business Owner, Nairobi</p>
+              </div>
+            </div>
+            <div class="review-rating">
+              <i class="fas fa-star"></i> 4.5
+            </div>
+          </div>
+          <div class="review-content">
+            <p>The Digital Marketing path was exactly what I needed to grow my fashion business. The practical strategies helped me double my online sales in just 4 months. I particularly appreciated the focus on cost-effective methods that work in our African context. The only reason I'm not giving 5 stars is that I wish there were more advanced modules available.</p>
+          </div>
+          <div class="review-date">Posted on February 28, 2023</div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+                <div class="logo">
+                    <img src="assests/Safari suit.jpg" alt="KE">
+                  </div>
+              <div class="reviewer-info">
+                <h4>Kwame Eshun</h4>
+                <p>Financial Analyst, Accra</p>
+              </div>
+            </div>
+            <div class="review-rating">
+              <i class="fas fa-star"></i> 5.0
+            </div>
+          </div>
+          <div class="review-content">
+            <p>As someone who completed the Financial Analyst path, I can confidently say AfriHustle provides world-class training at an affordable price. The case studies focusing on African companies were particularly valuable. I've recommended this platform to all my colleagues in the finance sector.</p>
+          </div>
+          <div class="review-date">Posted on January 10, 2023</div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+                <div class="logo">
+                    <img src="assests/download.jpg" alt="FD">
+                  </div>
+              <div class="reviewer-info">
+                <h4>Fatou Diop</h4>
+                <p>UI/UX Designer, Dakar</p>
+              </div>
+            </div>
+            <div class="review-rating">
+              <i class="fas fa-star"></i> 4.0
+            </div>
+          </div>
+          <div class="review-content">
+            <p>The UI/UX courses were comprehensive and up-to-date with current design trends. I appreciated the focus on designing for African users and low-bandwidth contexts. The community forum was also very helpful for getting feedback on projects. Would love to see more content on mobile app design specifically.</p>
+          </div>
+          <div class="review-date">Posted on December 5, 2022</div>
+        </div>
+      </div>
+
+      <!-- Review Form -->
+      <div class="review-form">
+        <h3>Share Your Experience</h3>
+        <form id="add-review-form">
+          <div class="rating-input">
+            <label>Your Rating</label>
+            <div class="stars-input">
+              <i class="fas fa-star star" data-rating="1"></i>
+              <i class="fas fa-star star" data-rating="2"></i>
+              <i class="fas fa-star star" data-rating="3"></i>
+              <i class="fas fa-star star" data-rating="4"></i>
+              <i class="fas fa-star star" data-rating="5"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="review-title">Review Title</label>
+            <input type="text" id="review-title" placeholder="Summarize your experience">
+          </div>
+          <div class="form-group">
+            <label for="review-content">Your Review</label>
+            <textarea id="review-content" placeholder="Share details of your experience with AfriHustle"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="reviewer-name">Your Name</label>
+            <input type="text" id="reviewer-name" placeholder="How should we display your name?">
+          </div>
+          <div class="form-group">
+            <label for="reviewer-role">Your Role/Title (Optional)</label>
+            <input type="text" id="reviewer-role" placeholder="E.g. Web Developer, Lagos">
+          </div>
+          <button type="submit" class="submit-btn">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Star rating functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const stars = document.querySelectorAll('.star');
+      let selectedRating = 0;
+      
+      stars.forEach(star => {
+        star.addEventListener('click', function() {
+          const rating = parseInt(this.getAttribute('data-rating'));
+          selectedRating = rating;
+          
+          stars.forEach((s, index) => {
+            if (index < rating) {
+              s.classList.add('active');
+            } else {
+              s.classList.remove('active');
+            }
+          });
+        });
+        
+        star.addEventListener('mouseover', function() {
+          const rating = parseInt(this.getAttribute('data-rating'));
+          
+          stars.forEach((s, index) => {
+            if (index < rating) {
+              s.classList.add('hover');
+            } else {
+              s.classList.remove('hover');
+            }
+          });
+        });
+        
+        star.addEventListener('mouseout', function() {
+          stars.forEach(s => s.classList.remove('hover'));
+          
+          // Restore selected rating display
+          stars.forEach((s, index) => {
+            if (index < selectedRating) {
+              s.classList.add('active');
+            } else {
+              s.classList.remove('active');
+            }
+          });
+        });
+      });
+      
+      // Filter functionality
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          // Here you would typically filter the reviews
+          // For this example, we're just changing the UI
+        });
+      });
+      
+      // Form submission
+      const reviewForm = document.getElementById('add-review-form');
+      reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your review! It will be published after moderation.');
+        this.reset();
+        stars.forEach(s => s.classList.remove('active'));
+        selectedRating = 0;
+      });
+    });
+  </script>
+</body>
+</html>

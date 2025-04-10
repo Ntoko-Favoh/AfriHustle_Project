@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AfriHustle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #2a8a82;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            color: white;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #005249;
+        }
+
+        .contact-info p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .contact-details {
+            margin-top: 30px;
+        }
+
+        .contact-details div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details .icon {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .contact-details span {
+            color: #555;
+        }
+
+        .social-media {
+            margin-top: 40px;
+        }
+
+        .social-media h3 {
+            margin-bottom: 15px;
+            color: #005249;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            background-color: #005249; /* Dark green color */
+            color: white;
+            width: 40px; /* Slightly larger */
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid #005249;
+        }
+
+        .social-icons a:hover {
+            background-color: white;
+            color: #005249;
+            transform: scale(1.1);
+        }
+
+        .social-icons i {
+            font-size: 18px; /* Slightly larger icons */
+        }
+
+        .question-note {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #c5e1df;
+        }
+
+        .contact-form h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2a8a82;
+        }
+
+        .user-icon {
+            position: relative;
+        }
+
+        .user-icon::before {
+            content: "👤";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .user-icon input {
+            padding-left: 30px;
+        }
+
+        .signup-link {
+            background-color: #f77a06;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            width: 100%;
+            max-width: 200px;
+            text-align: center;
+            text-decoration: none; 
+        }
+
+        .signup-link:hover {
+            background-color: #e89b1e;
+            color: white; 
+            text-decoration: none; 
+        }
+
+        .signup-link::after {
+            content: "→";
+            margin-left: 8px;
+        }
+
+        button {
+            background-color: #f77a06;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        button:hover {
+            background-color: #e89b1e;
+        }
+
+        button::after {
+            content: "→";
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-info">
+            <h1>Contact Us</h1>
+            <p>We're here to help you make the most of AfriHustle! Whether you have questions, need support, or want to explore partnership opportunities, we'd love to hear from you.</p>
+            
+            <div class="contact-details">
+                <div>
+                    <span class="icon">✉️</span>
+                    <span>Email: support@afrihustle.com</span>
+                </div>
+                <div>
+                    <span class="icon">📱</span>
+                    <span>Phone: +234 000 000 7000</span>
+                </div>
+                <div>
+                    <span class="icon">🏢</span>
+                    <span>Address: Nigeria, Lagos</span>
+                </div>
+                <div>
+                    <span class="icon">🌐</span>
+                    <span>Website: www.afrihustle.com</span>
+                </div>
+            </div>
+            
+            <div class="social-media">
+                <h3>Follow Us:</h3>
+                <p>Stay connected with us on our key social media platforms for updates, offers, and community highlights.</p>
+                <div class="social-icons">
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="question-note">
+                Have a Question? Fill out our contact form, and our team will get back to you as soon as possible!
+            </div>
+        </div>
+        
+        <div class="contact-form">
+            <h2>Send Us A Message</h2>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Full name</label>
+                    <div class="user-icon">
+                        <input type="text" id="name" name="name" placeholder="Basem Alfayeed">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="user-icon">
+                        <input type="email" id="email" name="email" placeholder="baseemalfayeed123@gmail.com">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0794967693">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your message"></textarea>
+                </div>
+                
+                <a href="your-signup-page-url" class="signup-link">Signup</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

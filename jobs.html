@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriHustle - Available Jobs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary-green: #005249;
+      --accent-green: #04662F;
+      --orange: #FF6B00;
+      --brown: #4C2A09;
+      --light-brown: #6A3C10;
+      --white: #FFFFFF;
+      --gray-100: #F0F4F8;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E0;
+      --gray-500: #718096;
+      --gray-700: #4A5568;
+      --black: #000000;
+    }
+
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: var(--gray-700);
+      background-color: var(--gray-100);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles - Consistent with other pages */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      height: 100px;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 90px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 1rem;
+      transition: all 0.3s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-green);
+    }
+
+    .nav-link.active {
+      color: var(--primary-green);
+      font-weight: 600;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      min-width: 150px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--orange);
+      color: var(--orange);
+      background: transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--orange);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Jobs Page Specific Styles */
+    .jobs-hero {
+      background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jobs-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.05)' fill-rule='evenodd'/%3E%3C/svg%3E") repeat;
+      opacity: 0.4;
+    }
+
+    .jobs-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      position: relative;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .jobs-hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 18px 20px 18px 55px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .search-container input:focus {
+      outline: none;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .search-container i {
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--orange);
+      font-size: 1.2rem;
+    }
+
+    .jobs-container {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .section-header::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 4px;
+      background-color: var(--orange);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+
+    .view-all {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .view-all:hover {
+      gap: 10px;
+      color: var(--accent-green);
+    }
+
+    .view-all i {
+      transition: all 0.3s ease;
+    }
+
+    .view-all:hover i {
+      transform: translateX(5px);
+    }
+
+    .job-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--primary-green);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      background-color: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 15px) center;
+      padding-right: 35px;
+    }
+
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .job-card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid var(--gray-200);
+      position: relative;
+    }
+
+    .job-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 82, 73, 0.1);
+    }
+
+    .job-card.featured::before {
+      content: 'Featured';
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--orange);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 1;
+    }
+
+    .job-header {
+      padding: 25px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .company-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      background-color: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-weight: bold;
+      color: var(--primary-green);
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .job-title {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+
+    .company-name {
+      color: var(--gray-500);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .company-name i {
+      color: var(--orange);
+      font-size: 0.9rem;
+    }
+
+    .job-body {
+      padding: 25px;
+    }
+
+    .job-description {
+      margin-bottom: 25px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .job-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .job-tag {
+      background-color: rgba(0, 82, 73, 0.1);
+      color: var(--primary-green);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .job-tag:hover {
+      background-color: var(--primary-green);
+      color: white;
+      cursor: pointer;
+    }
+
+    .job-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 25px;
+      background-color: var(--gray-100);
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .job-salary {
+      font-weight: 700;
+      color: var(--primary-green);
+      font-size: 1.1rem;
+    }
+
+    .job-location {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .job-location i {
+      color: var(--orange);
+    }
+
+    .job-type {
+      background-color: var(--orange);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .job-type:hover {
+      background-color: var(--accent-green);
+      cursor: pointer;
+    }
+
+    .job-type.remote {
+      background-color: var(--primary-green);
+    }
+
+    .job-type.part-time {
+      background-color: var(--accent-green);
+    }
+
+    .job-type.contract {
+      background-color: var(--brown);
+    }
+
+    .jobs-counter {
+      font-size: 1rem;
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .jobs-counter span {
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .load-more {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .load-more-btn {
+      background-color: transparent;
+      color: var(--primary-green);
+      border: 2px solid var(--primary-green);
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .load-more-btn:hover {
+      background-color: var(--primary-green);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 82, 73, 0.1);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 50px 20px;
+      font-size: 1.2rem;
+      color: var(--gray-500);
+      display: none;
+    }
+
+    .no-results i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--gray-300);
+    }
+
+    .highlight {
+      background-color: rgba(255, 107, 0, 0.2);
+      padding: 2px 0;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .job-card {
+      animation: fadeIn 0.6s ease backwards;
+    }
+
+    .job-card:nth-child(1) { animation-delay: 0.1s; }
+    .job-card:nth-child(2) { animation-delay: 0.2s; }
+    .job-card:nth-child(3) { animation-delay: 0.3s; }
+    .job-card:nth-child(4) { animation-delay: 0.4s; }
+    .job-card:nth-child(5) { animation-delay: 0.5s; }
+    .job-card:nth-child(6) { animation-delay: 0.6s; }
+    .job-card:nth-child(7) { animation-delay: 0.7s; }
+    .job-card:nth-child(8) { animation-delay: 0.8s; }
+    .job-card:nth-child(9) { animation-delay: 0.9s; }
+    .job-card:nth-child(10) { animation-delay: 1s; }
+    .job-card:nth-child(11) { animation-delay: 1.1s; }
+    .job-card:nth-child(12) { animation-delay: 1.2s; }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .nav-links {
+        position: static;
+        transform: none;
+        margin: 20px 0;
+      }
+      
+      .header-container {
+        flex-direction: column;
+      }
+      
+      .auth-buttons {
+        margin: 20px 0 0;
+      }
+      
+      .jobs-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .jobs-hero {
+        padding: 60px 0;
+      }
+      
+      .jobs-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .job-filters {
+        flex-direction: column;
+      }
+      
+      .job-card {
+        min-width: 100%;
+      }
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--orange);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo">
+      </div>
+    
+      <div class="auth-buttons">
+        <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="jobs-hero">
+    <div class="container">
+      <h1>Find Your Next Opportunity</h1>
+      <p>Discover hundreds of jobs across Africa that match your skills and experience. Join thousands of professionals finding work through AfriHustle.</p>
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="job-search" placeholder="Search for jobs by title, skill, or location">
+      </div>
+    </div>
+  </section>
+
+  <!-- Jobs Listing -->
+  <section class="jobs-container">
+    <div class="container">
+      <div class="jobs-counter">Found <span id="jobs-count">15</span> jobs matching your criteria</div>
+      
+      <div class="section-header">
+        <h2 class="section-title">Available Jobs</h2>
+      </div>
+
+      <div class="job-filters">
+        <div class="filter-group">
+          <label for="job-type">Job Type</label>
+          <select id="job-type" class="filter-select">
+            <option value="">All Types</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="remote">Remote</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="location">Location</label>
+          <select id="location" class="filter-select">
+            <option value="">All Locations</option>
+            <option value="nigeria">Nigeria</option>
+            <option value="kenya">Kenya</option>
+            <option value="south-africa">South Africa</option>
+            <option value="ghana">Ghana</option>
+            <option value="remote">Remote</option>
+            <option value="ethiopia">Ethiopia</option>
+            <option value="rwanda">Rwanda</option>
+            <option value="tanzania">Tanzania</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="category">Category</label>
+          <select id="category" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="tech">Technology</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="education">Education</option>
+            <option value="agriculture">Agriculture</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="experience">Experience</label>
+          <select id="experience" class="filter-select">
+            <option value="">All Levels</option>
+            <option value="entry">Entry Level</option>
+            <option value="mid">Mid Level</option>
+            <option value="senior">Senior Level</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="jobs-grid" class="jobs-grid">
+        <!-- Job Card 1 -->
+        <div class="job-card featured" data-title="Frontend Developer" data-company="Savannah Creatives" data-location="Kenya" data-type="Full-time" data-category="tech">
+          <div class="job-header">
+            <div class="company-logo">SC</div>
+            <div>
+              <h3 class="job-title">Frontend Developer</h3>
+              <p class="company-name"><i class="fas fa-building"></i> Savannah Creatives</p>
+              <p class="job-location"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+            </div>
+          </div>
+          <div class="job-body">
+            <p class="job-description">We're looking for a skilled frontend developer to join our team building innovative web applications for African markets. You'll work on impactful projects that reach millions of users across the continent.</p>
+            <div class="job-tags">
+              <span class="job-tag">React</span>
+              <span class="job-tag">JavaScript</span>
+              <span class="job-tag">UI/UX</span>
+              <span class="job-tag">TypeScript</span>
+            </div>
+          </div>
+          <div class="job-footer">
+            <span class="job-salary">$1,500 - $2,500/mo</span>
+            <span class="job-type">Full-time</span>
+          </div>
+        </div>
+
+        <!-- Job Card 2 -->
+        <div class="job-card" data-title="Digital Marketing Specialist" data-company="AfriTech Solutions" data-location="Nigeria" data-type="Contract" data-category="marketing">
+          <div class="job-header">
+            <div class="company-logo">AT</div>
+            <div>
+              <h3 class="job-title">Digital Marketing Specialist</h3>
+              <p class="company-name"><i class="fas fa-building"></i> AfriTech Solutions</p>
+              <p class="job-location"><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</p>
+            </div>
+          </div>
+          <div class="job-body">
+            <p class="job-description">Join our marketing team to help African businesses grow through innovative digital marketing strategies. You'll develop campaigns that resonate with local audiences and drive business growth.</p>
+            <div class="job-tags">
+              <span class="job-tag">SEO</span>
+              <span class="job-tag">Social Media</span>
+              <span class="job-tag">Content</span>
+              <span class="job-tag">Analytics</span>
+            </div>
+          </div>
+          <div class="job-footer">
+            <span class="job-salary">$1,200 - $1,800/mo</span>
+            <span class="job-type contract">Contract</span>
+          </div>
+        </div>
+
+        <!-- Job Card 3 -->
+        <div class="job-card" data-title="Mobile App Developer" data-company="Lagos Computing" data-location="Nigeria" data-type="Remote" data-category="tech">
+          <div class="job-header">
+            <div class="company-logo">LC</div>
+            <div>
+              <h3 class="job-title">Mobile App Developer</h3>
+              <p class="company-name"><i class="fas fa-building"></i> Lagos Computing</p>
+              <p class="job-location"><i class="fas fa-map-marker-alt"></i> Remote</p>
+            </div>
+          </div>
+          <div class="job-body">
+            <p class="job-description">We're seeking an experienced mobile app developer to create innovative solutions for African markets. You'll be building apps that address unique local challenges and work across varying network conditions and device types.</p>
+            <div class="job-tags">
+              <span class="job-tag">Flutter</span>
+              <span class="job-tag">React Native</span>
+              <span class="job-tag">iOS</span>
+              <span class="job-tag">Android</span>
+            </div>
+          </div>
+          <div class="job-footer">
+            <span class="job-salary">$2,000 - $3,000/mo</span>
+            <span class="job-type remote">Remote</span>
+          </div>
+        </div>
+
+          <!-- Job Card 4 -->
+<div class="job-card" data-title="Data Scientist" data-company="Nairobi Analytics" data-location="Kenya" data-type="Full-time" data-category="tech">
+    <div class="job-header">
+      <div class="company-logo">NA</div>
+      <div>
+        <h3 class="job-title">Data Scientist</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Nairobi Analytics</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Use your data skills to solve real African problems. We're looking for a data scientist to analyze large datasets and build predictive models that help businesses across East Africa make better decisions.</p>
+      <div class="job-tags">
+        <span class="job-tag">Python</span>
+        <span class="job-tag">Machine Learning</span>
+        <span class="job-tag">SQL</span>
+        <span class="job-tag">Data Visualization</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$2,500 - $3,500/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 5 -->
+  <div class="job-card featured" data-title="UX Designer" data-company="Cairo Digital" data-location="Egypt" data-type="Full-time" data-category="design">
+    <div class="job-header">
+      <div class="company-logo">CD</div>
+      <div>
+        <h3 class="job-title">UX Designer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Cairo Digital</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Design digital experiences that work for African users. We need a UX designer who understands the unique challenges of designing for diverse African markets with varying connectivity and device capabilities.</p>
+      <div class="job-tags">
+        <span class="job-tag">Figma</span>
+        <span class="job-tag">User Research</span>
+        <span class="job-tag">Prototyping</span>
+        <span class="job-tag">Accessibility</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,800 - $2,500/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 6 -->
+  <div class="job-card" data-title="AgriTech Sales Manager" data-company="FarmConnect" data-location="Rwanda" data-type="Full-time" data-category="agriculture">
+    <div class="job-header">
+      <div class="company-logo">FC</div>
+      <div>
+        <h3 class="job-title">AgriTech Sales Manager</h3>
+        <p class="company-name"><i class="fas fa-building"></i> FarmConnect</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Lead our sales efforts for agricultural technology solutions across East Africa. You'll work directly with farmers and cooperatives to implement tech solutions that increase yields and market access.</p>
+      <div class="job-tags">
+        <span class="job-tag">Sales</span>
+        <span class="job-tag">Agriculture</span>
+        <span class="job-tag">Business Development</span>
+        <span class="job-tag">French</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,500 - $2,200/mo + commission</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 7 -->
+  <div class="job-card" data-title="Backend Developer" data-company="Accra Tech Hub" data-location="Ghana" data-type="Remote" data-category="tech">
+    <div class="job-header">
+      <div class="company-logo">ATH</div>
+      <div>
+        <h3 class="job-title">Backend Developer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Accra Tech Hub</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Remote</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Build scalable backend systems for West African markets. We need a developer experienced in creating robust APIs and services that perform well even with inconsistent internet connectivity.</p>
+      <div class="job-tags">
+        <span class="job-tag">Node.js</span>
+        <span class="job-tag">Python</span>
+        <span class="job-tag">AWS</span>
+        <span class="job-tag">MongoDB</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$2,000 - $3,200/mo</span>
+      <span class="job-type remote">Remote</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 8 -->
+  <div class="job-card" data-title="Financial Analyst" data-company="Lagos Capital" data-location="Nigeria" data-type="Full-time" data-category="finance">
+    <div class="job-header">
+      <div class="company-logo">LC</div>
+      <div>
+        <h3 class="job-title">Financial Analyst</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Lagos Capital</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Join our finance team analyzing investment opportunities across Africa. You'll evaluate startups, prepare financial models, and help guide investment decisions in high-growth African markets.</p>
+      <div class="job-tags">
+        <span class="job-tag">Financial Modeling</span>
+        <span class="job-tag">Excel</span>
+        <span class="job-tag">Valuation</span>
+        <span class="job-tag">Investment Analysis</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,800 - $2,800/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 9 -->
+  <div class="job-card" data-title="Content Writer" data-company="AfroContent" data-location="Remote" data-type="Part-time" data-category="marketing">
+    <div class="job-header">
+      <div class="company-logo">AC</div>
+      <div>
+        <h3 class="job-title">Content Writer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> AfroContent</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Remote</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Create compelling content about African tech and business for a global audience. We need writers who can tell authentic African stories that engage international readers and investors.</p>
+      <div class="job-tags">
+        <span class="job-tag">Writing</span>
+        <span class="job-tag">SEO</span>
+        <span class="job-tag">Blogging</span>
+        <span class="job-tag">Research</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$800 - $1,500/mo</span>
+      <span class="job-type part-time">Part-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 10 -->
+  <div class="job-card featured" data-title="DevOps Engineer" data-company="CloudAfrika" data-location="South Africa" data-type="Full-time" data-category="tech">
+    <div class="job-header">
+      <div class="company-logo">CA</div>
+      <div>
+        <h3 class="job-title">DevOps Engineer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> CloudAfrika</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Build and maintain cloud infrastructure for African startups. We need a DevOps engineer to implement CI/CD pipelines, automate deployments, and optimize our cloud infrastructure across multiple African data centers.</p>
+      <div class="job-tags">
+        <span class="job-tag">AWS</span>
+        <span class="job-tag">Docker</span>
+        <span class="job-tag">Kubernetes</span>
+        <span class="job-tag">Terraform</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$3,000 - $4,500/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 11 -->
+  <div class="job-card" data-title="Nurse Practitioner" data-company="HealthFirst Africa" data-location="Ethiopia" data-type="Full-time" data-category="healthcare">
+    <div class="job-header">
+      <div class="company-logo">HFA</div>
+      <div>
+        <h3 class="job-title">Nurse Practitioner</h3>
+        <p class="company-name"><i class="fas fa-building"></i> HealthFirst Africa</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Provide high-quality healthcare in underserved communities. We're looking for experienced nurses to join our mobile clinics serving rural areas across Ethiopia.</p>
+      <div class="job-tags">
+        <span class="job-tag">Patient Care</span>
+        <span class="job-tag">Primary Care</span>
+        <span class="job-tag">Community Health</span>
+        <span class="job-tag">Amharic</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,200 - $1,800/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 12 -->
+  <div class="job-card" data-title="Education Consultant" data-company="LearnAfrica" data-location="Tanzania" data-type="Contract" data-category="education">
+    <div class="job-header">
+      <div class="company-logo">LA</div>
+      <div>
+        <h3 class="job-title">Education Consultant</h3>
+        <p class="company-name"><i class="fas fa-building"></i> LearnAfrica</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Dar es Salaam, Tanzania</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Help design curriculum for African schools adapting to digital learning. You'll work with educators across Tanzania to develop teaching materials that work in low-tech environments.</p>
+      <div class="job-tags">
+        <span class="job-tag">Curriculum Design</span>
+        <span class="job-tag">Teacher Training</span>
+        <span class="job-tag">EdTech</span>
+        <span class="job-tag">Swahili</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,500 - $2,000/mo</span>
+      <span class="job-type contract">Contract</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 13 -->
+  <div class="job-card" data-title="Product Manager" data-company="Jumia" data-location="Nigeria" data-type="Full-time" data-category="tech">
+    <div class="job-header">
+      <div class="company-logo">JM</div>
+      <div>
+        <h3 class="job-title">Product Manager</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Jumia</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Lead product development for Africa's largest e-commerce platform. You'll define product roadmaps, prioritize features, and work with cross-functional teams to deliver solutions tailored to African consumers.</p>
+      <div class="job-tags">
+        <span class="job-tag">Product Strategy</span>
+        <span class="job-tag">Agile</span>
+        <span class="job-tag">User Research</span>
+        <span class="job-tag">E-commerce</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$3,500 - $5,000/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 14 -->
+  <div class="job-card" data-title="Graphic Designer" data-company="Creative Dakar" data-location="Senegal" data-type="Part-time" data-category="design">
+    <div class="job-header">
+      <div class="company-logo">CD</div>
+      <div>
+        <h3 class="job-title">Graphic Designer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> Creative Dakar</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Dakar, Senegal</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Create visual content for West African brands. We need a designer who can blend modern design aesthetics with African visual traditions to create compelling marketing materials.</p>
+      <div class="job-tags">
+        <span class="job-tag">Adobe Creative Suite</span>
+        <span class="job-tag">Branding</span>
+        <span class="job-tag">Illustration</span>
+        <span class="job-tag">French</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,000 - $1,800/mo</span>
+      <span class="job-type part-time">Part-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 15 -->
+  <div class="job-card featured" data-title="Blockchain Developer" data-company="AfriChain" data-location="Remote" data-type="Full-time" data-category="tech">
+    <div class="job-header">
+      <div class="company-logo">AC</div>
+      <div>
+        <h3 class="job-title">Blockchain Developer</h3>
+        <p class="company-name"><i class="fas fa-building"></i> AfriChain</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Remote</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Build decentralized solutions for African financial systems. We're developing blockchain-based solutions to improve financial inclusion across Africa and need experienced Solidity developers.</p>
+      <div class="job-tags">
+        <span class="job-tag">Solidity</span>
+        <span class="job-tag">Ethereum</span>
+        <span class="job-tag">Smart Contracts</span>
+        <span class="job-tag">Web3</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$4,000 - $6,000/mo</span>
+      <span class="job-type remote">Remote</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 16 -->
+  <div class="job-card" data-title="HR Manager" data-company="PanAfrican Corp" data-location="Ghana" data-type="Full-time" data-category="business">
+    <div class="job-header">
+      <div class="company-logo">PAC</div>
+      <div>
+        <h3 class="job-title">HR Manager</h3>
+        <p class="company-name"><i class="fas fa-building"></i> PanAfrican Corp</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Lead HR operations for our growing pan-African team. You'll develop HR policies, manage recruitment, and ensure we maintain a positive work culture across our offices in 5 African countries.</p>
+      <div class="job-tags">
+        <span class="job-tag">Recruitment</span>
+        <span class="job-tag">Employee Relations</span>
+        <span class="job-tag">Policy Development</span>
+        <span class="job-tag">French</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$2,500 - $3,500/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+  
+  <!-- Job Card 17 -->
+  <div class="job-card" data-title="Solar Technician" data-company="GreenPower Africa" data-location="Rwanda" data-type="Full-time" data-category="energy">
+    <div class="job-header">
+      <div class="company-logo">GPA</div>
+      <div>
+        <h3 class="job-title">Solar Technician</h3>
+        <p class="company-name"><i class="fas fa-building"></i> GreenPower Africa</p>
+        <p class="job-location"><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+      </div>
+    </div>
+    <div class="job-body">
+      <p class="job-description">Install and maintain solar power systems in rural communities. We're expanding our renewable energy projects across East Africa and need skilled technicians with electrical experience.</p>
+      <div class="job-tags">
+        <span class="job-tag">Solar Installation</span>
+        <span class="job-tag">Electrical</span>
+        <span class="job-tag">Maintenance</span>
+        <span class="job-tag">Renewable Energy</span>
+      </div>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">$1,000 - $1,500/mo</span>
+      <span class="job-type">Full-time</span>
+    </div>
+  </div>
+
+          <!-- Load More Button -->
+<div class="load-more">
+    <button class="load-more-btn">
+      Load More Jobs <i class="fas fa-sync-alt"></i>
+    </button>
+  </div>
+  
+  <!-- No Results Message -->
+  <div class="no-results">
+    <i class="fas fa-search"></i>
+    <p>No jobs found matching your criteria</p>
+    <p>Try adjusting your filters or search term</p>
+  </div>
+  
+  <!-- Back to Top Button -->
+  <div class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // JavaScript for job filtering, search, and UI interactions
+document.addEventListener('DOMContentLoaded', function() {
+  // Search functionality
+  const searchInput = document.getElementById('job-search');
+  const jobCards = document.querySelectorAll('.job-card');
+  const jobsCount = document.getElementById('jobs-count');
+  const noResults = document.querySelector('.no-results');
+  
+  // Filter functionality
+  const filterSelects = document.querySelectorAll('.filter-select');
+  
+  // Back to top button
+  const backToTopBtn = document.querySelector('.back-to-top');
+  
+  // Search and filter implementation
+  function filterJobs() {
+    const searchTerm = searchInput.value.toLowerCase();
+    let visibleJobs = 0;
+    
+    // Get filter values
+    const filters = {};
+    filterSelects.forEach(select => {
+      if (select.value) {
+        filters[select.id] = select.value.toLowerCase();
+      }
+    });
+    
+    // Apply filters to each job card
+    jobCards.forEach(card => {
+      let visible = true;
+      
+      // Search term filter
+      const jobTitle = card.dataset.title.toLowerCase();
+      const jobCompany = card.dataset.company.toLowerCase();
+      const jobLocation = card.dataset.location.toLowerCase();
+      
+      if (searchTerm && !jobTitle.includes(searchTerm) && 
+          !jobCompany.includes(searchTerm) && 
+          !jobLocation.includes(searchTerm)) {
+        visible = false;
+      }
+      
+      // Apply other filters
+      if (filters['job-type'] && !card.dataset.type.toLowerCase().includes(filters['job-type'])) {
+        visible = false;
+      }
+      
+      if (filters['location'] && !card.dataset.location.toLowerCase().includes(filters['location'])) {
+        visible = false;
+      }
+      
+      if (filters['category'] && !card.dataset.category.toLowerCase().includes(filters['category'])) {
+        visible = false;
+      }
+      
+      // Update visibility
+      if (visible) {
+        card.style.display = 'block';
+        visibleJobs++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Update jobs count
+    jobsCount.textContent = visibleJobs;
+    
+    // Show/hide no results message
+    if (visibleJobs === 0) {
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+    }
+  }
+  
+  // Event listeners
+  searchInput.addEventListener('input', filterJobs);
+  filterSelects.forEach(select => {
+    select.addEventListener('change', filterJobs);
+  });
+  
+  // Back to top functionality
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+  
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Load more functionality
+  const loadMoreBtn = document.querySelector('.load-more-btn');
+  loadMoreBtn.addEventListener('click', function() {
+    // Here you would typically fetch more jobs from an API
+    // For demo purposes, we'll just show a message
+    loadMoreBtn.textContent = 'No more jobs to load';
+    loadMoreBtn.disabled = true;
+    setTimeout(() => {
+      loadMoreBtn.textContent = 'Load More Jobs';
+      loadMoreBtn.disabled = false;
+    }, 2000);
+  });
+});
+  </script>
+  </body>
+</html>
+  

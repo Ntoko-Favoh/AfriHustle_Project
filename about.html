@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Page</title>
+    <link rel="stylesheet" href="./about.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/svg" href="../assets/logo.svg">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Monteserrat, Nunito and poppins font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+#navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1400px; /* Added max-width for better control */
+    margin: 0 auto; /* Center the container */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 200px; /* Fixed width for logo section */
+}
+
+.logo img {
+    height: 90px;
+    width: auto;
+    transition: transform 0.3s ease;
+    margin-left: 30%;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex: 1; /* Takes remaining space to keep centered */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4A5568;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #005249;
+}
+
+.nav-link.active {
+    color: #005249;
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #005249;
+    border-radius: 3px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+     /* Fixed width for auth buttons */
+    justify-content: flex-end;
+    padding-right: 30px; /* Added right padding */
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    min-width: 150px; /* Slightly reduced */
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline {
+    border: 2px solid #FF6B00;
+    color: #FF6B00;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 107, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #F84509;
+}
+
+/* hero section design */
+
+#section-1 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15rem;
+    background-color: #FAEFE8;
+    padding: 4rem;
+    position: relative;
+}
+
+.leftbox {
+    display: flex;
+    width: 48%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 42px;
+}
+
+.titlebox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    align-self: stretch;
+}
+
+.titlebox h1 {
+    color: #003B33;
+    font-family: "Poppins", sans-serif;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.rightbox {
+    width: 30%;
+}
+
+.titlebox p {
+    color: #5B5D5C;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.primarybtn,
+.secbtn {
+    display: flex;
+    height: 50px;
+    padding: 20px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    border: 2px solid #fff;
+    background-color: transparent;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.primarybtn svg,
+.secbtn svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.primarybtn:hover {
+    background-color: #d78819;
+    border: 1px solid white;
+}
+
+.secbtn:hover {
+    background-color: #D16014;
+    border: none;
+}
+
+.secbtn {
+    background-color: #F89509;
+    border: none;
+}
+
+/* Update rightbox styles to handle the image properly */
+.rightbox {
+    width: 350px;
+      margin: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.rightbox .image {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.about-hero-img:hover {
+    transform: scale(1.05);
+}
+
+/* Original Shapes with their colors and styles */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circlebg {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle2 {
+    width: 350px;
+    height: 350px;
+    background-color: #F1CEB6;
+    z-index: 1;
+}
+
+.circle1 {
+    width: 200px;
+    height: 200px;
+    background-color: #FFF;
+    z-index: 2;
+    right: 30%;
+}
+
+/* second section */
+
+#section2 {
+    display: flex;
+    padding: 80px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    background-color: #D9F2EF;
+}
+
+#section2 .titlebox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+#section2 .titlebox h2 {
+    font-family: "Montserrat", "Poppins", sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 39.6px;
+    text-transform: capitalize;
+    color: #262626;
+}
+
+#section2 .titlebox p {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #565454;
+}
+
+#cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    width: calc(33.33% - 20px);
+    height: 230px;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px -5px rgba(244, 146, 8, 0.1);
+    border-radius: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 5px 15px -5px rgba(244, 146, 8, 0.818);
+}
+
+.card .icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #D9F2EF;
+    background-color: #004C41;
+    fill: white;
+}
+
+.iconbox img {
+    position: absolute;
+    top: 0;
+    left: 30%;
+}
+
+.iconbox2 img {
+    position: absolute;
+    top: 0;
+    left: 80%;
+}
+
+.card h4 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    letter-spacing: -0.48px;
+    color: #353636;
+}
+
+.card p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #444645;
+}
+
+.card .img {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 62%;
+    top: 80%;
+    border-radius: 20px;
+}
+
+.namebox {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#section2 .container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* OUR STORY STYLING */
+
+.Properties {
+    padding: 50px 0;
+    background-color: #004c41;
+}
+
+.text-content p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #E6F6F4;
+}
+
+.text-content h2 {
+    font-family: "Nunito", sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 60px;
+    text-transform: capitalize;
+    color: #D16014;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 60px;
+    border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        gap: 60px;
+    }
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    margin-left: 50px;
+}
+
+.text-content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.image-content {
+    width: 500px;
+    height: 500px;
+    flex: 1;
+}
+
+.image-content img {
+    width: 500px;
+    height: 500px;
+    border-radius: 8px;
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+}
+
+/* MEET THE AFRIHUSTLE TEAM SECTION STYLING*/
+
+.Properties-1 {
+    padding: 30px;
+}
+
+.Team-container {
+    margin: 0 auto;
+    padding: 40px 40px;
+    background-color: #FAEFE8;
+    border-radius: 8px;
+}
+
+.intro-content {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.intro-content h2 {
+    color: #003B33;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    font-family: "Nunito";
+}
+
+.intro-content p {
+    color: #353636;
+    font-size: 0.8rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-family: "Montserrat";
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+.stat-item {
+    position: relative;
+    padding: 0 40px;
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+}
+
+.vertical-line {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 1px;
+    background-color: #979B99;
+}
+
+.stat-item:first-child .vertical-line {
+    display: none;
+}
+
+.stat-item h5 {
+    color: #003B33;
+    font-size: 2.5rem;
+    margin: 0 0 5px 0;
+    font-family: "Nunito";
+}
+
+.stat-item h6 {
+    color: #003B33;
+    font-size: 1rem;
+    margin: 0 0 5px 0;
+}
+
+.stat-item p {
+    color: #004C41;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.team-members-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 30PX auto;
+    padding: 15px 20px;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.team-member {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #000;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.team-member img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #EAEAEA;
+    margin-bottom: 8px;
+}
+
+.team-member h6 {
+    color: #000;
+    font-size: 0.90rem;
+    margin: 8px 0 4px;
+    font-weight: 700;
+    font-family: "Montserrat";
+    width: 100%;
+    text-align: center;
+}
+
+.team-member p {
+    color: #5B5D5C;
+    font-size: 0.82rem;
+    margin: 0;
+    font-family: "Montserrat";
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+}
+
+.team-member h6,
+.team-member p {
+    text-align: left;
+    width: 100%;
+    padding-left: 10px;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: white;
+    color: #333;
+    padding: 40px 20px 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-column h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #005249;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #FF6B00;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #FF6B00;
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    #section-1 {
+        gap: 60px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8rem;
+        margin-left: 50px;
+    }
+
+    .text-content{
+        width: 100%;
+        padding: 0 40px;
+    }
+
+    .titlebox h1 {
+        font-size: 52px;
+    }
+
+    .titlebox p {
+        line-height: 32px;
+    }
+
+    .card {
+        height: 320px;
+    }
+
+    .card p {
+        line-height: 24px;
+    }
+
+    .card .img {
+        margin-left: 52%;
+        top: 88%;
+        border-radius: 20px;
+        width: 80px;
+    }
+
+    .iconbox img {
+        position: absolute;
+        top: 0;
+        left: 40%;
+        width: 80px;
+    }
+
+    .iconbox2 img {
+        position: absolute;
+        top: 0;
+        left: 67%;
+        width: 70px;
+    }
+
+    .iconbox2 img {
+        position: absolute;
+        top: 0;
+        left: 73%;
+    }
+
+    /* Team Container */
+    .Team-container {
+        padding: 30px 30px;
+    }
+    
+    /* Stats Section */
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    
+    .stat-item {
+        padding: 20px 0;
+        max-width: 100%;
+    }
+    
+    .vertical-line {
+        width: 100%;
+        height: 1px;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .stat-item:first-child .vertical-line {
+        display: block;
+    }
+    
+    /* Team Members */
+    .team-members-container {
+        flex-wrap: wrap;
+    }
+    
+    .team-member {
+        width: calc(33.33% - 20px);
+    }
+
+    /* Navbar adjustments */
+    .nav-links {
+        display: none;
+    }
+
+    .auth-buttons {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+
+    .card .img {
+        margin-left: 60%;
+    }
+
+    .image-content {
+        width: 50%;
+        height: auto;
+        flex: 1;
+    }
+    
+    .image-content img {
+        width: 300px;
+        height: 300px;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    /* Footer adjustments */
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        display: flex;
+        width: 280px;
+    }
+
+    .card .img {
+        margin-left: 55%;
+        margin-top: 4.5%;
+    }
+
+    .card {
+        height: 300px;
+    }
+
+
+    .iconbox2 img {
+        position: absolute;
+        top: 0;
+        left: 75%;
+    }
+
+    .card p {
+        line-height: 24px;
+    }
+
+    #section-1 {
+        flex-direction: column;
+        gap: 20px;
+        padding: 40px 20px;
+    }
+
+    .leftbox {
+        width: 100%;
+        gap: 30px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .titlebox {
+        gap: 20px;
+    }
+
+    .titlebox h1 {
+        font-size: 48px;
+        line-height: 48px;
+        color: #074d44;
+    }
+
+    .rightbox {
+        width: 30%;
+    }
+
+    .titlebox p {
+        font-size: 18px;
+    }
+
+    .container2 .titlebox h2 {
+        font-size: 28px;
+    }
+
+    /* Team members */
+    .team-member {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+   /* Footer */
+   .footer {
+            background-color: #4c2b03;
+            color: white;
+            padding: 40px 10%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .footer-logo-col {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo img {
+            width: 100px;
+        }
+        
+        .footer-col {
+            min-width: 200px;
+        }
+        
+        .footer-right-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .footer-link a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+        
+        .footer-section {
+            margin-top: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .newsletter-form button {
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .testimonials-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cta-buttons {
+                margin-top: 20px;
+            }
+            
+            .main-content {
+                padding: 20px 5%;
+            }
+            
+            .testimonials-container {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-logo-col {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-right-col {
+                align-items: flex-start;
+            }
+            
+            .contact-info {
+                text-align: left;
+            }
+            
+            .social-icons {
+                justify-content: flex-start;
+            }
+            
+            .newsletter-form {
+                width: 100%;
+            }
+        }
+
+
+</style>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo">
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="signin.html" class="btn btn-outline">Signin <i class="fas fa-sign-in-alt"></i></a>
+                <a href="/signup" class="btn btn-primary">Signup <i class="fas fa-user-plus"></i></a>
+              </div>
+        </div>
+    </nav>
+
+    <section id="section-1">
+        <div class="leftbox">
+            <div class="titlebox">
+                <h1>Who we are</h1>
+                <p>Whether you're a skilled artisan looking for clients, a gig worker seeking flexible jobs, or a
+                    business in need of reliable talent, Afrihustle is here to help you connect, grow, and succeed.
+                </p>
+            </div>
+
+            <button class="secbtn">
+                Get in touch
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                    <path
+                        d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="rightbox">
+            <div class="image">
+                <img class="about-hero-img" src="assests/138403a1fdcbf392cbea38c1c841f793.jpg" alt="Who we are hero image">
+            </div>
+        </div>
+    </section>
+
+    <section id="section2">
+        <div class="container2">
+            <div class="titlebox">
+                <h2>Our Mission</h2>
+                <p>Our value proposition</p>
+            </div>
+            <div id="cardContainer">
+                <div class="card">
+                    <div class="iconbox">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+                            </path>
+                        </svg>
+                        <img src="assests/shape.svg" alt="shape 1">
+                    </div>
+                    <h4>Job Matching</h4>
+                    <p>Provide accurate and relevant job matches for informal workers, gig workers, and artisans using
+                        advanced AI and location-based matching</p>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="namebox">
+                        <h4>Financial Inclusion:</h4>
+                        <p>Provide access to financial services, such as mobile payments, savings, and credit facilities
+                        </p>
+                        <img class="img" src="assests/shape4.svg" alt="shape2">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="iconbox2">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+                            </path>
+                        </svg>
+                        <img src="assests/shape3.svg" alt="shape3">
+                    </div>
+                    <h4>Skill Development:</h4>
+                    <p>Offer continuous skill development opportunities to enhance employability and income potential
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="namebox">
+                        <h4>User Engagement:</h4>
+                        <p>Foster a sense of community and engagement among users through regular updates,
+                            notifications, and incentives</p>
+                        <img class="img" src="assests/shape4.svg" alt="shape2">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="namebox">
+                        <h4>Accessibility:</h4>
+                        <p>Ensure platform accessibility via multiple channels, including USSD codes, WhatsApp, mobile
+                            app, and web platforms</p>
+                        <img class="img" src="assests/shape4.svg" alt="shape2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR STORY SECTION -->
+
+    <section class="Properties">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <h2>Our Story</h2>
+                    <p>At Afrihustle, we believe in the power of Africa's workforce — the artisans, gig workers, and
+                        informal workers whose creativity and resilience drive the continent's growth. Our mission is to
+                        bridge the digital divide by creating a platform that connects these hardworking individuals to
+                        meaningful job opportunities, essential financial services, and ongoing skill development.
+                        Founded with a vision to empower and uplift, Afrihustle provides a space where talent meets
+                        opportunity. We understand the unique challenges faced by informal workers, and we strive to
+                        offer a solution that promotes economic inclusion, fosters personal growth, and drives
+                        sustainable livelihoods.
+                        Whether you're a skilled artisan looking for clients, a gig worker seeking flexible jobs, or a
+                        business in need of reliable talent, Afrihustle is here to help you connect, grow, and succeed.
+                    </p>
+                </div>
+                
+                <div class="image-content">
+                    <img src="assests/9c1a33f8d3aff21ac9a78dc56aa1d3cc.jpg" alt="Afrihustle Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEET THE AFRIHUSTLE TEAM SECTION -->
+
+    <section class="Properties-1">
+        <div class="Team-container">
+            <div class="text-container">
+                <div class="intro-content">
+                    <h2>Meet the Afrihustle Team</h2>
+                    <p>At Afrihustle, our team is a blend of passionate professionals dedicated to empowering Africa's
+                        informal workforce. We bring together experience in technology, business development, and
+                        community impact to create a platform that truly serves its users.</p>
+                </div>
+
+
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="vertical-line"></div>
+                        <h5>6</h5>
+                        <h6>Committed Individuals</h6>
+                        <p>Working in our team</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="vertical-line"></div>
+                        <h5>5</h5>
+                        <h6>Different Countries</h6>
+                        <p>Around the globe</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="vertical-line"></div>
+                        <h5>1</h5>
+                        <h6>Objectives</h6>
+                        <p>In Rwanda and Cameroon</p>
+                    </div>
+                </div>
+
+
+                <div class="team-members-container">
+                    <div class="team-member">
+                        <img src="assests/images/p1.png" alt="Basamm Alfayeed">
+                        <h6>Basamm Alfayeed</h6>
+                        <p>Product Manager</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assests/images/p2.png" alt="Sarah Johnson">
+                        <h6>Sarah Johnson</h6>
+                        <p>UX Designer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assests/images/p3.png" alt="David Mbeki">
+                        <h6>David Mbeki</h6>
+                        <p>Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assests/images/p4.png" alt="Amina Diallo">
+                        <h6>Amina Diallo</h6>
+                        <p>Community Lead</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-logo-col">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo" />
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="index.html">Home</a></li>
+                        <li class="footer-link"><a href="about.html">About Us</a></li>
+                        <li class="footer-link"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <div class="footer-title">Resources</div>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">FAQs</a></li>
+                    <li class="footer-link"><a href="support.html">Support</a></li>
+                    <li class="footer-link"><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <div class="footer-title">Legal</div>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Terms & Conditions</a></li>
+                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-right-col">
+                <div class="contact-info">
+                    Africa, everywhere in Africa<br>
+                    you can find us
+                </div>
+                
+                <div class="contact-info">
+                    Tel: +250 000 000 000
+                </div>
+                
+                <div class="contact-info">
+                    afrihustle@gmail.com
+                </div>
+                
+                <div class="social-icons">
+                    <div class="social-icon">𝕏</div>
+                    <div class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">in</div>
+                    <div class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+        
+        <div class="footer-bottom">
+            Copyright © 2025, AfriHustle. All Rights Reserved.
+        </div>
+      </div>
+</body>
+
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AA Hackathon Group 5 Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e6f8f4;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* This will push logo left and user-actions right */
+        }
+
+        .logo {
+            height: 90px;
+        }
+
+        nav {
+            position: absolute; /* Take nav out of normal flow */
+            left: 50%; /* Position at 50% from left */
+            transform: translateX(-50%); /* Center precisely */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: orange;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-left: auto; /* Push to the right */
+        }
+
+        .user-actions i {
+            color: orange;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .user-actions img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid orange;
+        }
+
+        .event-wrapper {
+             display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+           font-family: "Roboto", sans-serif;
+        }
+  
+  .event-card {
+    background-color: #004d40;
+    color: white;
+    padding: 1.5rem;
+    width: 350px;
+    border-radius: 20px;
+    margin-bottom: 5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #013220;
+        }
+        .event-card p {
+            margin: 0.5rem 0;
+            font-size: 14px;
+        }
+
+        .about-text{
+            line-height: 1.9;
+        }
+
+  
+  
+
+  .event-card a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .footerevent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1.5rem;
+  }
+  
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .group span {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .images img {
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .register-btn {
+    background-color: #f7a420;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+        /* Footer */
+        .footer {
+            background-color: #4c2b03;
+            color: white;
+            padding: 40px 10%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-logo-col {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-logo img {
+            width: 100px;
+        }
+
+        .footer-col {
+            min-width: 200px;
+        }
+
+        .footer-right-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .footer-link a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .footer-section {
+            margin-top: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter-form button {
+            padding: 10px 15px;
+            background-color: var(--orange);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-cog"></i>
+            <img src="https://i.pravatar.cc/36?img=5" alt="User Profile">
+        </div>
+    </header>
+
+    <main class="event-wrapper">
+        <section class="column">
+            <h2>All Events</h2>
+        <div class="event-card">
+            <p><strong>Name :</strong> Product Design</p>
+            <p><strong>Date & Time :</strong> 03/4/2025 9:00 AM WAT</p>
+            <p><strong>ADDRESS :</strong> Online</p>
+            <p class="about-text" ><strong>About :</strong> Learn How Great Products Are Created From<br>
+                Concept To User-Focused Design With Insights, Case <br> Studies,
+                And Practical Tips For All Skill Levels.</p>
+
+            <div class="footerevent">
+                <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                </div>
+
+                <button class="register-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <p><strong>Name:</strong> Product Management</p>
+            <p><strong>Date & Time:</strong> 04/4/2025 9:00 AM WAT</p>
+            <p><strong>ADDRESS:</strong> Online</p>
+            <p class="about-text"><strong>About:</strong> Gain Insights Into The Core Principles Of
+                Product Management Discover How Teams Build
+                User-Centered Products To Solve Problems.</p>
+            <div class="footerevent">
+                <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                </div>
+
+                <button class="register-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <p><strong>Name:</strong> Web Development</p>
+            <p><strong>Date & Time:</strong> 06/4/2025 9:00 AM WAT</p>
+            <p><strong>ADDRESS:</strong> Online</p>
+            <p class="about-text"><strong>About:</strong> Join Us As We Explore The Latest Trends, Tools, And
+                Technologies In Web Development. Discover How To Build
+                Dynamic, Responsive, And Modern Websites.</p>
+            <div class="footerevent">
+                <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                </div>
+
+                <button class="register-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <p><strong>Name:</strong> Crocheting</p>
+            <p><strong>Date & Time:</strong> 07/4/2025 9:00 AM WAT</p>
+            <p><strong>ADDRESS:</strong> Online</p>
+            <p class="about-text"><strong>About:</strong> Join Us For A Fun And Creative Crocheting
+                Event Where All Come Together To Learn, Share, And
+                Craft Beautiful Pieces.</p>
+            <div class="footerevent">
+                <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                </div>
+
+                <button class="register-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <p><strong>Name:</strong> Data Analysis</p>
+            <p><strong>Date & Time:</strong> 09/4/2025 9:00 AM WAT</p>
+            <p><strong>ADDRESS:</strong> Online</p>
+            <p class="about-text"><strong>About:</strong> Discover How Data Analysis Transforms Raw Data
+                Into Meaningful Insights That Drive Smarter Decisions.
+                Join Us To Explore Tools, Techniques, And Real-World.</p>
+            <div class="footerevent">
+                <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                </div>
+
+                <button class="register-btn">Register</button>
+            </div>
+        </div>
+        </section>
+
+        <section class="column">
+            <h2>Registered Events</h2>
+
+            <div class="event-card">
+                <p><strong>Name :</strong> Product Design</p>
+                <p><strong>Date & Time :</strong> 03/4/2025  9:00 AM WAT</p>
+                <p><strong>ADDRESS :</strong> Online</p>
+                <p><strong>Link :</strong> <a href="#">Join Via Zoom</a></p>
+                <p>https://Zoom.Us/J/1234567890?Pw</p>
+                <p>Meeting ID: 123 456 7890</p>
+                <p>Passcode: Design2025</p>
+          
+                <div class="footerevent">
+                  <div class="group">
+                    <span>Host</span>
+                    <div class="images">
+                      <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                    </div>
+                  </div>
+          
+                  <div class="group">
+                    <span>Attendees</span>
+                    <div class="images">
+                      <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                      <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                      <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="event-card">
+                <p><strong>Name:</strong> Product Management</p>
+                <p><strong>Date & Time:</strong> 04/4/2025 9:00 AM WAT</p>
+                <p><strong>ADDRESS:</strong> Online</p>
+                <p><strong>Link:</strong> <a href="#">Join via Zoom:</a></p>
+                <p><strong>Https://zoom.Us/J/1234567890?PW</strong>
+                <p>Meeting ID: 123 456 7890</p>
+                <p>Passcode: Design2025</p>
+                <div class="footerevent">
+                    <div class="group">
+                      <span>Host</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                      </div>
+                    </div>
+            
+                    <div class="group">
+                      <span>Attendees</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="event-card">
+                <p><strong>Name:</strong> Software Development</p>
+                <p><strong>Date & Time:</strong> 05/4/2025 9:00 AM WAT</p>
+                <p><strong>ADDRESS:</strong> Online</p>
+                <p><strong>Link:</strong> <a href="#">Join via Zoom:</a></p>
+                <p><strong>Https://zoom.Us/J/1234567890?PW</strong>
+                <p>Meeting ID: 123 456 7890</p>
+                <p>Passcode: Design2025</p>
+                <div class="footerevent">
+                    <div class="group">
+                      <span>Host</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                      </div>
+                    </div>
+            
+                    <div class="group">
+                      <span>Attendees</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="event-card">
+                <p><strong>Name:</strong> Cv & Essay Writing</p>
+                <p><strong>Date & Time:</strong> 08/4/2025 9:00 AM WAT</p>
+                <p><strong>ADDRESS:</strong> Online</p>
+                <p><strong>Link:</strong> <a href="#">Join via Zoom:</a></p>
+                <p><strong>Https://zoom.Us/J/1234567890?PW</strong>
+                <p>Meeting ID: 123 456 7890</p>
+                <p>Passcode: Design2025</p>
+                <div class="footerevent">
+                    <div class="group">
+                      <span>Host</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                      </div>
+                    </div>
+            
+                    <div class="group">
+                      <span>Attendees</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+
+                <div class="event-card">
+                <p><strong>Name:</strong> Mental Health & Self Care</p>
+                <p><strong>Date & Time:</strong> 10/4/2025 9:00 AM WAT</p>
+                <p><strong>ADDRESS:</strong> Online</p>
+                <p><strong>Link:</strong> <a href="#">Join via Zoom:</a></p>
+                <p><strong>Https://zoom.Us/J/1234567890?PW</strong>
+                <p>Meeting ID: 123 456 7890</p>
+                <p>Passcode: Design2025</p>
+                <div class="footerevent">
+                    <div class="group">
+                      <span>Host</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=1" alt="host" />
+                      </div>
+                    </div>
+            
+                    <div class="group">
+                      <span>Attendees</span>
+                      <div class="images">
+                        <img src="https://i.pravatar.cc/30?img=2" alt="attendee1" />
+                        <img src="https://i.pravatar.cc/30?img=3" alt="attendee2" />
+                        <img src="https://i.pravatar.cc/30?img=1" alt="attendee3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer slideBottom">
+        <div class="footer-content">
+            <div class="footer-logo-col">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="assests/Emailing afrihustle logo with name and WBG_.png" alt="AfriHustle Logo" />
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="index.html">Home</a></li>
+                        <li class="footer-link"><a href="about.html">About Us</a></li>
+                        <li class="footer-link"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <div class="footer-title">Resources</div>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">FAQs</a></li>
+                    <li class="footer-link"><a href="support.html">Support</a></li>
+                    <li class="footer-link"><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <div class="footer-title">Legal</div>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Terms & Conditions</a></li>
+                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-right-col">
+                <div class="contact-info">
+                    Africa, everywhere in Africa<br>
+                    you can find us
+                </div>
+
+                <div class="contact-info">
+                    Tel: +250 000 000 000
+                </div>
+
+                <div class="contact-info">
+                    afrihustle@gmail.com
+                </div>
+
+                <div class="social-icons">
+                    <div class="social-icon">𝕏</div>
+                    <div class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                        </svg>
+                    </div>
+                    <div class="social-icon">in</div>
+                    <div class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+
+        <div class="footer-bottom">
+            Copyright © 2025, AfriHustle. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>
