@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildLight Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+           * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: #f0f0f0;
+        }
+        
+        .sidebar {
+            width: 250px; /* Changed from 180px */
+            background-color: #009883;
+            height: 100vh;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;  
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50px;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .menu-item.active {
+            background-color: #007e65;
+        }
+        
+        .menu-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+        }
+        
+        
+
+         .main-content {
+            flex: 1;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 250px; /* Changed from 180px */
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            border-bottom: 1px solid #eaeaea;
+            align-items: center;
+        }
+        
+        .header-left {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+        }
+        
+        .profile-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-section {
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #00876c;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+            color: #333;
+        }
+        
+        .profile-info p {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .about-section {
+            padding: 20px 30px;
+        }
+        
+        .about-section h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .about-section p {
+            line-height: 1.6;
+            color: #444;
+            font-size: 16px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eaeaea;
+            margin: 20px 30px;
+        }
+        
+        .stats-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 30px;
+            gap: 20px;
+        }
+        
+        .stats-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            width: calc(50% - 10px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00876c;
+            margin-bottom: 5px;
+        }
+        
+        .ratings {
+            color: #f0ad4e;
+            font-size: 24px;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .why-work-section {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        
+        .why-work-list {
+            width: 50%;
+        }
+        
+        .why-work-list h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .why-work-list ul {
+            list-style: none;
+        }
+        
+        .why-work-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 16px;
+            color: #444;
+        }
+        
+        .why-work-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #00876c;
+            font-size: 20px;
+        }
+        
+        .contact-section {
+            width: 50%;
+        }
+        
+        .contact-section h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .contact-section p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #444;
+        }
+        
+        .contact-section a {
+            color: #00876c;
+            text-decoration: none;
+        }
+        
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tablet view (between 600px and 1024px) */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+   .profile-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stats-row {
+        flex-direction: column;
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+
+    .why-work-section {
+        flex-direction: column;
+    }
+
+    .why-work-list, .contact-section {
+        width: 100%;
+    }
+}
+
+/* Mobile view (less than 600px) */
+@media (max-width: 600px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+
+    .menu-item {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .header-right {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .stats-section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+
+    .why-work-section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .why-work-list, .contact-section {
+        width: 100%;
+    }
+
+    .about-section, .divider {
+        padding: 15px;
+        margin: 15px 0;
+    }
+}
+
+     
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="assests/logo1.jpeg" alt="Africa Logo">
+            </div>
+        </div>
+        
+        <a href="employerD.html" class="menu-item">
+            <i class="fas fa-chart-pie"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="manage-jobs.html" class="menu-item active">
+            <i class="fas fa-tasks"></i>
+            <span>Manage Jobs</span>
+        </a>
+        <a href="view-application.html" class="menu-item">
+            <i class="fas fa-file-alt"></i>
+            <span>View Applications</span>
+        </a>
+        <a href="recommendation.html" class="menu-item">
+            <i class="fas fa-star"></i>
+            <span>Workers recommendations</span>
+        </a>
+        <a href="payment-summary.html" class="menu-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Payment Summary</span>
+        </a>
+        <a href="my-wallet.html" class="menu-item">
+            <i class="fas fa-wallet"></i>
+            <span>My Wallet</span>
+        </a>
+        
+        <div class="menu-divider"></div>
+        
+        <a href="my-profile.html" class="menu-item">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings-employer.html" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <a href="index.html" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                Welcome Back, Jessica
+            </div>
+            <div class="header-right">
+                <div class="notification-icon">
+                    <i class="fas fa-bell" style="font-size: 20px; color: #555;"></i>
+                    <div class="notification-badge">3</div>
+                </div>
+                <div class="profile-icon">
+                    <img src="assests/eployerprofile.jpeg" alt="Profile Icon">
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="assests/eployerprofile.jpeg" alt="Profile Image">
+            </div>
+            <div class="profile-info">
+                <h1>BuildLight Company</h1>
+                <p>Lagos, Nigeria</p>
+                <p>Member Since March 2025</p>
+            </div>
+        </div>
+        
+        <div class="about-section">
+            <h2>About Us</h2>
+            <p>
+                At BuildLight Company, we are committed to delivering high quality construction and maintenance services across Africa. With over a decade experience, we specialize in residential renovations, plumbing and general labour. We value professionalism and timely delivery from all our workers. We believe in building long term relationships based on trust, transparency and respect for skilled labour.
+            </p>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="stats-section">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3>Jobs posted</h3>
+                    <div class="stat-number">20</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Applications received</h3>
+                    <div class="stat-number">200</div>
+                </div>
+            </div>
+            
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3>Successful Hires</h3>
+                    <div class="stat-number">15</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Average Rating</h3>
+                    <div class="stat-number">4.5</div>
+                    <span class="ratings">★★★★☆</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="why-work-section">
+            <div class="why-work-list">
+                <h2>Why work with us</h2>
+                <ul>
+                    <li>Good Working Environment</li>
+                    <li>Skill Development</li>
+                    <li>Flexible Hours</li>
+                </ul>
+            </div>
+            
+            <div class="contact-section">
+                <h2>Contact Us</h2>
+                <p>LinkedIn: <a href="#">BuildLight Company</a></p>
+                <p>Email: <a href="mailto:buildlightcompany@gmail.com">buildlightcompany@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Notification functionality
+        document.querySelector('.notification-icon').addEventListener('click', function() {
+            alert('You have 3 new notifications');
+        });
+        
+        // Profile picture upload functionality
+        document.querySelector('.profile-icon').addEventListener('click', function() {
+            alert('Profile picture upload dialog would appear here');
+        });
+    </script>
+</body>
+</html>

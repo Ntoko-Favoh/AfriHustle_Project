@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Applications Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #009883;
+            min-height: 100vh;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+            font-size: 20px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        .notification-container {
+            position: relative;
+        }
+
+        .notification-icon {
+            color: #ffc107;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 35px;
+            right: -10px;
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 15px;
+            display: none;
+            z-index: 100;
+        }
+
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .applications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .applications-table th {
+            text-align: left;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            font-weight: normal;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .applications-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .detail-button {
+            background-color: #FFA500;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .search-bar {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 15px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            width: 60%;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .applicant-details {
+            margin-top: 20px;
+        }
+
+        .applicant-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            width: 140px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+        }
+
+        /* Icons using material icons font */
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="assests/logo2.jpeg" alt="Africa Logo">
+            </div>
+        </div>
+        
+        <a href="employerD.html" class="menu-item">
+            <i class="material-icons">dashboard</i>
+            <span>Dashboard</span>
+        </a>
+        <a href="manage-jobs.html" class="menu-item active">
+            <i class="material-icons">work</i>
+            <span>Manage Jobs</span>
+        </a>
+        <a href="view-application.html" class="menu-item">
+            <i class="material-icons">description</i>
+            <span>View Applications</span>
+        </a>
+        <a href="recommendation.html" class="menu-item">
+            <i class="material-icons">recommend</i>
+            <span>Workers recommendations</span>
+        </a>
+        <a href="payment-summary.html" class="menu-item">
+            <i class="material-icons">payments</i>
+            <span>Payment Summary</span>
+        </a>
+        <a href="my-wallet.html" class="menu-item">
+            <i class="material-icons">account_balance_wallet</i>
+            <span>My Wallet</span>
+        </a>
+        
+        <div class="sidebar-divider"></div>
+        
+        <a href="my-profile.html" class="menu-item">
+            <i class="material-icons">person</i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings-employer.html" class="menu-item">
+            <i class="material-icons">settings</i>
+            <span>Settings</span>
+        </a>
+        <a href="index.html" class="menu-item">
+            <i class="material-icons">logout</i>
+            <span>Logout</span>
+        </a>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome Back, Jessica</h1>
+            <div class="notification-container">
+                <i class="material-icons notification-icon" id="notification-bell">notifications</i>
+                <span class="notification-count">3</span>
+                <div class="notification-dropdown" id="notification-dropdown">
+                    <h3>Recent Applications</h3>
+                    <div class="notification-item">
+                        <strong>John Smith</strong> applied for Plumber position
+                        <div class="notification-time">2 hours ago</div>
+                    </div>
+                    <div class="notification-item">
+                        <strong>Sarah Wilson</strong> applied for Electrician position
+                        <div class="notification-time">5 hours ago</div>
+                    </div>
+                    <div class="notification-item">
+                        <strong>David Johnson</strong> applied for Painter position
+                        <div class="notification-time">1 day ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>View Applications</h2>
+        
+        <table class="applications-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Service Provider</th>
+                    <th>Position Title</th>
+                    <th>Availability Schedule</th>
+                    <th>Posted</th>
+                    <th>Expires</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Mike John</td>
+                    <td>Plumber</td>
+                    <td>1:00 PM - 5:00 PM</td>
+                    <td>13/01/2025</td>
+                    <td>01/04/2025</td>
+                    <td><button class="detail-button" data-id="1">Details</button></td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>Adekoya Samuel</td>
+                    <td>Electrician</td>
+                    <td>1:00 PM - 5:00 PM</td>
+                    <td>13/01/2025</td>
+                    <td>05/05/2025</td>
+                    <td><button class="detail-button" data-id="2">Details</button></td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>Emmanuel Isaac</td>
+                    <td>Welder</td>
+                    <td>1:00 PM - 5:00 PM</td>
+                    <td>12/11/2024</td>
+                    <td>12/12/2024</td>
+                    <td><button class="detail-button" data-id="3">Details</button></td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>Mahmoud Musa</td>
+                    <td>Painter</td>
+                    <td>1:00 PM - 5:00 PM</td>
+                    <td>13/01/2025</td>
+                    <td>12/04/2025</td>
+                    <td><button class="detail-button" data-id="4">Details</button></td>
+                </tr>
+                <tr>
+                    <td>05</td>
+                    <td>Williams Jane</td>
+                    <td>Tailor</td>
+                    <td>1:00 PM - 5:00 PM</td>
+                    <td>13/01/2025</td>
+                    <td>12/04/2025</td>
+                    <td><button class="detail-button" data-id="5">Details</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Modal for applicant details -->
+    <div id="applicantModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Applicant Details</h2>
+            <div class="applicant-details" id="applicantDetails">
+                <!-- Details will be dynamically filled here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Notification dropdown toggle
+        document.getElementById('notification-bell').addEventListener('click', function() {
+            const dropdown = document.getElementById('notification-dropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('notification-dropdown');
+            const bell = document.getElementById('notification-bell');
+            if (event.target !== bell && !bell.contains(event.target) && 
+                event.target !== dropdown && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Details button functionality
+        const detailButtons = document.querySelectorAll('.detail-button');
+        const modal = document.getElementById('applicantModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        // Sample applicant data - in a real application this would come from a database
+        const applicantData = {
+            1: {
+                name: "Mike John",
+                position: "Plumber",
+                experience: "5 years",
+                skills: "Pipe installation, Repairs, Water heater installation",
+                rate: "$25/hour",
+                availability: "1:00 PM - 5:00 PM",
+                location: "Downtown, New York",
+                contact: "+1 (555) 123-4567",
+                email: "mike.john@example.com",
+                applications: 12,
+                completedJobs: 8
+            },
+            2: {
+                name: "Adekoya Samuel",
+                position: "Electrician",
+                experience: "7 years",
+                skills: "Wiring, Circuit installation, Lighting fixtures",
+                rate: "$30/hour",
+                availability: "1:00 PM - 5:00 PM",
+                location: "East Side, Lagos",
+                contact: "+234 (801) 234-5678",
+                email: "adekoya.s@example.com",
+                applications: 15,
+                completedJobs: 10
+            },
+            3: {
+                name: "Emmanuel Isaac",
+                position: "Welder",
+                experience: "3 years",
+                skills: "Metal fabrication, MIG/TIG welding, Custom metalwork",
+                rate: "$22/hour",
+                availability: "1:00 PM - 5:00 PM",
+                location: "West End, Abuja",
+                contact: "+234 (702) 345-6789",
+                email: "emmanuel.i@example.com",
+                applications: 8,
+                completedJobs: 5
+            },
+            4: {
+                name: "Mahmoud Musa",
+                position: "Painter",
+                experience: "4 years",
+                skills: "Interior painting, Exterior painting, Decorative finishes",
+                rate: "$20/hour",
+                availability: "1:00 PM - 5:00 PM",
+                location: "Northern District, Kano",
+                contact: "+234 (903) 456-7890",
+                email: "mahmoud.m@example.com",
+                applications: 10,
+                completedJobs: 7
+            },
+            5: {
+                name: "Williams Jane",
+                position: "Tailor",
+                experience: "6 years",
+                skills: "Custom clothing, Alterations, Embroidery",
+                rate: "$18/hour",
+                availability: "1:00 PM - 5:00 PM",
+                location: "Garden City, Port Harcourt",
+                contact: "+234 (804) 567-8901",
+                email: "williams.j@example.com",
+                applications: 9,
+                completedJobs: 6
+            }
+        };
+
+        detailButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const applicantId = this.getAttribute('data-id');
+                const applicant = applicantData[applicantId];
+                
+                // Fill in the modal with applicant details
+                const details = document.getElementById('applicantDetails');
+                details.innerHTML = `
+                    <img src="/api/placeholder/100/100" alt="${applicant.name}" class="applicant-photo">
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Name:</div>
+                        <div class="detail-value">${applicant.name}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Position:</div>
+                        <div class="detail-value">${applicant.position}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Experience:</div>
+                        <div class="detail-value">${applicant.experience}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Skills:</div>
+                        <div class="detail-value">${applicant.skills}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Rate:</div>
+                        <div class="detail-value">${applicant.rate}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Availability:</div>
+                        <div class="detail-value">${applicant.availability}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Location:</div>
+                        <div class="detail-value">${applicant.location}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Contact:</div>
+                        <div class="detail-value">${applicant.contact}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Email:</div>
+                        <div class="detail-value">${applicant.email}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Total Applications:</div>
+                        <div class="detail-value">${applicant.applications}</div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-label">Completed Jobs:</div>
+                        <div class="detail-value">${applicant.completedJobs}</div>
+                    </div>
+                `;
+                
+                document.getElementById('modalTitle').textContent = `${applicant.name} - ${applicant.position}`;
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal when clicking the close button
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

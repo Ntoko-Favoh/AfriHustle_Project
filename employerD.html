@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Dashboard</title>
+    <style>
+        :root {
+            --primary: #00A181;
+            --secondary: #F5F5F5;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #ddd;
+            --blue-btn: #007bff;
+            --calendar-highlight: #e6f7f4;
+            --orange: #FF6B35;
+            --light-orange: #FFD0BD;
+            --green: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #009883;
+            color: white;
+            padding: 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            background-color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid var(--orange);
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        .sidebar-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 15px 0;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            background-color: white;
+            overflow-y: auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .welcome-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .user-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .user-icons i {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .notification-icon {
+            color: var(--orange);
+            position: relative;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--orange);
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--orange);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dashboard-content {
+            padding: 20px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .stats-title {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .date-selector {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .applications-stats {
+            margin-bottom: 15px;
+        }
+        
+        .applications-stats p {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .applications-stats p.bold {
+            font-weight: 700;
+        }
+        
+        .circle-stats {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .circle-stat {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .circle-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .circle-value.green {
+            color: var(--green);
+        }
+        
+        .circle-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .app-received-card {
+            text-align: center;
+            padding: 25px 15px;
+        }
+        
+        .app-received-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .app-received-month {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .app-received-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--green);
+        }
+        
+        .recommendations {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .recommendations-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .provider-cards {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+        
+        .provider-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px 20px;
+            min-width: 240px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .provider-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #3b5998;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .provider-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .provider-job {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        
+        .provider-location {
+            font-size: 13px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .provider-location i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        
+        .view-profile {
+            background-color: white;
+            border: 1px solid var(--orange);
+            color: var(--orange);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        .view-profile:hover {
+            background-color: var(--orange);
+            color: white;
+        }
+        
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 6fr 4fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .calendar-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            background-color: var(--calendar-highlight);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .calendar-nav i {
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .calendar-nav i:hover {
+            color: var(--primary);
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .calendar th, .calendar td {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .calendar th {
+            color: var(--text-light);
+            font-weight: normal;
+        }
+
+        .calendar td {
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            position: relative;
+        }
+
+        .calendar td span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .calendar td:hover span {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .calendar td.today span {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar td.has-event span {
+            position: relative;
+        }
+
+        .calendar td.has-event span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--orange);
+        }
+
+        .calendar td.other-month {
+            color: #ccc;
+        }
+
+        /* Upcoming Events Styles */
+        .upcoming-events {
+            flex: 1;
+            margin-top: 10px;
+        }
+
+        .upcoming-events h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-right: 10px;
+            border-right: 1px solid var(--border-color);
+            margin-right: 10px;
+            min-width: 40px;
+        }
+
+        .event-day {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .event-month {
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        .event-details {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .event-time {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .event-time i {
+            margin-right: 3px;
+        }
+
+        .add-event-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 8px;
+            background-color: white;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .add-event-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .add-event-btn i {
+            margin-right: 5px;
+        }
+        
+        /* Progress Circles */
+        .progress-circle {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle-bg {
+            fill: none;
+            stroke: #f0f0f0;
+            stroke-width: 10;
+        }
+        
+        .progress-circle-fill {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.3s;
+        }
+        
+        .applications-fill {
+            stroke: var(--primary);
+        }
+        
+        .spent-fill {
+            stroke: #28a745;
+        }
+        
+        .chart-area {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .bar-chart {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            gap: 8px;
+            padding-top: 20px;
+        }
+        
+        .bar {
+            background-color: var(--light-orange);
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s;
+            position: relative;
+        }
+        
+        .bar.highlighted {
+            background-color: var(--orange);
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: var(--text-light);
+        }
+        
+        /* Notification dropdown */
+        .notification-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 15px;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .notification-title {
+            font-weight: 600;
+        }
+        
+        .mark-all-read {
+            color: var(--orange);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .notification-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #3b5998;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-text {
+            font-size: 14px;
+        }
+        
+        .notification-time {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        
+        /* Profile dropdown */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 15px;
+        }
+        
+        .profile-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .profile-upload .profile-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-btn {
+            background-color: var(--orange);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #e05a2b;
+        }
+        
+        .profile-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-link {
+            padding: 8px 0;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .profile-link:hover {
+            color: var(--orange);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #008c72;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .bottom-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .provider-cards {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 10px;
+        overflow: hidden;
+    }
+    
+    .logo-container {
+        margin-bottom: 20px;
+    }
+    
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .menu-item {
+        justify-content: center;
+        padding: 12px 5px;
+        margin-bottom: 5px;
+    }
+    
+    .menu-item span {
+        display: none;
+    }
+    
+    .menu-item i {
+        margin-right: 0;
+        font-size: 20px;
+    }
+    
+    .sidebar-divider {
+        margin: 10px 0;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+    
+    .chart-area {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .bar-chart {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .user-icons {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .provider-cards {
+        gap: 10px;
+    }
+    
+    .provider-card {
+        min-width: 200px;
+        padding: 20px 15px;
+    }
+    
+    .notification-dropdown {
+        width: 280px;
+        right: -50px;
+    }
+    
+    .profile-dropdown {
+        width: 180px;
+        right: -30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        z-index: 100;
+    }
+    
+    .logo-container, 
+    .sidebar-divider,
+    .menu-item:not(:nth-child(-n+6)) {
+        display: none;
+    }
+    
+    .menu-item {
+        width: auto;
+        margin: 0;
+        padding: 10px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding-bottom: 80px;
+    }
+    
+    .dashboard-content {
+        padding: 15px;
+    }
+    
+    .circle-stat {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .circle-value {
+        font-size: 20px;
+    }
+    
+    .app-received-value {
+        font-size: 28px;
+    }
+    
+    .notification-dropdown {
+        width: 250px;
+        right: -80px;
+    }
+    
+    .profile-dropdown {
+        width: 160px;
+        right: -50px;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Mobile landscape and small tablets */
+@media (max-width: 768px) and (orientation: landscape) {
+    .sidebar {
+        width: 60px;
+    }
+    
+    .main-content {
+        margin-left: 60px;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .circle-stat {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .circle-value {
+        font-size: 18px;
+    }
+    
+    .circle-label {
+        font-size: 10px;
+    }
+    
+    .provider-card {
+        min-width: 180px;
+        padding: 15px 10px;
+    }
+    
+    .provider-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .provider-name {
+        font-size: 16px;
+    }
+    
+    .view-profile {
+        padding: 6px 15px;
+        font-size: 12px;
+    }
+}
+
+/* Very small devices (phones under 400px) */
+@media only screen and (max-width: 400px) {
+    .header {
+        padding: 15px;
+    }
+    
+    .dashboard-content {
+        padding: 10px;
+    }
+    
+    .stats-card {
+        padding: 15px;
+    }
+    
+    .circle-stat {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .circle-value {
+        font-size: 16px;
+    }
+    
+    .app-received-value {
+        font-size: 24px;
+    }
+    
+    .event-item {
+        padding: 8px;
+    }
+    
+    .event-day {
+        font-size: 14px;
+    }
+    
+    .event-title {
+        font-size: 12px;
+    }
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="assests/logo2.jpeg" alt="Logo">
+            </div>
+        </div>
+        <a href="employerD.html" class="menu-item active">
+            <i class="fas fa-chart-pie"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="manage-jobs.html" class="menu-item">
+            <i class="fas fa-tasks"></i>
+            <span>Manage Jobs</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-file-alt"></i>
+            <span>View Applications</span>
+        </a>
+        <a href="recommendation.html" class="menu-item">
+            <i class="fas fa-star"></i>
+            <span>Workers recommendations</span>
+        </a>
+        <a href="payment-summary.html" class="menu-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Payment Summary</span>
+        </a>
+        <a href="my-wallet.html" class="menu-item">
+            <i class="fas fa-wallet"></i>
+            <span>My Wallet</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="my-profile.html" class="menu-item">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings-employer.html" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+        <a href="index.html" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </aside>
+    
+    <div class="main-content">
+        <header class="header">
+            <div class="welcome-text">Welcome Back, Jessica</div>
+            <div class="user-icons">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                    <div class="notification-dropdown">
+                        <div class="notification-header">
+                            <div class="notification-title">Notifications</div>
+                            <div class="mark-all-read">Mark all as read</div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-avatar">MJ</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Mike John applied for your Plumbing job in Yaounde</div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-avatar">EI</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Emmanuel Ike is interested in your Welder position</div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-avatar">MM</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Mahmoud Musa sent a message about your job posting</div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-icon">
+                    <img src="assests/Afro Hair Inspiration for Natural Texture.jpg" alt="Profile" id="profile-image">
+                    <div class="profile-dropdown">
+                        <div class="profile-upload">
+                            <div class="profile-icon">
+                                <img src="" alt="Profile" id="dropdown-profile-image">
+                            </div>
+                            <input type="file" id="profile-upload-input" accept="image/*" style="display: none;">
+                            <button class="upload-btn" id="upload-btn">Change Photo</button>
+                        </div>
+                        <div class="profile-links">
+                            <a href="my-profile.html" class="profile-link">My Profile</a>
+                            <a href="settings-employer.html" class="profile-link">Settings</a>
+                            <a href="index.html" class="profile-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard-content">
+            <div class="stats-container">
+                <div class="stats-card">
+                    <div class="stats-header">
+                        <div class="stats-title">Job Applications</div>
+                        <div class="date-selector">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <div class="applications-stats">
+                        <p class="bold"><i class="fas fa-circle" style="color: var(--primary);"></i> Applied Jobs</p>
+                        <p><i class="fas fa-circle" style="color: #ccc;"></i> All Jobs</p>
+                    </div>
+                    <div class="circle-stats">
+                        <div class="circle-stat">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="progress-circle-fill applications-fill" cx="60" cy="60" r="50" 
+                                  stroke-dasharray="314" stroke-dashoffset="251"></circle>
+                            </svg>
+                            <div class="circle-inner">
+                                <div class="circle-value">31/40</div>
+                                <div class="circle-label">Jobs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card app-received-card">
+                    <div class="app-received-title">Applications Received</div>
+                    <div class="app-received-month">January 2025</div>
+                    <div class="app-received-value">20</div>
+                </div>
+                
+                <div class="stats-card">
+                    <div class="stats-header">
+                        <div class="stats-title">Total Spent</div>
+                        <div class="date-selector">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>This month</span>
+                        </div>
+                    </div>
+                    <div class="circle-stats">
+                        <div class="circle-stat">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="progress-circle-fill spent-fill" cx="60" cy="60" r="50" 
+                                  stroke-dasharray="314" stroke-dashoffset="150"></circle>
+                            </svg>
+                            <div class="circle-inner">
+                                <div class="circle-value green">$28,438</div>
+                                <div class="circle-label">All Time</div>
+                            </div>
+                        </div>
+                        <div class="circle-stat">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="progress-circle-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="progress-circle-fill spent-fill" cx="60" cy="60" r="50" 
+                                  stroke-dasharray="314" stroke-dashoffset="302"></circle>
+                            </svg>
+                            <div class="circle-inner">
+                                <div class="circle-value">$350</div>
+                                <div class="circle-label">This month</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h3 class="recommendations-title">Recommended Service Provider</h3>
+                <div class="provider-cards">
+                    <div class="provider-card">
+                        <div class="provider-avatar">MJ</div>
+                        <h4 class="provider-name">Mike John</h4>
+                        <p class="provider-job">Plumber</p>
+                        <p class="provider-location"><i class="fas fa-map-marker-alt"></i> Yaounde, Cameroon</p>
+                        <button class="view-profile">View profile</button>
+                    </div>
+                    
+                    <div class="provider-card">
+                        <div class="provider-avatar">EI</div>
+                        <h4 class="provider-name">Emmanuel Ike</h4>
+                        <p class="provider-job">Welder</p>
+                        <p class="provider-location"><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</p>
+                        <button class="view-profile">View profile</button>
+                    </div>
+                    
+                    <div class="provider-card">
+                        <div class="provider-avatar">MM</div>
+                        <h4 class="provider-name">Mahmoud Musa</h4>
+                        <p class="provider-job">Plumber</p>
+                        <p class="provider-location"><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+                        <button class="view-profile">View profile</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Job Applications statistics</div>
+                        <div class="date-selector">
+                            <i class="fas fa-chevron-left"></i>
+                            <span>January 2025</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <div class="interviews-counter">
+                            <div style="position: relative; width: 100px; height: 100px;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#f5f5f5" stroke-width="6"></circle>
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#ff6b35" stroke-width="6"
+                                            stroke-dasharray="283" stroke-dashoffset="141" transform="rotate(-90 50 50)"></circle>
+                                </svg>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div style="font-size: 20px; font-weight: bold;">10</div>
+                                    <div style="font-size: 12px; color: #666;">Interviews</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 40%;">
+                                <span class="bar-label">Jan</span>
+                            </div>
+                            <div class="bar" style="height: 60%;">
+                                <span class="bar-label">Feb</span>
+                            </div>
+                            <div class="bar" style="height: 75%;">
+                                <span class="bar-label">Mar</span>
+                            </div>
+                            <div class="bar" style="height: 50%;">
+                                <span class="bar-label">Apr</span>
+                            </div>
+                            <div class="bar" style="height: 85%;">
+                                <span class="bar-label">May</span>
+                            </div>
+                            <div class="bar highlighted" style="height: 95%;">
+                                <span class="bar-label">Jun</span>
+                            </div>
+                            <div class="bar" style="height: 45%;">
+                                <span class="bar-label">Jul</span>
+                            </div>
+                            <div class="bar" style="height: 55%;">
+                                <span class="bar-label">Aug</span>
+                            </div>
+                            <div class="bar" style="height: 70%;">
+                                <span class="bar-label">Sep</span>
+                            </div>
+                            <div class="bar" style="height: 90%;">
+                                <span class="bar-label">Oct</span>
+                            </div>
+                            <div class="bar" style="height: 40%;">
+                                <span class="bar-label">Nov</span>
+                            </div>
+                            <div class="bar" style="height: 20%;">
+                                <span class="bar-label">Dec</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="calendar-title">January 2025</div>
+                        <div class="calendar-nav">
+                            <i class="fas fa-chevron-left"></i>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <table class="calendar">
+                        <thead>
+                            <tr>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>T</th>
+                                <th>W</th>
+                                <th>T</th>
+                                <th>F</th>
+                                <th>S</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body">
+                            <!-- Calendar will be generated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <div class="upcoming-events">
+                        <h4>Upcoming Events</h4>
+                        <div id="events-list">
+                            <!-- Events will be populated by JavaScript -->
+                        </div>
+                        <button class="add-event-btn" id="add-event-btn">
+                            <i class="fas fa-plus"></i> Add New Event
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div class="modal" id="event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Add New Event</div>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <form id="event-form">
+                <div class="form-group">
+                    <label for="event-title">Event Title</label>
+                    <input type="text" id="event-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-date">Date</label>
+                    <input type="date" id="event-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-time">Time</label>
+                    <input type="time" id="event-time" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-notes">Notes</label>
+                    <textarea id="event-notes"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-event">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const notificationIcon = document.querySelector('.notification-icon');
+            const notificationDropdown = document.querySelector('.notification-dropdown');
+            const profileIcon = document.querySelector('.profile-icon');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            const uploadBtn = document.querySelector('#upload-btn');
+            const profileUploadInput = document.querySelector('#profile-upload-input');
+            const profileImage = document.querySelector('#profile-image');
+            const dropdownProfileImage = document.querySelector('#dropdown-profile-image');
+            const markAllRead = document.querySelector('.mark-all-read');
+            const notificationBadge = document.querySelector('.notification-badge');
+            const viewProfileButtons = document.querySelectorAll('.view-profile');
+            const menuItems = document.querySelectorAll('.menu-item');
+            const addEventBtn = document.getElementById('add-event-btn');
+            const eventModal = document.getElementById('event-modal');
+            const closeModal = document.getElementById('close-modal');
+            const cancelEvent = document.getElementById('cancel-event');
+            const eventForm = document.getElementById('event-form');
+            const calendarBody = document.getElementById('calendar-body');
+            const eventsList = document.getElementById('events-list');
+            const calendarTitle = document.querySelector('.calendar-title');
+            const prevMonthBtn = document.querySelector('.calendar-nav .fa-chevron-left');
+            const nextMonthBtn = document.querySelector('.calendar-nav .fa-chevron-right');
+            
+            // Initialize with sample data
+            let events = [
+                { id: 1, title: 'Meeting with Mike John', date: new Date(2025, 0, 14), time: '14:30', notes: 'Discuss plumbing job details' },
+                { id: 2, title: 'Interview with Emmanuel Ike', date: new Date(2025, 0, 16), time: '10:00', notes: 'Welder position interview' },
+                { id: 3, title: 'Follow up with Mahmoud', date: new Date(2025, 0, 22), time: '13:00', notes: 'Plumbing job follow up' }
+            ];
+            
+            // Current date (January 2025)
+            let currentDate = new Date(2025, 0, 14);
+            
+            // Menu item click handler
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Notification dropdown toggle
+            notificationIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationDropdown.style.display = notificationDropdown.style.display === 'block' ? 'none' : 'block';
+                profileDropdown.style.display = 'none';
+            });
+            
+            // Profile dropdown toggle
+            profileIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+                notificationDropdown.style.display = 'none';
+            });
+            
+            // Mark all notifications as read
+            markAllRead.addEventListener('click', function() {
+                notificationBadge.style.display = 'none';
+            });
+            
+            // Profile image upload
+            uploadBtn.addEventListener('click', function() {
+                profileUploadInput.click();
+            });
+            
+            profileUploadInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        profileImage.src = event.target.result;
+                        dropdownProfileImage.src = event.target.result;
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            // View profile buttons
+            viewProfileButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Viewing profile functionality would go here!');
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                notificationDropdown.style.display = 'none';
+                profileDropdown.style.display = 'none';
+            });
+            
+            // Calendar functionality
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            // Generate calendar
+            function generateCalendar(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                
+                // Update calendar title
+                calendarTitle.textContent = `${months[month]} ${year}`;
+                
+                // Clear previous calendar
+                calendarBody.innerHTML = '';
+                
+                // Get first day of month and total days
+                const firstDay = new Date(year, month, 1).getDay();
+                const totalDays = new Date(year, month + 1, 0).getDate();
+                const lastMonthTotalDays = new Date(year, month, 0).getDate();
+                
+                let date_num = 1;
+                let nextMonthDay = 1;
+                
+                // Create calendar rows
+                for (let i = 0; i < 6; i++) {
+                    // Create a table row
+                    const row = document.createElement('tr');
+                    
+                    // Create 7 cells for each day of the week
+                    for (let j = 0; j < 7; j++) {
+                        const cell = document.createElement('td');
+                        const cellSpan = document.createElement('span');
+                        
+                        // Fill in previous month's dates
+                        if (i === 0 && j < firstDay) {
+                            const prevDate = lastMonthTotalDays - (firstDay - j - 1);
+                            cellSpan.textContent = prevDate;
+                            cell.classList.add('other-month');
+                            cell.appendChild(cellSpan);
+                        } 
+                        // Fill in next month's dates
+                        else if (date_num > totalDays) {
+                            cellSpan.textContent = nextMonthDay;
+                            cell.classList.add('other-month');
+                            cell.appendChild(cellSpan);
+                            nextMonthDay++;
+                        } 
+                        // Fill in current month's dates
+                        else {
+                            cellSpan.textContent = date_num;
+                            
+                            // Check if this date has an event
+                            const hasEvent = events.some(event => 
+                                event.date.getDate() === date_num && 
+                                event.date.getMonth() === month && 
+                                event.date.getFullYear() === year
+                            );
+                            
+                            if (hasEvent) {
+                                cell.classList.add('has-event');
+                            }
+                            
+                            // Highlight today's date
+                            if (currentDate.getDate() === date_num && 
+                                currentDate.getMonth() === month && 
+                                currentDate.getFullYear() === year) {
+                                cell.classList.add('today');
+                            }
+                            
+                            cell.appendChild(cellSpan);
+                            date_num++;
+                        }
+                        
+                        // Add click event to all cells
+                        cell.addEventListener('click', function() {
+                            // Remove 'today' class from all cells
+                            document.querySelectorAll('.calendar td').forEach(td => {
+                                td.classList.remove('today');
+                            });
+                            // Add 'today' class to clicked cell
+                            cell.classList.add('today');
+                            
+                            // Update currentDate based on clicked date
+                            let clickedDate;
+                            if (cell.classList.contains('other-month')) {
+                                // Handle clicking on dates from previous/next month
+                                if (parseInt(cellSpan.textContent) > 20) { // Previous month
+                                    clickedDate = new Date(year, month - 1, parseInt(cellSpan.textContent));
+                                } else { // Next month
+                                    clickedDate = new Date(year, month + 1, parseInt(cellSpan.textContent));
+                                }
+                                // Generate new calendar for the clicked month
+                                generateCalendar(clickedDate);
+                            } else {
+                                clickedDate = new Date(year, month, parseInt(cellSpan.textContent));
+                            }
+                            currentDate = clickedDate;
+                        });
+                        
+                        row.appendChild(cell);
+                    }
+                    
+                    calendarBody.appendChild(row);
+                    
+                    // Stop generating rows if we've covered all days of the month
+                    if (date_num > totalDays && i > 3) {
+                        break;
+                    }
+                }
+                
+                // Update events list
+                updateEventsList(month, year);
+            }
+            
+            // Update events list for the current month
+            function updateEventsList(month, year) {
+                eventsList.innerHTML = '';
+                
+                // Filter events for the current month
+                const monthEvents = events.filter(event => 
+                    event.date.getMonth() === month && 
+                    event.date.getFullYear() === year
+                ).sort((a, b) => a.date - b.date);
+                
+                // Display events
+                monthEvents.forEach(event => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    
+                    eventItem.innerHTML = `
+                        <div class="event-date">
+                            <span class="event-day">${event.date.getDate()}</span>
+                            <span class="event-month">${months[event.date.getMonth()].substring(0, 3)}</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-title">${event.title}</div>
+                            <div class="event-time"><i class="far fa-clock"></i> ${formatTime(event.time)}</div>
+                        </div>
+                    `;
+                    
+                    eventsList.appendChild(eventItem);
+                });
+            }
+            
+            // Format time from 24h to 12h
+            function formatTime(time) {
+                const [hours, minutes] = time.split(':');
+                const period = hours >= 12 ? 'PM' : 'AM';
+                const hours12 = hours % 12 || 12;
+                return `${hours12}:${minutes} ${period}`;
+            }
+            
+            // Previous month button
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                generateCalendar(currentDate);
+            });
+            
+            // Next month button
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                generateCalendar(currentDate);
+            });
+            
+            // Event modal functionality
+            addEventBtn.addEventListener('click', function() {
+                eventModal.style.display = 'flex';
+                // Set default date to today
+                const today = new Date();
+                document.getElementById('event-date').valueAsDate = today;
+            });
+            
+            closeModal.addEventListener('click', function() {
+                eventModal.style.display = 'none';
+            });
+            
+            cancelEvent.addEventListener('click', function() {
+                eventModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === eventModal) {
+                    eventModal.style.display = 'none';
+                }
+            });
+            
+            // Handle form submission
+            eventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('event-title').value;
+                const date = new Date(document.getElementById('event-date').value);
+                const time = document.getElementById('event-time').value;
+                const notes = document.getElementById('event-notes').value;
+                
+                // Create new event
+                const newEvent = {
+                    id: events.length + 1,
+                    title: title,
+                    date: date,
+                    time: time,
+                    notes: notes
+                };
+                
+                events.push(newEvent);
+                
+                // Update calendar and events list
+                generateCalendar(currentDate);
+                
+                // Reset form and close modal
+                eventForm.reset();
+                eventModal.style.display = 'none';
+            });
+            
+            // Initialize calendar
+            generateCalendar(currentDate);
+            
+            // Animate progress circles
+            const applicationsCircle = document.querySelector('.applications-fill');
+            const spentCircle1 = document.querySelectorAll('.spent-fill')[0];
+            const spentCircle2 = document.querySelectorAll('.spent-fill')[1];
+            
+            // Set initial values with animation
+            setTimeout(() => {
+                applicationsCircle.style.strokeDashoffset = '251'; // 20%
+                spentCircle1.style.strokeDashoffset = '150'; // ~50%
+                spentCircle2.style.strokeDashoffset = '302'; // ~4%
+            }, 100);
+        });
+    </script>
+</body>
+</html>
