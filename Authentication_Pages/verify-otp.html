@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Code</title>
+  <link rel="stylesheet" href="Forgot-pass-styles.css">
+
+  <style>
+    .submit-btn:hover{
+        background-color: #003B33;
+    }
+  </style>
+</head>
+<body>
+  <div class="container otp-container">
+    <h1>Enter Verification Code</h1>
+    <p>Sent to <span id="maskedTarget"></span></p>
+    
+    <div class="otp-inputs">
+      <input type="text" class="input-field" maxlength="1" data-index="0" autofocus>
+      <input type="text" class="input-field" maxlength="1" data-index="1">
+      <input type="text" class="input-field" maxlength="1" data-index="2">
+      <input type="text" class="input-field" maxlength="1" data-index="3">
+      <input type="text" class="input-field" maxlength="1" data-index="4">
+      <input type="text" class="input-field" maxlength="1" data-index="5">
+    </div>
+
+    <p class="resend-link disabled" id="resendLink">Resend code in 01:00</p>
+    <button class="submit-btn" id="verifyBtn" style="background-color: #f89509;">Verify</button>
+  </div>
+  <script src="verify-otp.js"></script>
+</body>
+</html>

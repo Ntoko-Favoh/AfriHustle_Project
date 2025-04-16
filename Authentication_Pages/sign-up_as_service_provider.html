@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account As A Service Provider</title>
+   <link rel="stylesheet" href="sign-up_as_service_provider.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <!--  -->
+
+        <!-- LOGO -->
+        <div class="logo"><img src="images/1744220397011.jpg" alt="Afrihustle_logo">
+        </div>
+        
+        
+        <div class="step-indicator" style="margin-top: 2rem;">
+            <div class="step active" id="step1-indicator">
+                <div class="step-label">Personal Info</div>
+                <div class="step-underline"></div>
+            </div>
+            <div class="step" id="step2-indicator">
+                <div class="step-label">Business Info</div>
+                <div class="step-underline"></div>
+            </div>
+        </div>
+
+        <h3>Create Account As A Service Provider</h3>
+        
+        <form id="registrationForm">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active" id="step1">
+                <div class="back-container">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <a href="createaccount.html" class="arrBack">Back</a>
+                </div>
+                <div class="step1-rel" style="margin-top: 1.5rem;">
+                    <span class="span">Step <span class="no-color">1</span> of 2</span>
+                </div>
+              <div class="form-grid">
+                <!-- inputs fields -->
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="fullName" name="fullName" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="error" id="fullNameError">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nickname">Nickname</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="nickname" name="nickname">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-icon-wrapper">
+                        <input type="email" id="email" name="email" required>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input">
+                        <div class="country-code">
+                            <img src="https://flagcdn.com/w20/us.png" class="flag" id="flag">
+                            <select id="countryCode" name="countryCode">
+                                <option value="+1" data-flag="us">+1 (US)</option>
+                                <option value="+44" data-flag="gb">+44 (UK)</option>
+                                <option value="+61" data-flag="au">+61 (AU)</option>
+                                <option value="+49" data-flag="de">+49 (DE)</option>
+                                <option value="+33" data-flag="fr">+33 (FR)</option>
+                                <option value="+81" data-flag="jp">+81 (JP)</option>
+                                <option value="+86" data-flag="cn">+86 (CN)</option>
+                                <option value="+91" data-flag="in">+91 (IN)</option>
+                            </select>
+                        </div>
+                        <input type="tel" id="phone" name="phone" class="phone-number" required>
+                    </div>
+                    <div class="error" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-group" style="display: grid; grid-column: span 2;">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <div class="error" id="dobError">Please enter your date of birth</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-icon-wrapper">
+                        <input type="password" id="password" name="password" required>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="error" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-icon-wrapper">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="error" id="confirmPasswordError">Passwords do not match</div>
+                </div>
+            </div>
+                
+                <button type="button" class="btn" id="nextBtn">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            
+            <!-- Step 2: Business Info -->
+            <div class="form-step" id="step2">
+                <button type="button" class="btn   btn-secondary" id="prevBtn">
+                    <div class="back-container">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    Back
+                    </div>
+                </button>
+                <div class="step1-rel" style="margin-bottom: 0.6rem;">                     <span >Step <span class="no-color">2</span> of 2</span>
+                </div>
+
+                <!-- grid -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="businessName">Business Name</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="businessName" name="businessName" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="error" id="businessNameError">Please enter your business name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" id="jobTitle" name="jobTitle" required>
+                    <div class="error" id="jobTitleError">Please enter your job title</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skillType">Type of Skill Share</label>
+                    <select id="skillType" name="skillType" style="border: 1px solid white; border-radius: 10px;" required>
+                        <option value="">Select your skill</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Writing">Writing</option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="error" id="skillTypeError">Please select your skill type</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Years of Experience</label>
+                    <select id="experience" name="experience" style="border: 1px solid white; border-radius: 10px;" required>
+                        <option value="">Select years</option>
+                        <option value="0-1">0-1 years</option>
+                        <option value="1-3">1-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5-10">5-10 years</option>
+                        <option value="10+">10+ years</option>
+                    </select>
+                    <div class="error" id="experienceError">Please select your experience level</div>
+                </div>
+                
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="document">Professional Document (If any)</label>
+                    <div class="input-icon-wrapper">
+                        <input type="file" id="document" name="document" class="file-input" accept=".pdf,.png,.jpg,.jpeg" placeholder="Upload file from your device (pdf,.png,.jpg,.jpeg)"required >
+                        <i class="fa-solid fa-paperclip"></i>
+                    </div>
+                    <div class="error" id="documentError">Please upload a professional document</div>
+                </div>
+            </div>
+                
+                <button type="submit" class="btn" id="submitBtn">Create Account <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="haveAnAcct" >
+                <p style="color: #fff;">Have an acccount already? <a href="login.html" style="color: #f89509;">Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="hero-sec">
+        <img src="images/1744220258854.jpg" alt="hero_image">
+
+        <h2 class="heading">Welcome to <span style="font-size: 36px; color: #f89509; font-weight: bold;">Afrihustle</span>, linking talent and opportunities</h2>
+        <p style="line-height: 1.8rem;
+    margin-top: 1.4rem;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur distinctio natus sunt reprehenderit! Expedita, modi vel! Magni provident architecto est nostrum quis veniam nihil hic temporibus praesentium velit? Velit, sit.</p>
+
+    <div class="page-next-indi">
+        <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd; margin-right: 6px;"></div>
+
+        <div class="circle" style="width: 2.6rem; height: 1.4rem; background-color: #f89509; border-radius: 0.8rem;  margin-right: 6px"></div>
+
+        <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd;"></div>
+    </div>
+    </div>
+
+
+    <script src="sign-up_as_service_provider.js">
+        
+    </script>
+</body>
+</html>
