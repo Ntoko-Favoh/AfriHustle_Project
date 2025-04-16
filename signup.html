@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afrihustle Signup Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<style>
+  /* styles.css */
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left Section */
+.left-section {
+  background-color: #007b5e; /* Green background */
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 80px;
+}
+
+.btn {
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.employer-btn {
+  background-color: #ffa500; /* Orange button */
+  padding: 5px 30px;
+  padding-top: 8px;
+  margin-top: 2px;
+  border: none;
+}
+
+.service-provider-btn {
+  background-color: #007b5e; /* Green button */
+  border-color: white;
+  padding: 5px 15px;
+}
+
+.signin-link {
+  color: #ffa500;
+}
+
+/* Right Section */
+.right-section {
+  width: 70%;
+  padding: 50px;
+}
+
+.image {
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 13px;
+}
+
+/* Slider Dots */
+.slider-dots {
+  margin-top: 20px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin-right: 5px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background-color: #ffa500; /* Active dot color */
+}
+
+</style>
+<body>
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+      <img src="./Assets/Logo.jpg" alt="logo image" class="logo">
+      <h3>Create Account</h3>
+      <button class="btn employer-btn"><a href="../AfriHustle_Project/createAccount.html">an employer →</a></button>
+      <button class="btn service-provider-btn">As a service provider →</button>
+      <p>Have an account already? <a href="#" class="signin-link">Signin</a></p>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <img src="./Assets/ali-mkumbwa-cU3xxfbB9Es-unsplash 2.png" alt="Sewing Machine Image" class="image">
+      <h2>Welcome To <span style="color: orange;">Afrihustle</span>
+        ,<br> Linking Talent And <br>Opportunities.</h2>
+      <p>
+        Join Afrihustle and connect to job opportunities, financial<br> services, 
+        and skill development tailored for informal<br> workers, gig workers, 
+        and artisans across Africa.
+      </p>
+      <!-- Slider dots -->
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // script.js
+document.addEventListener("DOMContentLoaded", () => {
+  const dots = document.querySelectorAll(".dot");
+  let currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains("active"));
+
+  setInterval(() => {
+      dots[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % dots.length; // Loop through dots
+      dots[currentIndex].classList.add("active");
+  }, 3000); // Change active dot every three seconds
+});
+
+  </script>
+</body>
+</html>
