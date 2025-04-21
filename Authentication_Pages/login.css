@@ -12,19 +12,19 @@ html{
 
 body {
     font-family: 'Montserrat', sans-serif;
-    height: 100vh;
+    height: 80vh;
     background: #f0f2f5;
+    overflow-y: hidden;
+    
 }
 
 
  .main-container{
     display: flex;
     width: 80%;
-    height: 96%;
-    overflow-y: hidden;
-    place-content: center;
+    height: 85%;
+    /* justify-items: center; */
     margin: auto;
-
 }
 
 /* ______________ */
@@ -32,23 +32,65 @@ body {
 
 div .hero-section{
     width:45%;
-    height: 100%;
+    min-height: 100vh;
     background-color: #fff;
+    padding: 3rem ;
+    color: #1c1c1c;
 }
 
-/* ______________ */
-/* login section */
 
-.auth-container {
-    background: white;
-    padding: 6rem; 
-    background-color: #008774;
-    width:40% ;
-    height: 100%;
+img[alt="hero_image"]{
+    width: 90%;
+    height: auto;
+    display: block;
+    justify-self: left;
+    border-radius: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+
+.heading{
+    color: #003B33;
+    line-height: 4rem;
 }
 
 h3{
-    font-size:  2.8rem;
+    font-size: 32px;
+    font-weight: bold;
+}
+.page-next-indi{
+    display: flex;
+    gap: 4px;
+    margin-top: 2rem;
+}
+
+.logo{
+    max-width: 8rem;
+    height: auto;
+    margin-top: 2rem;
+    display: block;
+    justify-self: center;
+}
+
+
+
+/* login section */
+
+.auth-container {
+    padding: 2rem; 
+    background-color: #008774;
+    width:45% ;
+    min-height: 100vh;
+}
+
+.logo img[alt="Afrihustle_logo"]{
+    width: 100%;
+    border-radius: 1rem;
+}
+
+h4{
+    font-size:  2.5rem;
     margin-bottom: 3.2rem;
     text-align: center;
     color: #f5f5f5;
@@ -84,7 +126,7 @@ label{
 }
 
 input {
-    padding: 12px;
+    padding: 12px 12px;
     border: 1px solid #f5f5f5;
     color: #f5f5f5;
     border-radius: 4px;
@@ -151,11 +193,13 @@ a{
     display: flex;
     gap: 2rem;
     justify-content: center;
+    margin-bottom: 3rem;
     
 }
 i{
     font-size:2rem ;
     text-align: center;
+    color: whitesmoke;
     
 }
 

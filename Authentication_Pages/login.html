@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In / Sign Up</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="login.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -12,56 +12,69 @@
     <div class="main-container">
 
         <div class="hero-section">
-            
+
+           
+            <img src="auth-images/IMG-20250403-WA0032.jpg" alt="hero_image">
+        
+    
+            <h3 class="heading">Welcome to <span style="font-size: 32px; color: #f89509; font-weight: bold;">Afrihustle</span>, linking talent and opportunities</h3>
+            <p style="line-height: 1.8rem;
+        margin-top: 1rem; color: #1c1c1c;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur distinctio natus sunt reprehenderit! Expedita, modi vel! Magni provident architecto est nostrum quis veniam nihil hic temporibus praesentium velit? Velit, sit.</p>
+    
+        <div class="page-next-indi">
+            <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd; margin-right: 6px;"></div>
+    
+            <div class="circle" style="width: 2.6rem; height: 1.4rem; background-color: #f89509; border-radius: 0.8rem;  margin-right: 6px"></div>
+    
+            <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd; margin-right: 6px;">
+            </div>
         </div>
-
+    </div>
         <div class="auth-container">
-
             <!-- login page heading -->
-          <h3 style="color: #f5f5f5;">Sign into your <span class="bold_text" style="color: #F89509;">AFRIHUSTLE</span> account</h3>
+            <div class="logo">
+                <img src="auth-images/logo.svg" alt="Afrihustle_logo">
+            </div>
+          <h4 style="color: #f5f5f5;">Login to your <span class="bold_text" style="color: #F89509;font-size: 2.8rem;">AFRIHUSTLE</span> account</h4>
 
+          <!-- Sign In Form -->
 
-          
-            <!-- Sign In Form -->
+          <form id="signin-form" class="form" onsubmit="handleSignIn(event)">
 
-            <form id="signin-form" class="form" onsubmit="handleSignIn(event)">
-
-                 <!-- "Username" -->
-                <label for="username">Username</label>
-                <input type="text" name="username" required>
-                
-                <!-- "Password" -->
-                <label for="password">Password</label>
-                <input type="password" name="password" required>
-                
+               <!-- "Username" -->
+              <label for="username">Username</label>
+              <input type="text" name="username" required>
+              
+              <!-- "Password" -->
+              <label for="password">Password</label>
+              <input type="password" name="password" required>
+              
             <div class="flex-container">
-                    <!-- "Remember me" -->
-                <div class="rem-input-flex">
-                    <input type="checkbox" name="remember" id="remember" style="cursor: pointer; background-color: transparent; ">
-                    <label for="remember" style="margin-left: 0.5rem;">Remember me <span class="rem-warning-message">(Do not use this on public devices)</span></label>
+                  <!-- "Remember me" -->
+              <div class="rem-input-flex">
+                  <input type="checkbox" name="remember" id="remember" style="cursor: pointer; background-color: transparent; ">
+                  <label for="remember" style="margin-left: 0.5rem;">Remember me <span class="rem-warning-message">(Do not use this on public devices)</span></label>
                 </div>
-                    <!-- forgotten password -->
-                    <a href="forgot-password.html" id="forgotten">Forgotten password</a>
+                  <!-- forgotten password -->
+                  <a href="forgot-password.html" id="forgotten">Forgotten password</a>
             </div>
 
             <!-- Don't have an account? -->
             <p class="login-opt">Don't have an account? <a  href="createaccount.html" class="toggle-btn">Sign Up</a></p>
 
-                <!-- "submit btn" -->
-                <button type="submit">Login</button>
+              <!-- "submit btn" -->
+              <button type="submit">Login</button>
 
-                <p class="login-opt">Or Login using</p>
-                <div class="flex-icons">
-                    <i class="fa-brands fa-google"></i>
-                    <i class="fa-brands fa-apple "></i>
-                    <i class="fa-brands fa-facebook "></i>
-                </div>
-            </form>
-
-
-          
-            <!-- Sign Up Form -->
-</div>
+              <p class="login-opt">Or Login using</p>
+              <div class="flex-icons">
+                  <i class="fa-brands fa-google"></i>
+                  <i class="fa-brands fa-apple "></i>
+                  <i class="fa-brands fa-facebook "></i>
+              </div>
+        </form>
+     
+        </div>
+    </div>
 
     <script src="login.js">
         
