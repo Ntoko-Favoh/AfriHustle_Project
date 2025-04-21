@@ -40,7 +40,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* Added to center content horizontally */
+            align-items: center;
         }
 
         .right-panel {
@@ -83,13 +83,13 @@
             max-width: 250px;
             border-radius: 8px;
             margin-bottom: 1.5rem;
-            display: block; /* Ensures proper centering */
+            display: block;
         }
 
         h1 {
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
-            text-align: center; /* Center the heading */
+            text-align: center;
             color: #005249;
         }
 
@@ -101,14 +101,14 @@
             color: #555;
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            text-align: center; /* Center the paragraph */
+            text-align: center;
         }
 
         .pagination {
             display: flex;
             align-items: center;
             margin-top: 10px;
-            justify-content: center; /* Center the pagination dots */
+            justify-content: center;
         }
 
         .pagination-dot {
@@ -355,57 +355,24 @@
                 <div class="social-login-title">Login using</div>
                   
                 <div class="social-login">
-                    <div class="social-btn">
+                    <a href="#" class="social-btn">
                         <i class="fab fa-google"></i>
-                    </div>
-                    <div class="social-btn">
+                    </a>
+                    <a href="#" class="social-btn">
                         <i class="fab fa-facebook"></i>
-                    </div>
-                    <div class="social-btn">
+                    </a>
+                    <a href="#" class="social-btn">
                         <i class="fab fa-apple"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Login button event listener
-            document.querySelector('.login-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                if(!username || !password) {
-                    alert('Please enter both username and password');
-                    return;
-                }
-                
-                // Here you would typically make an API call to your backend
-                console.log('Login attempt with:', { username, password });
-                alert('Login functionality would connect to backend here');
-            });
-            
-            // Password forgot link
-            document.querySelector('.forgot-password a').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Password recovery functionality would be implemented here');
-            });
-            
-            // Sign up link
-            document.querySelector('.signup-link a').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Sign up page would be displayed here');
-            });
-            
-            // Social login buttons
-            document.querySelectorAll('.social-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    alert('Social login functionality would be implemented here');
-                });
-            });
-        });
+        // Removed all JavaScript validation and backend connection code
+        // The login button will now simply navigate to dashboard.html when clicked
+        // All other links will navigate to their respective pages without JavaScript intervention
     </script>
 </body>
 </html>
