@@ -3,68 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In / Sign Up</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Afrihustle - Linking Talent And Opportunities</title>
+    <!-- Font Awesome CDN for stylish icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        body {
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            flex: 1;
+            background-color: #00856F;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #00856F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            margin: 0 auto;
+            border: 2px solid white;
+        }
+
+        .logo img {
+            width: 90%;
+            height: auto;
+        }
+
+        .artist-image {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        h1 span {
+            color: #F7941D;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .pagination-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 3px;
+        }
+
+        .pagination-dot.active {
+            background-color: #F7941D;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            background-color: white;
+        }
+
+        .password-input {
+            position: relative;
+        }
+
+        .password-input input {
+            padding-left: 2.5rem;
+        }
+
+        .password-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00856F;
+        }
+
+        .forgot-password {
+            text-align: left;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .forgot-password a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.25rem 0;
+        }
+
+        .forgot-password a:hover {
+            color: #F7941D;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #F7941D;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            margin: 1rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #e07e0c;
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: white;
+            position: relative;
+        }
+
+        .or-divider:before,
+        .or-divider:after {
+            content: "";
+            position: absolute;
+            width: 40%;
+            height: 1px;
+            background-color: rgba(255,255,255,0.3);
+            top: 50%;
+        }
+
+        .or-divider:before {
+            left: 0;
+        }
+
+        .or-divider:after {
+            right: 0;
+        }
+
+        .social-login-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+
+        .fa-google {
+            color: #DB4437;
+        }
+
+        .fa-facebook {
+            color: #4267B2;
+        }
+
+        .fa-apple {
+            color: #000;
+        }
+
+        .signup-link {
+            margin-top: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #F7941D;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 450px;
+            }
+
+            .left-panel, .right-panel {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="main-container">
-
-        <div class="hero-section">
-            
-        </div>
-
-        <div class="auth-container">
-
-            <!-- login page heading -->
-          <h3 style="color: #f5f5f5;">Sign into your <span class="bold_text" style="color: #F89509;">AFRIHUSTLE</span> account</h3>
-
-
-          
-            <!-- Sign In Form -->
-
-            <form id="signin-form" class="form" onsubmit="handleSignIn(event)">
-
-                 <!-- "Username" -->
-                <label for="username">Username</label>
-                <input type="text" name="username" required>
-                
-                <!-- "Password" -->
-                <label for="password">Password</label>
-                <input type="password" name="password" required>
-                
-            <div class="flex-container">
-                    <!-- "Remember me" -->
-                <div class="rem-input-flex">
-                    <input type="checkbox" name="remember" id="remember" style="cursor: pointer; background-color: transparent; ">
-                    <label for="remember" style="margin-left: 0.5rem;">Remember me <span class="rem-warning-message">(Do not use this on public devices)</span></label>
-                </div>
-                    <!-- forgotten password -->
-                    <a href="forgot-password.html" id="forgotten">Forgotten password</a>
+    <div class="container">
+        <div class="left-panel">
+            <img src="Assets/Artist.jpg" alt="Artist with painting" class="artist-image">
+            <h1>Welcome To <span>Afrihustle</span>, Linking Talent And Opportunities</h1>
+            <p>Join Afrihustle and connect to job opportunities, financial services, and skill-development tailored for informal workers, gig workers, and artisans across Africa.</p>
+            <div class="pagination">
+                <div class="pagination-dot"></div>
+                <div class="pagination-dot active"></div>
+                <div class="pagination-dot"></div>
             </div>
-
-            <!-- Don't have an account? -->
-            <p class="login-opt">Don't have an account? <a  href="createaccount.html" class="toggle-btn">Sign Up</a></p>
-
-                <!-- "submit btn" -->
-                <button type="submit">Login</button>
-
-                <p class="login-opt">Or Login using</p>
-                <div class="flex-icons">
-                    <i class="fa-brands fa-google"></i>
-                    <i class="fa-brands fa-apple "></i>
-                    <i class="fa-brands fa-facebook "></i>
+        </div>
+        <div class="right-panel">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="Assets/Logo.jpg" alt="Afrihustle Logo">
                 </div>
-            </form>
-
-
-          
-            <!-- Sign Up Form -->
-</div>
-
-    <script src="login.js">
-        
-    </script>
+                <h2>Login To Your Account</h2>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="username">Username/Email</label>
+                    <input type="text" id="username" placeholder="example@afrihustle.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input">
+                        <span class="password-icon">🔒</span>
+                        <input type="password" id="password" placeholder="••••••••">
+                    </div>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+                
+                <a href="../employerD.html" class="login-btn">Login</a>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="../createAccount.html">Sign up</a>
+                </div>
+                
+                <div class="or-divider">
+                    <span>OR</span>
+                </div>
+                
+                <div class="social-login-title">Login using</div>
+                  
+                <div class="social-login">
+                    <div class="social-btn">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div class="social-btn">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
