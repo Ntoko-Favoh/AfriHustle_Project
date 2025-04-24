@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account As A Service Provider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nosifer&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container {
+    background-color: #00897B;
+    width: 55%;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.arrBack{
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+i{
+    color: white;
+}
+
+.back-container{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+h3 {
+    text-align: left;
+    font-family: 'Montserrat' , sans-serif;
+    margin-top: 1rem;
+    color: #fff;
+    font-size: 28px;
+    line-height: 2.6rem;
+}
+
+.step1-rel{
+    display: block; 
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.4rem;
+}
+.no-color{
+    color:#f89509;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    column-gap: 2.4rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-underline {
+    width: 100%;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.step.active .step-underline {
+    background-color: #f89509;
+}
+
+.step.completed .step-underline {
+    background-color: #f89509;
+}
+
+.step-label {
+    font-size: 14px;
+    color: whitesmoke;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.step.active .step-label {
+    color: #f89509;
+}
+
+/* FORM */
+.form-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+}
+
+.form-step {
+    position: absolute;
+    width: calc(100% - 6rem);
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(120%);
+    opacity: 0;
+}
+
+.form-step.active {
+    position: relative;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.form-step.prev {
+    transform: translateX(-120%);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    border: 1px solid #f5f5f5;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #fff;
+    padding: 13px;
+    padding-left: 40px;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+select{
+    border-right: 0px;
+    border-radius: 10px 0px 0px 10px;
+    padding: 12px 12px;
+    padding-left: 40px;
+}
+option{
+    color: rgb(39, 39, 39);
+}
+input[type="tel"]{
+    border-radius: 0px 10px 10px 0px;
+    border-left: 0px;
+    padding-left: 15px;
+}
+
+input[type="date"] {
+    padding-left: 15px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #f89509;
+}
+
+.input-icon-wrapper{
+    position: relative;
+}
+
+.input-icon-wrapper i{
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    color: white;
+    opacity: 0.8;
+    font-size: 14px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.country-code select {
+    padding-left: 35px;
+}
+
+.flag {
+    position: absolute;
+    left: 10px;
+    width: 20px;
+    height: 15px;
+    z-index: 2;
+}
+
+.phone-number {
+    flex: 1;
+}
+
+.file-input {
+    padding: 10px;
+    padding-left: 40px;
+}
+
+.file-input::-webkit-file-upload-button {
+    background-color: transparent;
+    border: none;
+    padding-left: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.btn {
+    background-color: #f89509;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    min-width: min(16rem, 42%);
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+}
+
+.btn:hover {
+    background-color: #e68a08;
+}
+
+.btn-secondary {
+    color: whitesmoke;
+    background-color: transparent;
+    padding: none;
+    border-radius: none;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+}
+
+.haveAnAcct{
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* HERO SECTION */
+.hero-sec{
+    width: 45%;
+    background-color: whitesmoke;
+    padding: 3rem;
+}
+
+img[alt="hero_image"]{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    justify-self: center;
+    border-radius: 0.5rem;
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.heading{
+    color: #003B33;
+    line-height: 3rem;
+}
+
+h2{
+    font-size: 36px;
+}
+.page-next-indi{
+    display: flex;
+    gap: 4px;
+    margin-top: 2rem;
+}
+
+.logo{
+    max-width: 8rem;
+    height: auto;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+.logo img{
+    width: 100%;
+    border-radius: 1rem;
+}
+
+/* Success Popup */
+.success-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.popup-content i {
+    color: #4CAF50;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.popup-content h3 {
+    color: #00897B;
+    margin-bottom: 1rem;
+}
+
+.popup-content p {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.popup-btn {
+    background-color: #f89509;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.popup-btn:hover {
+    background-color: #e68a08;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .container, .hero-sec {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .container, .hero-sec {
+        width: 100%;
+    }
+    .hero-sec {
+        order: -1;
+        padding: 2rem;
+    }
+    .container {
+        padding: 2rem 1.5rem;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .btn {
+        width: 100%;
+        margin-left: 0;
+    }
+    .back-container {
+        top: 1rem;
+        left: 1rem;
+    }
+    h3 {
+        font-size: 24px;
+    }
+    .logo {
+        max-width: 6rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .step-indicator {
+        column-gap: 1rem;
+    }
+    .step-label {
+        font-size: 14px;
+    }
+    .country-code {
+        width: 100px;
+    }
+}
+</style>
+<body>
+
+    <div class="container">
+        <!-- Back Button -->
+        <div class="back-container" onclick="window.location.href="../createAccount.html">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span class="arrBack">Back</span>
+        </div>
+        
+        <!-- LOGO -->
+        <div class="logo"><img src="images/1744220397011.jpg" alt="Afrihustle_logo"></div>
+        
+        <div class="step-indicator" style="margin-top: 0;">
+            <div class="step active" id="step1-indicator">
+                <div class="step-label">Personal Info</div>
+                <div class="step-underline"></div>
+            </div>
+            <div class="step" id="step2-indicator">
+                <div class="step-label">Business Info</div>
+                <div class="step-underline"></div>
+            </div>
+        </div>
+
+        <h3>Create Account As A Service Provider</h3>
+        
+        <form id="registrationForm">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active" id="step1">
+                <div class="step1-rel" style="margin-top: 1.5rem;">
+                    <span class="span">Step <span class="no-color">1</span> of 2</span>
+                </div>
+              <div class="form-grid">
+                <!-- inputs fields -->
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="error" id="fullNameError">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nickname">Nickname</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="nickname" name="nickname" placeholder="Enter your nickname (optional)">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-icon-wrapper">
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input">
+                        <div class="country-code">
+                            <img src="https://flagcdn.com/w20/ng.png" class="flag" id="flag">
+                            <select id="countryCode" name="countryCode">
+                                <option value="+234" data-flag="ng">+234 (NG)</option>
+                                <option value="+27" data-flag="za">+27 (ZA)</option>
+                                <option value="+20" data-flag="eg">+20 (EG)</option>
+                                <option value="+254" data-flag="ke">+254 (KE)</option>
+                                <option value="+251" data-flag="et">+251 (ET)</option>
+                                <option value="+212" data-flag="ma">+212 (MA)</option>
+                                <option value="+216" data-flag="tn">+216 (TN)</option>
+                                <option value="+233" data-flag="gh">+233 (GH)</option>
+                                <option value="+225" data-flag="ci">+225 (CI)</option>
+                                <option value="+237" data-flag="cm">+237 (CM)</option>
+                                <option value="+256" data-flag="ug">+256 (UG)</option>
+                                <option value="+260" data-flag="zm">+260 (ZM)</option>
+                            </select>
+                        </div>
+                        <input type="tel" id="phone" name="phone" class="phone-number" required placeholder="Phone number">
+                    </div>
+                    <div class="error" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <div class="error" id="dobError">Please enter your date of birth</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-icon-wrapper">
+                        <input type="password" id="password" name="password" required placeholder="Create password">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="error" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-icon-wrapper">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm password">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="error" id="confirmPasswordError">Passwords do not match</div>
+                </div>
+            </div>
+                
+                <button type="button" class="btn" id="nextBtn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                <div class="haveAnAcct">
+                    <p style="color: #fff;">Have an account already? <a href="../signin.html" style="color: #f89509;">Login</a></p>
+                </div>
+            </div>
+            
+            <!-- Step 2: Business Info -->
+            <div class="form-step" id="step2">
+                <button type="button" class="btn btn-secondary" id="prevBtn">
+                    <div class="back-container">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="arrBack">Back</span>
+                    </div>
+                </button>
+                <div class="step1-rel" style="margin-bottom: 0.6rem;">                     <span >Step <span class="no-color">2</span> of 2</span>
+                </div>
+
+                <!-- grid -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="businessName">Business Name</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="businessName" name="businessName" required placeholder="Enter business name">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div class="error" id="businessNameError">Please enter your business name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="jobTitle" name="jobTitle" required placeholder="Enter your job title">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <div class="error" id="jobTitleError">Please enter your job title</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skillType">Type of Skill Share</label>
+                    <div class="input-icon-wrapper">
+                        <select id="skillType" name="skillType" required>
+                            <option value="">Select your skill</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Design">Design</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Writing">Writing</option>
+                            <option value="Consulting">Consulting</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="error" id="skillTypeError">Please select your skill type</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Years of Experience</label>
+                    <div class="input-icon-wrapper">
+                        <select id="experience" name="experience" required>
+                            <option value="">Select years</option>
+                            <option value="0-1">0-1 years</option>
+                            <option value="1-3">1-3 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="error" id="experienceError">Please select your experience level</div>
+                </div>
+                
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="document">Professional Document (If any)</label>
+                    <div class="input-icon-wrapper">
+                        <input type="file" id="document" name="document" class="file-input" accept=".pdf,.png,.jpg,.jpeg" placeholder="Upload file from your device (pdf,.png,.jpg,.jpeg)">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </div>
+                    <div class="error" id="documentError">Please upload a professional document</div>
+                </div>
+            </div>
+                
+                <button type="submit" class="btn" id="submitBtn">Create Account <i class="fa-solid fa-arrow-right"></i></button>
+                <div class="haveAnAcct">
+                    <p style="color: #fff;">Have an account already? <a href="../signin.html" style="color: #f89509;">Login</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="hero-sec">
+        <img src="images/1744220258854.jpg" alt="hero_image">
+
+        <h2 class="heading">Welcome to <span style="font-size: 36px; color: #f89509; font-weight: bold;">Afrihustle</span>, linking talent and opportunities</h2>
+        <p style="line-height: 1.8rem; margin-top: 1.4rem;">Join AfrHustle and connect to job opportunities, financial services, and skill development tailored for informal workers, gig workers, and artisans across Africa.</p>
+
+        <div class="page-next-indi">
+            <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd; margin-right: 6px;"></div>
+            <div class="circle" style="width: 2.6rem; height: 1.4rem; background-color: #f89509; border-radius: 0.8rem;  margin-right: 6px"></div>
+            <div class="circle" style="width: 1.4rem; height: 1.4rem; border-radius: 50%; background-color: #ddd;"></div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="success-popup" id="successPopup">
+        <div class="popup-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Account Created Successfully!</h3>
+            <p>Your account has been created. You can now login to access your dashboard.</p>
+            <a href="../signin.html" class="popup-btn">Login</a>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    // Form steps
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step1Indicator = document.getElementById('step1-indicator');
+    const step2Indicator = document.getElementById('step2-indicator');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('registrationForm');
+    const successPopup = document.getElementById('successPopup');
+    
+    // Country code selector
+    const countryCode = document.getElementById('countryCode');
+    const flag = document.getElementById('flag');
+    
+    // Update flag when country code changes
+    countryCode.addEventListener('change', function() {
+        const selectedOption = countryCode.options[countryCode.selectedIndex];
+        const flagCode = selectedOption.getAttribute('data-flag');
+        flag.src = `https://flagcdn.com/w20/${flagCode}.png`;
+    });
+    
+    // Next button click handler
+    nextBtn.addEventListener('click', function() {
+        if (validateStep1()) {
+            // Animate step transition
+            step1.classList.remove('active');
+            step1.classList.add('prev');
+            
+            setTimeout(() => {
+                step2.classList.add('active');
+                step1Indicator.classList.remove('active');
+                step1Indicator.classList.add('completed');
+                step2Indicator.classList.add('active');
+            }, 10);
+        }
+    });
+    
+    // Previous button click handler
+    prevBtn.addEventListener('click', function() {
+        // Animate step transition
+        step2.classList.remove('active');
+        
+        setTimeout(() => {
+            step1.classList.remove('prev');
+            step1.classList.add('active');
+            step2Indicator.classList.remove('active');
+            step1Indicator.classList.add('active');
+            step1Indicator.classList.remove('completed');
+        }, 10);
+    });
+    
+    // Form submission handler
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateStep1() && validateStep2()) {
+            // Form is valid, show success popup
+            successPopup.style.display = 'flex';
+            
+            // Here you would typically submit the form to your server
+            // For demo purposes, we'll just show the popup
+        }
+    });
+    
+    // Close popup when clicking outside
+    successPopup.addEventListener('click', function(e) {
+        if (e.target === successPopup) {
+            successPopup.style.display = 'none';
+        }
+    });
+    
+    // Validation functions
+    function validateStep1() {
+        let isValid = true;
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const dob = document.getElementById('dob').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        // Reset errors
+        document.querySelectorAll('#step1 .error').forEach(el => el.style.display = 'none');
+        
+        // Validate full name
+        if (fullName === '') {
+            document.getElementById('fullNameError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate email
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('emailError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate phone
+        if (!/^\d+$/.test(phone)) {
+            document.getElementById('phoneError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate date of birth
+        if (dob === '') {
+            document.getElementById('dobError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate password
+        if (password.length < 8) {
+            document.getElementById('passwordError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate confirm password
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPasswordError').style.display = 'block';
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    function validateStep2() {
+        let isValid = true;
+        const businessName = document.getElementById('businessName').value.trim();
+        const jobTitle = document.getElementById('jobTitle').value.trim();
+        const skillType = document.getElementById('skillType').value;
+        const experience = document.getElementById('experience').value;
+        const documentInput = document.getElementById('document');
+        
+        // Reset errors
+        document.querySelectorAll('#step2 .error').forEach(el => el.style.display = 'none');
+        
+        // Validate business name
+        if (businessName === '') {
+            document.getElementById('businessNameError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate job title
+        if (jobTitle === '') {
+            document.getElementById('jobTitleError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate skill type
+        if (skillType === '') {
+            document.getElementById('skillTypeError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate experience
+        if (experience === '') {
+            document.getElementById('experienceError').style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validate document (optional)
+        if (documentInput.files.length > 0) {
+            const file = documentInput.files[0];
+            const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                document.getElementById('documentError').textContent = 'Please upload a PDF, PNG, or JPG file';
+                document.getElementById('documentError').style.display = 'block';
+                isValid = false;
+            }
+        }
+        
+        return isValid;
+    }
+});
+    </script>
+</body>
+</html>

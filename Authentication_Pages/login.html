@@ -40,12 +40,11 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
         }
 
         .right-panel {
             flex: 1;
-            background-color: #00a99d;
+            background-color: #00856F;
             color: white;
             display: flex;
             flex-direction: column;
@@ -89,8 +88,6 @@
         h1 {
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
-            text-align: center;
-            color: #005249;
         }
 
         h1 span {
@@ -101,14 +98,12 @@
             color: #555;
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            text-align: center;
         }
 
         .pagination {
             display: flex;
             align-items: center;
             margin-top: 10px;
-            justify-content: center;
         }
 
         .pagination-dot {
@@ -310,7 +305,7 @@
 <body>
     <div class="container">
         <div class="left-panel">
-            <img src="assests/1e830a807e3e454ed2ae9b051283de04.jpg" alt="Artist with painting" class="artist-image">
+            <img src="../assests/1e830a807e3e454ed2ae9b051283de04.jpg" alt="Artist with painting" class="artist-image">
             <h1>Welcome To <span>Afrihustle</span>, Linking Talent And Opportunities</h1>
             <p>Join Afrihustle and connect to job opportunities, financial services, and skill-development tailored for informal workers, gig workers, and artisans across Africa.</p>
             <div class="pagination">
@@ -322,7 +317,7 @@
         <div class="right-panel">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="assests/logo2.jpeg" alt="Afrihustle Logo">
+                    <img src="../assests/logo2.jpeg" alt="Afrihustle Logo">
                 </div>
                 <h2>Login To Your Account</h2>
             </div>
@@ -339,13 +334,13 @@
                     </div>
                 </div>
                 <div class="forgot-password">
-                    <a href="../Authentication_Pages/forgot-password.html">Forgot password?</a>
+                    <a href="#">Forgot password?</a>
                 </div>
                 
-                <a href="dashboard.html" class="login-btn">Login →</a>
+                <a href="../employerD.html" class="login-btn">Login</a>
                 
                 <div class="signup-link">
-                    Don't have an account? <a href="signup.html">Sign up</a>
+                    Don't have an account? <a href="../createAccount.html">Sign up</a>
                 </div>
                 
                 <div class="or-divider">
@@ -355,24 +350,18 @@
                 <div class="social-login-title">Login using</div>
                   
                 <div class="social-login">
-                    <a href="#" class="social-btn">
+                    <div class="social-btn">
                         <i class="fab fa-google"></i>
-                    </a>
-                    <a href="#" class="social-btn">
+                    </div>
+                    <div class="social-btn">
                         <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="#" class="social-btn">
+                    </div>
+                    <div class="social-btn">
                         <i class="fab fa-apple"></i>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Removed all JavaScript validation and backend connection code
-        // The login button will now simply navigate to dashboard.html when clicked
-        // All other links will navigate to their respective pages without JavaScript intervention
-    </script>
 </body>
 </html>

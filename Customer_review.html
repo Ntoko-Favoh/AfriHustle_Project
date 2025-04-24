@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Afri Hustle - Company Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* ====== GLOBAL STYLES ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      background: #2e7d32; /* Dark green */
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ff9800; /* Orange */
+    }
+    .dashboard-link {
+      background: #ff9800; /* Orange */
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .dashboard-link:hover {
+      background: #fb8c00; /* Darker orange */
+    }
+
+    /* ====== MAIN CONTENT ====== */
+    .content {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Review Form */
+    .review-form {
+      background: #e8f5e9; /* Light green */
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 1px solid #a5d6a7; /* Medium green */
+    }
+    .review-form h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      color: #2e7d32; /* Dark green */
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .rating-stars {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .rating-stars i {
+      color: #ddd;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: color 0.2s;
+    }
+    .rating-stars i.active {
+      color: orange;
+    }
+    .submit-btn {
+      background: #ff9800; /* Orange */
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover {
+      background: #fb8c00; /* Darker orange */
+    }
+
+    /* Reviews Section */
+    .reviews-section h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      color: #2e7d32; /* Dark green */
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .review-card {
+      background: #e8f5e9; /* Light green */
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+      border: 1px solid #a5d6a7; /* Medium green */
+    }
+    .delete-review {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .delete-review:hover {
+      background: #cc0000;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .reviewer-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff9800; /* Orange */
+    }
+    .reviewer-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .review-date {
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .review-rating {
+      color: #ff9800; /* Orange */
+      margin: 0.5rem 0;
+    }
+    .review-text {
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .content {
+        padding: 1rem;
+      }
+      .review-form {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header>
+  <div class="logo">Afri Hustle</div>
+  <a href="#" class="dashboard-link">Dashboard</a>
+</header>
+
+<!-- ====== MAIN CONTENT ====== -->
+<div class="content">
+
+  <!-- Review Form -->
+  <section class="review-form">
+    <h2>Leave a Review</h2>
+    <form id="reviewForm">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="rating-stars" id="ratingStars">
+          <i class="fas fa-star" data-rating="1"></i>
+          <i class="fas fa-star" data-rating="2"></i>
+          <i class="fas fa-star" data-rating="3"></i>
+          <i class="fas fa-star" data-rating="4"></i>
+          <i class="fas fa-star" data-rating="5"></i>
+        </div>
+        <input type="hidden" id="rating" value="0" required>
+      </div>
+      <div class="form-group">
+        <label for="review">Your Review</label>
+        <textarea id="review" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Submit Review</button>
+    </form>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="reviews-section">
+    <div class="reviews-header">
+      <h2>Customer Reviews</h2>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid">
+      <!-- Reviews will be loaded here -->
+    </div>
+  </section>
+
+</div>
+
+<!-- ====== JAVASCRIPT ====== -->
+<script>
+  // Star rating functionality
+  const stars = document.querySelectorAll('#ratingStars i');
+  const ratingInput = document.getElementById('rating');
+  
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const rating = parseInt(star.getAttribute('data-rating'));
+      ratingInput.value = rating;
+      
+      stars.forEach((s, index) => {
+        if (index < rating) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Review form submission
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewsGrid = document.getElementById('reviewsGrid');
+  
+  // Mock review data
+  const mockReviews = [
+    {
+      name: "Sarah Johnson",
+      rating: 5,
+      text: "Afri Hustle has been instrumental in growing my business. The token system makes transactions so easy!",
+      date: "2023-10-15T09:30:00Z",
+      photo: "https://randomuser.me/api/portraits/lego/1.jpg"
+    },
+    {
+      name: "Michael Brown",
+      rating: 4,
+      text: "Great platform with excellent services. Would love to see more options in the marketplace.",
+      date: "2023-09-28T14:15:00Z",
+      photo: "https://randomuser.me/api/portraits/lego/2.jpg"
+    },
+    {
+      name: "Amina Diallo",
+      rating: 5,
+      text: "The best entrepreneurial community I've found. The support and resources are unmatched!",
+      date: "2023-11-02T16:45:00Z",
+      photo: "https://randomuser.me/api/portraits/lego/3.jpg"
+    }
+  ];
+
+  // Load reviews from localStorage or use mock data if empty
+  function loadReviews() {
+    let reviews = JSON.parse(localStorage.getItem('afriHustleReviews')) || [];
+    if (reviews.length === 0) {
+      reviews = mockReviews;
+      localStorage.setItem('afriHustleReviews', JSON.stringify(reviews));
+    }
+    renderReviews(reviews);
+  }
+  
+  // Render reviews to the page
+  function renderReviews(reviews) {
+    reviewsGrid.innerHTML = '';
+    
+    if (reviews.length === 0) {
+      reviewsGrid.innerHTML = '<p>No reviews yet. Be the first to review!</p>';
+      return;
+    }
+    
+    // Sort by newest first
+    reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    reviews.forEach(review => {
+      const reviewCard = document.createElement('div');
+      reviewCard.className = 'review-card';
+      
+      const starsHtml = Array(review.rating).fill('<i class="fas fa-star"></i>').join('');
+      
+      reviewCard.innerHTML = `
+        <div class="review-header">
+          <div class="reviewer-info">
+            <img src="${review.photo || 'https://randomuser.me/api/portraits/lego/1.jpg'}" 
+                 alt="${review.name}" class="reviewer-photo">
+            <span class="reviewer-name">${review.name}</span>
+          </div>
+          <span class="review-date">${new Date(review.date).toLocaleDateString()}</span>
+        </div>
+        <div class="review-rating">${starsHtml}</div>
+        <div class="review-text">${review.text}</div>
+        ${review.creator === currentUser ? `<button class="delete-review" data-id="${review.date}">×</button>` : ''}
+      `;
+      
+      reviewsGrid.appendChild(reviewCard);
+    });
+  }
+  
+  // Track current user
+  let currentUser = localStorage.getItem('currentReviewUser') || '';
+  if (!currentUser) {
+    currentUser = prompt('Please enter your username (for review tracking):');
+    if (currentUser) {
+      localStorage.setItem('currentReviewUser', currentUser);
+    }
+  }
+
+  // Handle form submission
+  reviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const rating = parseInt(ratingInput.value);
+    const text = document.getElementById('review').value;
+    
+    if (rating === 0) {
+      alert('Please select a rating');
+      return;
+    }
+    
+    const review = {
+      name,
+      rating,
+      text,
+      date: new Date().toISOString(),
+      creator: currentUser
+    };
+    
+    // Get existing reviews
+    const reviews = JSON.parse(localStorage.getItem('afriHustleReviews')) || [];
+    reviews.push(review);
+    
+    // Save to localStorage
+    localStorage.setItem('afriHustleReviews', JSON.stringify(reviews));
+    
+    // Render the new review
+    renderReviews(reviews);
+    
+    // Reset form
+    reviewForm.reset();
+    stars.forEach(star => star.classList.remove('active'));
+    ratingInput.value = '0';
+    
+    alert('Thank you for your review!');
+  });
+  
+  // Delete single review
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-review')) {
+      const reviewId = e.target.getAttribute('data-id');
+      let reviews = JSON.parse(localStorage.getItem('afriHustleReviews')) || [];
+      const reviewToDelete = reviews.find(r => r.date === reviewId);
+      
+      if (reviewToDelete && reviewToDelete.creator === currentUser) {
+        if (confirm('Delete your review?')) {
+          reviews = reviews.filter(r => r.date !== reviewId);
+          localStorage.setItem('afriHustleReviews', JSON.stringify(reviews));
+          renderReviews(reviews);
+          alert('Review deleted');
+        }
+      } else {
+        alert('You can only delete your own reviews');
+      }
+    }
+  });
+
+  // Load reviews when page loads
+  window.addEventListener('DOMContentLoaded', loadReviews);
+</script>
+
+</body>
+</html>
