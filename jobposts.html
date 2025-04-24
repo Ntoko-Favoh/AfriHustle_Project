@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Jobs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            height: 50px;
+            background-color: #222;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .menu-icon {
+            position: absolute;
+            left: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .status-bar {
+            height: 30px;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .icons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .browser-bar {
+            height: 45px;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            border-bottom: 1px solid #ddd;
+            justify-content: space-between;
+        }
+        
+        .browser-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .home-icon, .plus-icon, .tabs-icon, .menu-dots {
+            font-size: 20px;
+            color: #222;
+        }
+        
+        .address-bar {
+            flex: 1;
+            background-color: #eee;
+            margin: 0 10px;
+            height: 32px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .main-container {
+            padding: 15px;
+            display: flex;
+            min-height: calc(100vh - 135px);
+        }
+        
+        .sidebar {
+            background-color: #009883;
+            width: 200px;
+            color: white;
+            padding-top: 20px;
+            flex-shrink: 0;
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sidebar-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 15px 0;
+        }
+        
+        .logo-container {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .logo:hover::after {
+            content: "Change";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 12px;
+            padding: 2px 0;
+        }
+        
+        .content-area {
+            margin-left: 20px;
+            flex-grow: 1;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            max-width: calc(100% - 220px);
+        }
+        
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .notification-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .bell-icon-container {
+            position: relative;
+        }
+        
+        .bell-icon {
+            color: #ffa500;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 16px;
+            height: 16px;
+            background-color: red;
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-dropdown {
+            position: absolute;
+            top: 30px;
+            right: -10px;
+            width: 280px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: none;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        
+        .notification-dropdown.show {
+            display: block;
+        }
+        
+        .notification-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .notification-message {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .user-icon {
+            color: #ffa500;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 13px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .calendar-icon {
+            position: relative;
+        }
+        
+        .calendar-icon::after {
+            content: "📅";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .dropdown select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%;
+            background-size: 10px auto;
+            box-sizing: border-box;
+        }
+        
+        .country-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .flag {
+            width: 20px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .description-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .textarea-container {
+            position: relative;
+        }
+        
+        .textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            padding: 10px 15px;
+            background-color: white;
+            border: 1px solid #f8971d;
+            color: #f8971d;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            padding: 10px 35px;
+            background-color: #f8971d;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        
+        .status-saved {
+            background-color: #4CAF50;
+        }
+        
+        .status-published {
+            background-color: #2196F3;
+        }
+        
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast-icon {
+            font-size: 18px;
+        }
+        
+        .toast-text {
+            font-size: 14px;
+        }
+        
+        .notification-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+            animation: fadeInOut 3s forwards;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-area {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .description-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons-container {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 15px;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <label for="profile-upload" class="logo">
+                    <img src="assests/logo2.jpeg" alt="Logo">
+                    <input type="file" id="profile-upload" style="display: none;">
+                </label>
+            </div>
+            
+            <a href="employerD.html" class="menu-item">
+                <i class="fas fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="manage-jobs.html" class="menu-item active">
+                <i class="fas fa-tasks"></i>
+                <span>Manage Jobs</span>
+            </a>
+            <a href="view-application.html" class="menu-item">
+                <i class="fas fa-file-alt"></i>
+                <span>View Applications</span>
+            </a>
+            
+            <a href="my-wallet.html" class="menu-item">
+                <i class="fas fa-wallet"></i>
+                <span>My Wallet</span>
+            </a>
+            
+            <div class="sidebar-divider"></div>
+            
+            <a href="my-profile.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+            <a href="settings-employer.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </aside>
+        
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="welcome-header">
+                <div class="welcome-text">Welcome Back, Jessica</div>
+                <div class="notification-icons">
+                    <div class="bell-icon-container">
+                        <i class="fas fa-bell bell-icon" id="notificationBell"></i>
+                        <span class="notification-badge" id="notificationCount">3</span>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-item">
+                                <div class="notification-message">New job application received</div>
+                                <div class="notification-time">2 minutes ago</div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-message">Your job post was approved</div>
+                                <div class="notification-time">1 hour ago</div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-message">Payment received for completed job</div>
+                                <div class="notification-time">3 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fas fa-user-circle user-icon"></i>
+                </div>
+            </div>
+            
+            <form id="jobForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Company/Employer/Contractor Name</label>
+                        <input type="text" class="form-control" placeholder="Miss Loveth">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Date</label>
+                        <div class="calendar-icon">
+                            <input type="text" class="form-control datepicker" placeholder="DD-MM-YY">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Ends</label>
+                        <div class="calendar-icon">
+                            <input type="text" class="form-control datepicker" placeholder="DD-MM-YY">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Job/Service Title</label>
+                        <input type="text" class="form-control" placeholder="Washing Machine Specialist">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Payment Plan</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="fixed" name="payment" checked>
+                                <label for="fixed">Fixed Price</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="negotiate" name="payment">
+                                <label for="negotiate">Negotiable</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Job/Service Role</label>
+                        <input type="text" class="form-control" placeholder="Washing Machine Servicing">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Experience</label>
+                        <div class="dropdown">
+                            <select class="form-control" id="experienceDropdown">
+                                <option value="">Select years</option>
+                                <option value="2 years">2 years</option>
+                                <option value="3 years">3 years</option>
+                                <option value="4 years">4 years</option>
+                                <option value="5+ years">5+ years</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <input type="text" class="form-control" id="experienceText" placeholder="4 years" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Job Field</label>
+                        <input type="text" class="form-control" placeholder="Artisan">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Country</label>
+                        <div class="country-select">
+                            <div class="flag" id="countryFlag">🇿🇦</div>
+                            <div class="dropdown" style="flex: 1;">
+                                <select class="form-control" id="countryDropdown">
+                                    <option value="South Africa" data-flag="🇿🇦">South Africa</option>
+                                    <option value="Nigeria" data-flag="🇳🇬">Nigeria</option>
+                                    <option value="Ghana" data-flag="🇬🇭">Ghana</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>State/Province</label>
+                        <div class="country-select">
+                            <div class="flag" id="stateFlag">🇿🇦</div>
+                            <div class="dropdown" style="flex: 1;">
+                                <select class="form-control" id="stateDropdown">
+                                    <option value="Cape Town" data-flag="🇿🇦">Cape Town</option>
+                                    <option value="Johannesburg" data-flag="🇿🇦">Johannesburg</option>
+                                    <option value="Durban" data-flag="🇿🇦">Durban</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Job Type</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="manager">
+                            <label for="manager">Manager</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="senior">
+                            <label for="senior">Senior</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="intern">
+                            <label for="intern">Intern</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="executive">
+                            <label for="executive">Executive</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="director">
+                            <label for="director">Director</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="assistant">
+                            <label for="assistant">Assistant</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="description-container">
+                    <div>
+                        <div class="form-group">
+                            <label>Expected Duration</label>
+                            <div class="dropdown">
+                                <select class="form-control">
+                                    <option>1 Week</option>
+                                    <option>2 Weeks</option>
+                                    <option>1 Month</option>
+                                    <option>3 Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Offer Price</label>
+                            <input type="text" class="form-control" placeholder="$35">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Payment Rates</label>
+                            <input type="text" class="form-control" placeholder="Hourly">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group textarea-container">
+                        <label>Enter job description here</label>
+                        <textarea class="textarea" placeholder="Describe the job responsibilities, requirements, and any other important details..."></textarea>
+                        <div class="buttons-container">
+                            <button type="button" class="btn btn-secondary" id="saveDraftBtn">
+                                <i class="fas fa-save"></i>
+                                Save to Drafts
+                                <span class="status-indicator status-saved" title="Job saved to drafts"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="publishBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                Publish
+                                <span class="status-indicator status-published" title="Job published"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    <div id="toastNotification" class="toast-notification">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-text">Action completed successfully!</div>
+    </div>
+
+    <script>
+        // DOM elements
+const notificationBell = document.getElementById('notificationBell');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const notificationCount = document.getElementById('notificationCount');
+const saveDraftBtn = document.getElementById('saveDraftBtn');
+const publishBtn = document.getElementById('publishBtn');
+const toastNotification = document.getElementById('toastNotification');
+const experienceDropdown = document.getElementById('experienceDropdown');
+const experienceText = document.getElementById('experienceText');
+const countryDropdown = document.getElementById('countryDropdown');
+const countryFlag = document.getElementById('countryFlag');
+const stateDropdown = document.getElementById('stateDropdown');
+const stateFlag = document.getElementById('stateFlag');
+const jobForm = document.getElementById('jobForm');
+
+// Toggle notification dropdown
+notificationBell.addEventListener('click', function(e) {
+    e.stopPropagation();
+    notificationDropdown.classList.toggle('show');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function() {
+    notificationDropdown.classList.remove('show');
+});
+
+// Prevent dropdown from closing when clicking inside it
+notificationDropdown.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+
+// Save draft button functionality
+saveDraftBtn.addEventListener('click', function() {
+    showToast('<i class="fas fa-save"></i> Job saved to drafts successfully!');
+});
+
+// Publish button functionality
+publishBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('<i class="fas fa-check-circle"></i> Job published successfully!');
+});
+
+// Show toast notification
+function showToast(message) {
+    toastNotification.innerHTML = message;
+    toastNotification.classList.add('show');
+    
+    setTimeout(function() {
+        toastNotification.classList.remove('show');
+    }, 3000);
+}
+
+// Experience dropdown
+experienceDropdown.addEventListener('change', function() {
+    experienceText.value = this.value;
+});
+
+// Country dropdown with flag update
+countryDropdown.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const flag = selectedOption.getAttribute('data-flag');
+    countryFlag.textContent = flag;
+    
+    // Update state flag to match country flag
+    stateFlag.textContent = flag;
+    
+    // Update state dropdown options based on country
+    updateStateOptions(this.value);
+});
+
+// Function to update state options based on selected country
+function updateStateOptions(country) {
+    // Clear existing options
+    stateDropdown.innerHTML = '';
+    
+    // Add options based on country
+    if (country === 'South Africa') {
+        addStateOption('Cape Town', '🇿🇦');
+        addStateOption('Johannesburg', '🇿🇦');
+        addStateOption('Durban', '🇿🇦');
+    } else if (country === 'Nigeria') {
+        addStateOption('Lagos', '🇳🇬');
+        addStateOption('Abuja', '🇳🇬');
+        addStateOption('Kano', '🇳🇬');
+    } else if (country === 'Ghana') {
+        addStateOption('Accra', '🇬🇭');
+        addStateOption('Kumasi', '🇬🇭');
+        addStateOption('Tamale', '🇬🇭');
+    } else if (country === 'US') {
+        stateDropdown.parentElement.style.display = 'block';
+        addStateOption('California', '🇺🇸');
+        addStateOption('New York', '🇺🇸');
+        addStateOption('Texas', '🇺🇸');
+        addStateOption('Florida', '🇺🇸');
+    } else {
+        stateDropdown.parentElement.style.display = 'none';
+    }
+    
+    // Update state flag to match first option
+    if (stateDropdown.options.length > 0) {
+        stateFlag.textContent = stateDropdown.options[0].getAttribute('data-flag');
+    }
+}
+
+// Helper function to add state options
+function addStateOption(name, flag) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.textContent = name;
+    option.setAttribute('data-flag', flag);
+    stateDropdown.appendChild(option);
+}
+
+// Initialize state dropdown based on default country
+updateStateOptions(countryDropdown.value);
+
+// State dropdown change handler
+stateDropdown.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    stateFlag.textContent = selectedOption.getAttribute('data-flag');
+});
+
+// Date picker functionality (simple implementation)
+const datePickers = document.querySelectorAll('.datepicker');
+datePickers.forEach(function(picker) {
+    picker.addEventListener('focus', function() {
+        // In a real implementation, you would integrate a date picker library
+        this.type = 'date';
+    });
+    picker.addEventListener('blur', function() {
+        if (!this.value) {
+            this.type = 'text';
+        }
+    });
+});
+
+// Simulate receiving new notifications
+let autoNotificationCounter = 1;
+
+function addRandomNotification() {
+    // Notifications content
+    const notifications = [
+        "New worker applied to your job",
+        "Your job post was featured",
+        "Payment processed successfully",
+        "New message from a worker",
+        "Profile view notification"
+    ];
+    
+    const times = [
+        "just now",
+        "1 minute ago",
+        "5 minutes ago"
+    ];
+    
+    // Create new notification element
+    const newNotification = document.createElement('div');
+    newNotification.className = 'notification-item';
+    
+    const notificationIndex = Math.floor(Math.random() * notifications.length);
+    const timeIndex = Math.floor(Math.random() * times.length);
+    
+    newNotification.innerHTML = `
+        <div class="notification-message">${notifications[notificationIndex]}</div>
+        <div class="notification-time">${times[timeIndex]}</div>
+    `;
+    
+    // Add to dropdown
+    notificationDropdown.insertBefore(newNotification, notificationDropdown.firstChild);
+    
+    // Update notification count
+    let count = parseInt(notificationCount.textContent);
+    notificationCount.textContent = count + 1;
+    
+    // Show alert notification
+    const notificationAlert = document.createElement('div');
+    notificationAlert.className = 'notification-alert';
+    notificationAlert.textContent = 'New notification received';
+    document.body.appendChild(notificationAlert);
+    
+    // Remove alert after 3 seconds
+    setTimeout(() => {
+        notificationAlert.remove();
+    }, 3000);
+    
+    // Increment counter and schedule next notification
+    autoNotificationCounter++;
+    if (autoNotificationCounter <= 3) {
+        setTimeout(addRandomNotification, Math.random() * 15000 + 5000);
+    }
+}
+
+// Start notification timer (first notification after 10 seconds)
+setTimeout(addRandomNotification, 10000);
+
+// Form validation (basic)
+jobForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Here you would typically add form validation
+    // For demo purposes, just show success message
+    const formData = new FormData(this);
+    let isValid = true;
+    
+    // Check required fields
+    for (const [key, value] of formData.entries()) {
+        const field = document.querySelector(`[name="${key}"]`);
+        if (field.hasAttribute('required') && !value.trim()) {
+            field.classList.add('error');
+            isValid = false;
+        } else {
+            field.classList.remove('error');
+        }
+    }
+    
+    if (isValid) {
+        showToast('<i class="fas fa-check-circle"></i> Job published successfully!');
+        // Here you would typically submit the form via AJAX
+        // this.reset(); // Uncomment to reset form after successful submission
+    } else {
+        showToast('<i class="fas fa-exclamation-triangle"></i> Please fill all required fields');
+    }
+});
+
+// Initialize tooltips for help icons
+const tooltipElements = document.querySelectorAll('.tooltip-trigger');
+tooltipElements.forEach(function(element) {
+    element.addEventListener('mouseenter', function() {
+        const tooltip = this.querySelector('.tooltip');
+        if (tooltip) {
+            tooltip.style.display = 'block';
+        }
+    });
+    
+    element.addEventListener('mouseleave', function() {
+        const tooltip = this.querySelector('.tooltip');
+        if (tooltip) {
+            tooltip.style.display = 'none';
+        }
+    });
+});
+</script>
+</body>
+</html>

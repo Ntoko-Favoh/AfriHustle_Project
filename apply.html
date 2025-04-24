@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job | AriHustle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .apply-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .apply-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .apply-header h2 {
+            color: #2a4365;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .apply-header p {
+            color: #4a5568;
+            font-size: 16px;
+        }
+        
+        .apply-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .apply-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2a4365;
+            font-weight: 500;
+        }
+        
+        .apply-form input[type="text"],
+        .apply-form input[type="email"],
+        .apply-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .apply-form input[type="text"]:focus,
+        .apply-form input[type="email"]:focus,
+        .apply-form textarea:focus {
+            outline: none;
+            border-color: #dd6b20;
+            box-shadow: 0 0 0 3px rgba(221, 107, 32, 0.2);
+        }
+        
+        .file-upload {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            background-color: #f7fafc;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-label:hover {
+            border-color: #dd6b20;
+            background-color: #fffaf0;
+        }
+        
+        .file-upload-icon {
+            font-size: 40px;
+            color: #dd6b20;
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .file-upload-hint {
+            color: #a0aec0;
+            font-size: 14px;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            color: #38a169;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #dd6b20, #ed8936);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(221, 107, 32, 0.2);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c05621, #dd6b20);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(221, 107, 32, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #a0aec0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #dd6b20;
+        }
+        
+        @media (max-width: 576px) {
+            .apply-container {
+                padding: 20px;
+            }
+            
+            .apply-header h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="apply-container">
+        <button class="close-btn" onclick="window.history.back()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="apply-header">
+            <h2>Apply Now</h2>
+            <p>Please fill out the form below to submit your application</p>
+        </div>
+        
+        <form class="apply-form">
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cover-letter">Cover Letter</label>
+                <textarea id="cover-letter" rows="5" placeholder="Tell us why you're a great fit for this position..."></textarea>
+            </div>
+            
+            <div class="file-upload">
+                <input type="file" id="resume" class="file-upload-input" accept=".pdf,.doc,.docx">
+                <label for="resume" class="file-upload-label">
+                    <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                    <span class="file-upload-text">Upload your resume (PDF or DOC)</span>
+                    <span class="file-upload-hint">Max file size: 5MB</span>
+                    <span id="selected-file" class="file-name"></span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        // Display selected file name
+        document.getElementById('resume').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';
+            const fileDisplay = document.getElementById('selected-file');
+            
+            fileDisplay.textContent = fileName;
+            fileDisplay.style.display = 'block';
+            
+            // Change label style when file is selected
+            const label = document.querySelector('.file-upload-label');
+            if (e.target.files[0]) {
+                label.style.borderColor = '#38a169';
+                label.style.backgroundColor = '#f0fff4';
+            } else {
+                label.style.borderColor = '#cbd5e0';
+                label.style.backgroundColor = '#f7fafc';
+            }
+        });
+        
+        // Form submission
+        document.querySelector('.apply-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully!');
+            // In a real application, you would handle the form submission here
+        });
+    </script>
+</body>
+</html>

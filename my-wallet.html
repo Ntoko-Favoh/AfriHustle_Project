@@ -1,603 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AA HACKATON GROUP 5</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: #d9d9d9;
-        }
-
-        .browser-bar {
-            display: flex;
-            align-items: center;
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .home-icon {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-
-        .url-bar {
-            flex: 1;
-            background-color: #e0e0e0;
-            padding: 8px 12px;
-            border-radius: 20px;
-            margin: 0 10px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .browser-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .browser-icons span {
-            font-size: 20px;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            background-color: #222;
-            color: white;
-            padding: 15px 20px;
-        }
-
-        .menu-button {
-            font-size: 24px;
-            margin-right: 20px;
-            cursor: pointer;
-            width: 30px;
-        }
-
-        .header-title {
-            font-size: 18px;
-            text-align: center;
-            flex: 1;
-        }
-
-        .payment-container {
-            max-width: 800px;
-            margin: 50px auto;
-            display: flex;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .payment-left {
-            width: 50%;
-            padding: 30px;
-        }
-
-        .payment-right {
-            width: 50%;
-            background-color: #00a99d;
-            color: white;
-            padding: 30px;
-            position: relative;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            background-color: #e8f7f5;
-            border-radius: 25px;
-            font-size: 16px;
-        }
-
-        .payment-methods {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .payment-method {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .radio-container {
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            height: 20px;
-            width: 20px;
-        }
-
-        .radio-container input {
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .radio-checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: #e8f7f5;
-            border-radius: 50%;
-        }
-
-        .radio-container input:checked ~ .radio-checkmark {
-            background-color: #e8f7f5;
-        }
-
-        .radio-checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-
-        .radio-container input:checked ~ .radio-checkmark:after {
-            display: block;
-        }
-
-        .radio-container .radio-checkmark:after {
-            top: 6px;
-            left: 6px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00a99d;
-        }
-
-        .confirm-btn {
-            background-color: #00a99d;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
-
-        .confirm-btn:hover {
-            background-color: #00897b;
-        }
-
-        .section-title {
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .card-detail {
-            margin-bottom: 25px;
-        }
-
-        .card-label {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .card-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid white;
-            color: white;
-            font-size: 16px;
-            padding: 5px 0;
-            margin-bottom: 5px;
-        }
-
-        .expiry-cvv {
-            display: flex;
-            gap: 10px; /* Reduced from 20px */
-        }
-
-        .expiry-group {
-            flex: 1;
-            display: flex;
-            gap: 5px;
-        }
-
-        .month-input, .year-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid white;
-            color: white;
-            font-size: 14px; /* Reduced from 16px */
-            padding: 5px 0;
-            width: 40px; /* Added fixed width */
-        }
-
-        .cvv-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cvv-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid white;
-            color: white;
-            font-size: 14px; /* Reduced from 16px */
-            padding: 5px 0;
-            width: 60px; /* Added fixed width */
-        }
-
-     
-        .pay-now-btn {
-            background-color: #ff9800;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 40px;
-            transition: background-color 0.3s;
-        }
-
-        .pay-now-btn:hover {
-            background-color: #e68a00;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: center;
-            gap: 80px;
-            padding: 15px;
-            background-color: #f0f0f0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .footer-icon {
-            color: #666;
-            font-size: 20px;
-        }
-
-        .dashboard-link {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 15px;
-            text-decoration: none;
-            color: white;
-            font-size: 12px;
-        }
-
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            padding: 30px;
-            text-align: center;
-            display: none;
-            z-index: 100;
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background-color: #00a99d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 40px;
-        }
-
-        .success-text {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .view-receipt-btn {
-            background-color: #005e55;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .view-receipt-btn:hover {
-            background-color: #004d44;
-        }
-
-        .receipt {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            padding: 30px;
-            width: 350px;
-            display: none;
-            z-index: 100;
-        }
-
-        .receipt-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .receipt-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .receipt-date {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .receipt-details {
-            margin-bottom: 20px;
-        }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .receipt-label {
-            font-weight: bold;
-        }
-
-        .receipt-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-top: 2px solid #ddd;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 99;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    body {
+      background: #d3d3d3;
+    }
+    
+    .container {
+      display: flex;
+      position: relative;
+      max-width: 900px;
+      margin: 50px auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    /* Left Payment Section */
+    .payment-section {
+      flex: 1;
+      padding: 30px;
+    }
+    
+    .payment-section h2 {
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+    
+    .input-box {
+      margin-bottom: 20px;
+    }
+    
+    .input-box label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .input-box input {
+      width: 100%;
+      padding: 12px;
+      background: #e8f5e9;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    
+    /* Payment Methods */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .payment-methods {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .radio-container {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+    }
+    
+    .radio-container input {
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .radio-checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #e8f5e9;
+      border-radius: 50%;
+    }
+    
+    .radio-container input:checked ~ .radio-checkmark {
+      background-color: #e8f5e9;
+    }
+    
+    .radio-checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    
+    .radio-container input:checked ~ .radio-checkmark:after {
+      display: block;
+    }
+    
+    .radio-container .radio-checkmark:after {
+      top: 6px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00796b;
+    }
+    
+    .confirm-btn {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    
+    .confirm-btn:hover {
+      background-color: #00695c;
+    }
+    
+    /* Right Card Details Section */
+    .card-details-section {
+      flex: 1;
+      padding: 30px;
+      background: #00796b;
+      color: white;
+      position: relative;
+    }
+    
+    .dashboard-link {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 8px 15px;
+      border-radius: 15px;
+      text-decoration: none;
+      color: white;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .dashboard-link:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .card-details-section h2 {
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+    
+    .card-details-section label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: white;
+      font-size: 14px;
+    }
+    
+    .card-details-section input,
+    .card-details-section select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      font-size: 16px;
+      color: white;
+    }
+    
+    .card-details-section input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .card-details-section select option {
+      color: #333;
+    }
+    
+    .card-details-section hr {
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin: 15px 0;
+    }
+    
+    .inline-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    
+    .inline-column {
+      flex: 1;
+    }
+    
+    .expiry {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .expiry select {
+      flex: 1;
+    }
+    
+    .pay-btn {
+      margin-top: 30px;
+      background: linear-gradient(to right, #f7971e, #ffd200);
+      border: none;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: opacity 0.3s;
+      position: relative;
+    }
+    
+    .pay-btn:hover {
+      opacity: 0.9;
+    }
+    
+    /* Click sign animation */
+    .click-sign {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    
+    .pay-btn:hover .click-sign {
+      opacity: 1;
+    }
+    
+    /* Success Message and Receipt */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 10;
+      display: none;
+    }
+    
+    .success-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 20;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: none;
+    }
+    
+    .success-icon {
+      font-size: 60px;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+    
+    .success-text {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .view-receipt-btn {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .view-receipt-btn:hover {
+      background-color: #00695c;
+    }
+    
+    /* Receipt */
+    .receipt {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      width: 400px;
+      max-width: 90%;
+      padding: 30px;
+      border-radius: 10px;
+      z-index: 20;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: none;
+    }
+    
+    .close-button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #777;
+      transition: color 0.3s;
+    }
+    
+    .close-button:hover {
+      color: #333;
+    }
+    
+    .receipt-header {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .receipt-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .receipt-date {
+      color: #777;
+      font-size: 14px;
+    }
+    
+    .receipt-details {
+      margin-bottom: 20px;
+    }
+    
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .receipt-label {
+      font-weight: bold;
+      color: #555;
+    }
+    
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top: 15px;
+      border-top: 2px solid #00796b;
+      color: #00796b;
+    }
+    
+    /* Payment confirmation popup */
+    .payment-confirmation {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      width: 90%;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 5;
+      display: none;
+    }
+    
+    .payment-confirmation h3 {
+      color: #00796b;
+      margin-bottom: 15px;
+    }
+    
+    .confirmation-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .confirmation-buttons button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .confirm-pay-btn {
+      background: #00796b;
+      color: white;
+    }
+    
+    .cancel-pay-btn {
+      background: #f44336;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-
-    <!-- Payment Form -->
-    <div class="payment-container">
-        <!-- Left Side - Payment Info -->
-        <div class="payment-left">
-            <div class="form-group">
-                <label class="form-label">Pay To</label>
-                <input type="text" class="form-input" value="David Eze">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Amount</label>
-                <input type="text" class="form-input" value="$4000">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Payment Method</label>
-                <div class="payment-methods">
-                    <div class="payment-method">
-                        <label class="radio-container">
-                            <input type="radio" name="payment" checked>
-                            <span class="radio-checkmark"></span>
-                        </label>
-                        <span>Card</span>
-                    </div>
-                    
-                    <div class="payment-method">
-                        <label class="radio-container">
-                            <input type="radio" name="payment">
-                            <span class="radio-checkmark"></span>
-                        </label>
-                        <span>Bank</span>
-                    </div>
-                    
-                    <div class="payment-method">
-                        <label class="radio-container">
-                            <input type="radio" name="payment">
-                            <span class="radio-checkmark"></span>
-                        </label>
-                        <span>Paypal</span>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="confirm-btn" id="confirmBtn">Confirm</button>
+  <div class="container">
+    <!-- Left Payment Section -->
+    <div class="payment-section">
+      <h2>Payment</h2>
+      
+      <div class="input-box">
+        <label>Amount:</label>
+        <input type="text" value="$4,000" readonly />
+      </div>
+      
+      <div class="input-box">
+        <label>Tax:</label>
+        <input type="text" value="$36" readonly />
+      </div>
+      
+      <div class="input-box">
+        <label>Amount to pay</label>
+        <input type="text" value="$4,036" readonly />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Payment Method</label>
+        <div class="payment-methods">
+          <div class="payment-method">
+            <label class="radio-container">
+              <input type="radio" name="payment" checked>
+              <span class="radio-checkmark"></span>
+            </label>
+            <span>Card</span>
+          </div>
+          
+          <div class="payment-method">
+            <label class="radio-container">
+              <input type="radio" name="payment">
+              <span class="radio-checkmark"></span>
+            </label>
+            <span>Bank</span>
+          </div>
+          
+          <div class="payment-method">
+            <label class="radio-container">
+              <input type="radio" name="payment">
+              <span class="radio-checkmark"></span>
+            </label>
+            <span>Paypal</span>
+          </div>
         </div>
-        
-        <!-- Right Side - Card Details -->
-        <div class="payment-right">
-            <a href="employerD.html" class="dashboard-link">Dashboard</a>
-            <h2 class="section-title">Card Details</h2>
-            
-            <div class="card-detail">
-                <div class="card-label">Co-Holder's Name</div>
-                <input type="text" class="card-input" value="Lasisi Kelvin">
-            </div>
-            
-            <div class="card-detail">
-                <div class="card-label">Card Number</div>
-                <input type="text" class="card-input" value="5352 7372 7822 3351">
-            </div>
-            
-            <div class="card-detail">
-                <div class="card-label">Expiry Date</div>
-                <div class="expiry-cvv">
-                    <div class="expiry-group">
-                        <input type="text" class="month-input" value="07">
-                        <input type="text" class="year-input" value="2025">
-                    </div>
-                    
-                    <div class="cvv-group">
-                        <div class="card-label">CVC/CVV</div>
-                        <input type="text" class="cvv-input" value="•••">
-                    </div>
-                </div>
-            </div>
-            
-            <button class="pay-now-btn" id="payNowBtn">Pay Now</button>
-        </div>
-    </div>
-    
-    <!-- Success Message -->
-    <div class="overlay" id="overlay"></div>
-    <div class="success-message" id="successMessage">
-        <div class="success-icon">✓</div>
-        <div class="success-text">Payment Successful</div>
-        <button class="view-receipt-btn" id="viewReceiptBtn">View Receipt</button>
-    </div>
-    
-    <!-- Receipt -->
-    <div class="receipt" id="receipt">
-        <button class="close-button" id="closeReceiptBtn">×</button>
-        <div class="receipt-header">
-            <div class="receipt-title">Payment Receipt</div>
-            <div class="receipt-date" id="receiptDate"></div>
-        </div>
-        <div class="receipt-details">
-            <div class="receipt-row">
-                <div class="receipt-label">Paid To:</div>
-                <div>David Eze</div>
-            </div>
-            <div class="receipt-row">
-                <div class="receipt-label">Card Number:</div>
-                <div>****3351</div>
-            </div>
-            <div class="receipt-row">
-                <div class="receipt-label">Date:</div>
-                <div id="transactionDate"></div>
-            </div>
-            <div class="receipt-row">
-                <div class="receipt-label">Transaction ID:</div>
-                <div id="transactionId"></div>
-            </div>
-        </div>
-        <div class="receipt-total">
-            <div>Total:</div>
-            <div>$4,000.00</div>
-        </div>
+      </div>
+      
+      <button class="confirm-btn" id="confirmBtn">Confirm</button>
     </div>
 
-    <script>
-        // Get the current date for the receipt
-        function getCurrentDate() {
-            const date = new Date();
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-        }
+    <!-- Right Card Details Section -->
+    <div class="card-details-section">
+      <a href="dashboard.html" class="dashboard-link">Dashboard</a>
+      <h2>Card Details</h2>
+
+      <label>Co-Holder's Name</label>
+      <input type="text" value="Lasisi Kelvin" />
+      <hr />
+
+      <label>Card Number</label>
+      <input type="text" value="5352 7372 7822 3351" />
+      <hr />
+
+      <div class="inline-row">
+        <div class="inline-column expiry-column">
+          <label>Expiry Date</label>
+          <div class="expiry">
+            <select>
+              <option>07</option>
+              <option>08</option>
+              <option>09</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+            <select>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+              <option>2028</option>
+            </select>
+          </div>
+        </div>
         
-        // Generate a random transaction ID
-        function generateTransactionId() {
-            return Math.random().toString(36).substring(2, 15) + 
-                   Math.random().toString(36).substring(2, 15);
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const confirmBtn = document.getElementById('confirmBtn');
-            const payNowBtn = document.getElementById('payNowBtn');
-            const viewReceiptBtn = document.getElementById('viewReceiptBtn');
-            const closeReceiptBtn = document.getElementById('closeReceiptBtn');
-            const successMessage = document.getElementById('successMessage');
-            const receipt = document.getElementById('receipt');
-            const overlay = document.getElementById('overlay');
-            
-            // Set receipt date fields
-            document.getElementById('receiptDate').textContent = getCurrentDate();
-            document.getElementById('transactionDate').textContent = getCurrentDate();
-            document.getElementById('transactionId').textContent = generateTransactionId();
-            
-            // Make confirm button active
-            confirmBtn.addEventListener('click', function() {
-                // Here you would normally validate the form
-                // For this demo, we'll just enable the pay now button
-                payNowBtn.disabled = false;
-                alert('Payment details confirmed. You can now proceed to pay.');
-            });
-            
-            // Show success message when Pay Now is clicked
-            payNowBtn.addEventListener('click', function() {
-                successMessage.style.display = 'block';
-                overlay.style.display = 'block';
-            });
-            
-            // Show receipt when View Receipt is clicked
-            viewReceiptBtn.addEventListener('click', function() {
-                successMessage.style.display = 'none';
-                receipt.style.display = 'block';
-            });
-            
-            // Close receipt when close button is clicked
-            closeReceiptBtn.addEventListener('click', function() {
-                receipt.style.display = 'none';
-                overlay.style.display = 'none';
-            });
-        });
-    </script>
+        <div class="inline-column cvc-column">
+          <label>CVC/CVV</label>
+          <input type="password" value="•••" />
+        </div>
+      </div>
+      <hr />
+
+      <!-- Payment confirmation popup -->
+      <div class="payment-confirmation" id="paymentConfirmation">
+        <h3>Confirm Payment</h3>
+        <p>Are you sure you want to pay $4,036.00 using your card ending in 3351?</p>
+        <div class="confirmation-buttons">
+          <button class="confirm-pay-btn" id="confirmPaymentBtn">Yes, Pay Now</button>
+          <button class="cancel-pay-btn" id="cancelPaymentBtn">Cancel</button>
+        </div>
+      </div>
+
+      <button class="pay-btn" id="payNowBtn">
+        Pay now
+        <span class="click-sign">Click to pay</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="overlay" id="overlay"></div>
+  <div class="success-message" id="successMessage">
+    <div class="success-icon">✓</div>
+    <div class="success-text">Payment Successful</div>
+    <button class="view-receipt-btn" id="viewReceiptBtn">View Receipt</button>
+  </div>
+  
+  <!-- Receipt -->
+  <div class="receipt" id="receipt">
+    <button class="close-button" id="closeReceiptBtn">×</button>
+    <div class="receipt-header">
+      <div class="receipt-title">Payment Receipt</div>
+      <div class="receipt-date" id="receiptDate"></div>
+    </div>
+    <div class="receipt-details">
+      <div class="receipt-row">
+        <div class="receipt-label">Paid To:</div>
+        <div>David Eze</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Card Number:</div>
+        <div>****3351</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Date:</div>
+        <div id="transactionDate"></div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Transaction ID:</div>
+        <div id="transactionId"></div>
+      </div>
+    </div>
+    <div class="receipt-total">
+      <div>Total:</div>
+      <div>$4,036.00</div>
+    </div>
+  </div>
+
+  <script>
+    // Get the current date for the receipt
+    function getCurrentDate() {
+      const date = new Date();
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
     
+    // Generate a random transaction ID
+    function generateTransactionId() {
+      return Math.random().toString(36).substring(2, 15) + 
+             Math.random().toString(36).substring(2, 15);
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const confirmBtn = document.getElementById('confirmBtn');
+      const payNowBtn = document.getElementById('payNowBtn');
+      const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+      const cancelPaymentBtn = document.getElementById('cancelPaymentBtn');
+      const viewReceiptBtn = document.getElementById('viewReceiptBtn');
+      const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+      const successMessage = document.getElementById('successMessage');
+      const paymentConfirmation = document.getElementById('paymentConfirmation');
+      const receipt = document.getElementById('receipt');
+      const overlay = document.getElementById('overlay');
+      
+      // Set receipt date fields
+      document.getElementById('receiptDate').textContent = getCurrentDate();
+      document.getElementById('transactionDate').textContent = getCurrentDate();
+      document.getElementById('transactionId').textContent = generateTransactionId();
+      
+      // Make confirm button active
+      confirmBtn.addEventListener('click', function() {
+        // Here you would normally validate the form
+        // For this demo, we'll just enable the pay now button
+        payNowBtn.disabled = false;
+        alert('Payment details confirmed. You can now proceed to pay.');
+      });
+      
+      // Show payment confirmation when Pay Now is clicked
+      payNowBtn.addEventListener('click', function() {
+        paymentConfirmation.style.display = 'block';
+      });
+      
+      // Confirm payment
+      confirmPaymentBtn.addEventListener('click', function() {
+        paymentConfirmation.style.display = 'none';
+        successMessage.style.display = 'block';
+        overlay.style.display = 'block';
+      });
+      
+      // Cancel payment
+      cancelPaymentBtn.addEventListener('click', function() {
+        paymentConfirmation.style.display = 'none';
+      });
+      
+      // Show receipt when View Receipt is clicked
+      viewReceiptBtn.addEventListener('click', function() {
+        successMessage.style.display = 'none';
+        receipt.style.display = 'block';
+      });
+      
+      // Close receipt when close button is clicked
+      closeReceiptBtn.addEventListener('click', function() {
+        receipt.style.display = 'none';
+        overlay.style.display = 'none';
+      });
+    });
+  </script>
 </body>
 </html>

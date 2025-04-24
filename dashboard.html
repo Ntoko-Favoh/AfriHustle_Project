@@ -696,6 +696,30 @@
       opacity: 0.7;
     }
 
+    .company-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .company-logo a {
+      display: inline-block;
+      text-decoration: none; /* Removes underline from links */
+    }
+
+    .company-logo img {
+      max-width: 50px; /* Controls the maximum width of the logo */
+      height: 50px; /* Maintains aspect ratio */
+      display: block; /* Removes extra space below image */
+      border: none; /* Removes border around linked images in some browsers */
+    }
+
+    /* Optional hover effect */
+    .company-logo a:hover {
+      opacity: 0.8; /* Slightly fades the logo when hovered */
+      transition: opacity 0.3s ease; /* Smooth transition for the hover effect */
+    }
+
     /* Dropdowns */
     .notifications-dropdown,
     .networks-dropdown {
@@ -1016,8 +1040,8 @@
         </div>
         
         <div class="user-profile">
-          <img src="assests/profile.jpg" alt="User Profile">
-          <div class="name">Jane Doe</div>
+          <img src="assests/midjourney (1).jpg" alt="User Profile">
+          <div class="name">John Doe</div>
           <div class="status">Verified Freelancer</div>
         </div>
         
@@ -1230,15 +1254,15 @@
           <!-- Profile Icon -->
           <div class="profile-container">
             <div class="profile-icon" id="profileToggle">
-              <img src="assests/profile.jpg" alt="Profile">
+              <img src="assests/midjourney (1).jpg" alt="Profile">
               <i class="fas fa-chevron-down"></i>
             </div>
             
             <!-- Profile Dropdown -->
             <div class="profile-dropdown" id="profileDropdown">
               <div class="profile-header">
-                <img src="assests/profile.jpg" alt="Profile">
-                <h3>Jane Doe</h3>
+                <img src="assests/midjourney (1).jpg" alt="Profile">
+                <h3>John Doe</h3>
                 <p>Verified Freelancer</p>
               </div>
               
@@ -1249,7 +1273,7 @@
                 </div>
                 <div class="profile-info-item">
                   <span class="label">Email</span>
-                  <span class="value">jane.doe@example.com</span>
+                  <span class="value">john.doe@example.com</span>
                 </div>
                 <div class="profile-info-item">
                   <span class="label">Location</span>
@@ -1353,11 +1377,11 @@
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon green-bg">
-              <i class="fas fa-briefcase"></i>
+              <i class="fas fa-folder-open"></i>
             </div>
             <div class="stat-info">
               <h3>14</h3>
-              <p>Available Jobs</p>
+              <p>Portfolio Views</p>
             </div>
           </div>
           
@@ -1398,62 +1422,64 @@
         </div>
         
         <div class="job-categories">
-          <a href="#" class="job-category">
+          <a href="development.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-code"></i>
             </div>
             <div class="category-name">Development</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="design.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-paint-brush"></i>
             </div>
             <div class="category-name">Design</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="marketing.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-chart-line"></i>
             </div>
             <div class="category-name">Marketing</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="writing.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-edit"></i>
             </div>
             <div class="category-name">Writing</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="data.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-database"></i>
             </div>
             <div class="category-name">Data</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="finance.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-file-invoice-dollar"></i>
             </div>
             <div class="category-name">Finance</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="artisan.html" class="job-category">
             <div class="category-icon">
-              <i class="fas fa-mobile-alt"></i>
+              <i class="fas fa-hammer"></i>  <!-- Font Awesome hammer icon for artisan -->
             </div>
-            <div class="category-name">Mobile</div>
+            <div class="category-name">Artisan</div>
           </a>
           
-          <a href="#" class="job-category">
+          <a href="admin.html" class="job-category">
             <div class="category-icon">
               <i class="fas fa-user-tie"></i>
             </div>
             <div class="category-name">Admin</div>
           </a>
         </div>
+
+        
   
         <!-- Newest Jobs -->
         <div class="section-header">
@@ -1463,7 +1489,9 @@
         <div class="jobs-grid">
           <div class="job-card">
             <div class="job-card-header">
-              <div class="company-logo">SC</div>
+              <div class="company-logo">
+                  <img src="assests/SC.jpg" alt="SC Logo">
+              </div>
               <div class="job-details">
                 <h3>Senior Frontend Developer</h3>
                 <div class="company-name">Savannah Creatives</div>
@@ -1494,7 +1522,9 @@
           
           <div class="job-card">
             <div class="job-card-header">
-              <div class="company-logo">AT</div>
+              <div class="company-logo">
+                <img src="assests/Asylay.jpg" alt="AS Logo">
+            </div>
               <div class="job-details">
                 <h3>Content Writer</h3>
                 <div class="company-name">AfriTech Solutions</div>
@@ -1525,7 +1555,9 @@
           
           <div class="job-card">
             <div class="job-card-header">
-              <div class="company-logo">LC</div>
+              <div class="company-logo">
+                <img src="assests/LC.jpg" alt="LC Logo">
+            </div>
               <div class="job-details">
                 <h3>Mobile App Developer</h3>
                 <div class="company-name">Lagos Computing</div>
@@ -1556,7 +1588,9 @@
           
           <div class="job-card">
             <div class="job-card-header">
-              <div class="company-logo">DS</div>
+              <div class="company-logo">
+                <img src="assests/SD logo design.jpg" alt="DS Logo">
+            </div>
               <div class="job-details">
                 <h3>Data Scientist</h3>
                 <div class="company-name">DataSavvy</div>

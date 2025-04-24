@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Jobs | AfriHustle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            color: #2a4365;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            color: #4a5568;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb a {
+            color: #38a169;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #2f855a;
+        }
+        
+        .breadcrumb span {
+            margin: 0 10px;
+            color: #a0aec0;
+        }
+        
+        .breadcrumb strong {
+            color: #dd6b20;
+        }
+        
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .job-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e0;
+        }
+        
+        .job-card h3 {
+            color: #2a4365;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+        
+        .job-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .job-icon {
+            background-color: #fffaf0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #dd6b20;
+            border: 2px solid #f6ad55;
+        }
+        
+        .job-card p {
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #718096;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .job-meta i {
+            color: #dd6b20;
+            margin-right: 5px;
+        }
+        
+        .section-title {
+            margin: 40px 0 25px;
+            font-size: 24px;
+            color: #2a4365;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #dd6b20, #38a169);
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .skill-tag {
+            background-color: #e6fffa;
+            color: #2c7a7b;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #b2f5ea;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #dd6b20, #ed8936);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(221, 107, 32, 0.2);
+        }
+        
+        .cta-button:hover {
+            background: linear-gradient(135deg, #c05621, #dd6b20);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(221, 107, 32, 0.3);
+        }
+        
+        .back-to-categories {
+            display: inline-flex;
+            align-items: center;
+            color: #38a169;
+            text-decoration: none;
+            margin-top: 30px;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background-color: #f0fff4;
+        }
+        
+        .back-to-categories:hover {
+            color: #2f855a;
+            background-color: #e6fffa;
+        }
+        
+        .back-to-categories i {
+            margin-right: 8px;
+            color: #dd6b20;
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumb {
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .job-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="content">
+        <div class="breadcrumb">
+            <a href="dashboard.html">Home</a>
+            <span>/</span>
+            <a href="jobs.html">Job Categories</a>
+            <span>/</span>
+            <strong>Marketing</strong>
+        </div>
+
+        <header class="page-header">
+            <h1>Marketing Jobs at AfriHustle</h1>
+            <p>Discover exciting marketing opportunities with innovative companies. From digital marketing to brand management, find your perfect role in our curated collection.</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">Featured Marketing Positions</h2>
+            <div class="job-grid">
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Digital Marketing Specialist</h3>
+                    </div>
+                    <p>Develop and execute digital marketing campaigns across multiple channels including SEO, PPC, social media, and email marketing.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SEO/SEM</span>
+                        <span class="skill-tag">Google Analytics</span>
+                        <span class="skill-tag">Social Media</span>
+                    </div>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                        <span><i class="fas fa-clock"></i> Full-time</span>
+                    </div>
+                    <a href="apply.html" class="cta-button">Apply Now</a>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Marketing Manager</h3>
+                    </div>
+                    <p>Lead marketing strategies, oversee campaigns, and analyze market trends to drive business growth and brand awareness.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Strategy</span>
+                        <span class="skill-tag">Campaign Management</span>
+                        <span class="skill-tag">Team Leadership</span>
+                    </div>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Chicago</span>
+                        <span><i class="fas fa-clock"></i> Full-time</span>
+                    </div>
+                    <a href="apply.html" class="cta-button">Apply Now</a>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Social Media Manager</h3>
+                    </div>
+                    <p>Develop and implement social media strategies to increase engagement, grow audiences, and enhance brand presence.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Content Creation</span>
+                        <span class="skill-tag">Community Management</span>
+                        <span class="skill-tag">Analytics</span>
+                    </div>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> New York</span>
+                        <span><i class="fas fa-clock"></i> Full-time</span>
+                    </div>
+                    <a href="apply.html" class="cta-button">Apply Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Marketing Specializations</h2>
+            <div class="job-grid">
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Digital Marketing</h3>
+                    </div>
+                    <p>Specialize in online marketing strategies including SEO, PPC, email marketing, and digital advertising.</p>
+                    <a href="jobs.html" class="cta-button">View Jobs</a>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-ad"></i>
+                        </div>
+                        <h3>Content Marketing</h3>
+                    </div>
+                    <p>Create compelling content strategies that attract and retain audiences through storytelling and valuable information.</p>
+                    <a href="jobs.html" class="cta-button">View Jobs</a>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>Product Marketing</h3>
+                    </div>
+                    <p>Bridge the gap between product development and sales by positioning products effectively in the market.</p>
+                    <a href="jobs.html" class="cta-button">View Jobs</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Top Marketing Skills in Demand</h2>
+            <div class="skill-tags">
+                <span class="skill-tag">SEO/SEM</span>
+                <span class="skill-tag">Google Analytics</span>
+                <span class="skill-tag">Social Media</span>
+                <span class="skill-tag">Content Creation</span>
+                <span class="skill-tag">Email Marketing</span>
+                <span class="skill-tag">CRM</span>
+                <span class="skill-tag">Market Research</span>
+                <span class="skill-tag">Data Analysis</span>
+                <span class="skill-tag">PPC Advertising</span>
+                <span class="skill-tag">Brand Management</span>
+                <span class="skill-tag">Copywriting</span>
+                <span class="skill-tag">Marketing Automation</span>
+                <span class="skill-tag">Influencer Marketing</span>
+                <span class="skill-tag">Growth Hacking</span>
+            </div>
+        </section>
+
+        <div style="text-align: center;">
+            <a href="dashboard.html" class="back-to-categories">
+                <i class="fas fa-arrow-left"></i> Back to All Job Categories
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Confirmation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid #FF9900;
+        }
+        .logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+        .header-text {
+            margin-left: 50px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .icon-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+        .notification-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background-color: #FF9900;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .icon-circle i {
+            color: #555;
+            font-size: 16px;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+        .back-button {
+            align-self: flex-start;
+            margin-left: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 5px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #333;
+        }
+        .withdrawal-form {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        .wallet-info {
+            background: linear-gradient(135deg, #00A78E 0%, #009E73 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .decorative-circle {
+            position: absolute;
+            background-color: white;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+        .circle-1 {
+            width: 160px;
+            height: 160px;
+            right: -40px;
+            top: 0;
+        }
+        .circle-2 {
+            width: 80px;
+            height: 80px;
+            right: -10px;
+            top: -30px;
+        }
+        .wallet-code {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .copy-icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .copy-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+        .account-balance {
+            font-size: 14px;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+        .visibility-icon {
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .visibility-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .confirm-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #FF9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .confirm-button:hover {
+            background-color: #e68a00;
+        }
+        .payment-method {
+            margin-bottom: 20px;
+        }
+        .method-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .method-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .method-option {
+            position: relative;
+        }
+        .method-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .method-option label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .method-option input:checked + label {
+            border-color: #00AA88;
+            background-color: rgba(0, 170, 136, 0.05);
+        }
+        .method-option .checkmark {
+            height: 16px;
+            width: 16px;
+            min-width: 16px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            display: inline-block;
+        }
+        .method-option input:checked + label .checkmark {
+            background-color: #00AA88;
+            border-color: #00AA88;
+        }
+        
+        @media (max-width: 600px) {
+            .title {
+                font-size: 20px;
+            }
+            .withdrawal-form {
+                padding: 15px;
+            }
+            .balance-amount {
+                font-size: 20px;
+            }
+            .method-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .header-text {
+                font-size: 16px;
+            }
+            .method-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <div class="logo">
+                <img src="assests/logo2.jpeg" alt="Logo">
+            </div>
+            <div class="header-text">Hello, Mike.</div>
+        </div>
+        <div class="header-icons">
+            <div class="icon-circle">
+                <i class="fas fa-bell"></i>
+                <div class="notification-badge"></div>
+            </div>
+            <div class="icon-circle">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="title">Withdrawal Confirmation</div>
+        
+        <a href="deposit.html" class="back-button">
+            <span>←</span>
+            <span>Back</span>
+        </a>
+        
+        <div class="withdrawal-form">
+            <div class="form-title">Confirm your withdrawal details</div>
+            
+            <div class="wallet-info">
+                <!-- Decorative circles -->
+                <div class="decorative-circle circle-1"></div>
+                <div class="decorative-circle circle-2"></div>
+                
+                <div class="wallet-code">
+                    <span>Wallet code: Afi23on7</span>
+                    <span class="copy-icon">
+                        <!-- Copy Icon -->
+                        <svg viewBox="0 0 24 24">
+                            <rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="white" stroke-width="2"></rect>
+                            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="white" stroke-width="2"></path>
+                        </svg>
+                    </span>
+                </div>
+                <div class="account-balance">Account Balance</div>
+                <div class="balance-amount">
+                    $12,400.75
+                    <span class="visibility-icon">
+                        <!-- Eye/visibility icon -->
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <line x1="2" y1="2" x2="22" y2="22"></line>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <div class="payment-method">
+                <div class="method-title">Payment Method</div>
+                <div class="method-options">
+                    <div class="method-option">
+                        <input type="radio" id="crypto" name="payment-method" checked>
+                        <label for="crypto">
+                            <span class="checkmark"></span>
+                            <span>Crypto</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="mpesa" name="payment-method">
+                        <label for="mpesa">
+                            <span class="checkmark"></span>
+                            <span>Mpesa</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="mtn" name="payment-method">
+                        <label for="mtn">
+                            <span class="checkmark"></span>
+                            <span>MTN MoMo</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="paypal" name="payment-method">
+                        <label for="paypal">
+                            <span class="checkmark"></span>
+                            <span>Paypal</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="opay" name="payment-method">
+                        <label for="opay">
+                            <span class="checkmark"></span>
+                            <span>Opay</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="card" name="payment-method">
+                        <label for="card">
+                            <span class="checkmark"></span>
+                            <span>Card</span>
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="orange" name="payment-method">
+                        <label for="orange">
+                            <span class="checkmark"></span>
+                            <span>Orange Money</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount" class="form-label">Amount to withdraw</label>
+                <input type="number" id="amount" class="form-input" placeholder="Enter amount" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="pin" class="form-label">Wallet PIN</label>
+                <input type="password" id="pin" class="form-input" placeholder="Enter wallet PIN" required>
+            </div>
+            
+            <button class="confirm-button">Confirm</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event for copy icon
+            document.querySelector('.copy-icon').addEventListener('click', function() {
+                const walletCode = 'Afi23on7';
+                navigator.clipboard.writeText(walletCode)
+                    .then(() => {
+                        alert('Wallet code copied to clipboard!');
+                    })
+                    .catch(err => {
+                        console.error('Could not copy text: ', err);
+                    });
+            });
+
+            // Add click event for visibility icon
+            document.querySelector('.visibility-icon').addEventListener('click', function() {
+                alert('Toggle balance visibility');
+            });
+            
+            // Add submit event for the form
+            document.querySelector('.confirm-button').addEventListener('click', function() {
+                const amount = document.getElementById('amount').value;
+                const pin = document.getElementById('pin').value;
+                
+                if (!amount || !pin) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                alert(`Withdrawal confirmed!\nAmount: $${amount}`);
+                // In a real application, you would typically submit this data to a server
+            });
+        });
+    </script>
+</body>
+</html>
